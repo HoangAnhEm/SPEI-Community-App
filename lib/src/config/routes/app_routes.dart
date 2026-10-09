@@ -9,6 +9,7 @@ import '../../presentation/screens/auth/register_step2_screen.dart';
 import '../../presentation/screens/auth/register_step3_screen.dart';
 import '../../presentation/screens/auth/recovery_step1_screen.dart';
 import '../../presentation/screens/auth/recovery_step3_screen.dart';
+import '../../presentation/screens/main/main_layout_screen.dart';
 import '../di/di.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/auth/auth_state.dart';
@@ -50,6 +51,10 @@ final GoRouter appRouter = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MainLayoutScreen(),
+    ),
     GoRoute(
       path: '/onboarding',
       builder: (context, state) => const OnboardingScreen(),
