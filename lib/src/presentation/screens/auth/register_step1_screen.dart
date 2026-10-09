@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../config/di/di.dart';
+import '../../blocs/register/register_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/primary_button.dart';
@@ -12,8 +15,80 @@ class RegisterStep1Screen extends StatefulWidget {
 }
 
 class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<RegisterCubit>(),
+      child: const _RegisterStep1View(),
+    );
+  }
+}
+
+class _RegisterStep1View extends StatefulWidget {
+  const _RegisterStep1View();
+
+  @override
+  State<_RegisterStep1View> createState() => _RegisterStep1ViewState();
+}
+
+class _RegisterStep1ViewState extends State<_RegisterStep1View> {
   bool _isPasswordVisible = false;
-  bool _agreeTerms = true;
+  bool _agreeTerms = false; // Mặc định chưa đồng ý
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(_updateState);
+    _phoneController.addListener(_updateState);
+    _passwordController.addListener(_updateState);
+  }
+
+  void _updateState() {
+    setState(() {}); // Trigger rebuild to update _isFormValid()
+  }
+
+  @override
+  void dispose() {
+    _emailController.removeListener(_updateState);
+    _phoneController.removeListener(_updateState);
+    _passwordController.removeListener(_updateState);
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  bool _isFormValid() {
+    return _emailController.text.isNotEmpty && _emailError() == null &&
+        _phoneController.text.isNotEmpty && _phoneError() == null &&
+        _passwordController.text.isNotEmpty && _passError() == null &&
+        _agreeTerms;
+  }
+
+  String? _emailError() {
+    final text = _emailController.text.trim();
+    if (text.isEmpty) return null;
+    if (!text.contains('@') || !text.contains('.')) return 'Email không đúng định dạng';
+    return null;
+  }
+
+  String? _phoneError() {
+    final text = _phoneController.text.trim();
+    if (text.isEmpty) return null;
+    if (text.length < 10 || !RegExp(r'^[0-9]+$').hasMatch(text)) return 'Số điện thoại không hợp lệ (cần ít nhất 10 số)';
+    return null;
+  }
+
+  String? _passError() {
+    final text = _passwordController.text;
+    if (text.isEmpty) return null;
+    if (text.length < 8) return 'Mật khẩu phải có ít nhất 8 ký tự';
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +132,10 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
               
               // Email
               CustomTextField(
+                controller: _emailController,
                 label: 'Email *',
                 hintText: 'lan.nguyen@example.com',
+                errorText: _emailError(),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Image.asset(
@@ -74,9 +151,11 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
               
               // Phone
               CustomTextField(
+                controller: _phoneController,
                 label: 'Số điện thoại *',
                 hintText: '0912 345 678',
                 keyboardType: TextInputType.phone,
+                errorText: _phoneError(),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Image.asset(
@@ -97,9 +176,11 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
               
               // Password
               CustomTextField(
+                controller: _passwordController,
                 label: 'Mật khẩu *',
                 hintText: '••••••••••••',
                 isPassword: !_isPasswordVisible,
+                errorText: _passError(),
                 suffixIcon: IconButton(
                   icon: Image.asset(
                     _isPasswordVisible ? 'assets/icons/ic_eye.png' : 'assets/icons/ic_eye_off.png',
@@ -170,11 +251,59 @@ class _RegisterStep1ScreenState extends State<RegisterStep1Screen> {
               const SizedBox(height: 24),
               
               // Next Button
-              PrimaryButton(
-                text: 'Gửi OTP xác nhận',
-                iconPath: 'assets/icons/ic_arrow_right.png',
-                onPressed: () {
-                  context.push('/register/otp');
+              BlocConsumer<RegisterCubit, RegisterState>(
+                listener: (context, state) {
+                  if (state is RegisterInfoSuccess) {
+                    context.push('/register/otp', extra: context.read<RegisterCubit>());
+                  }
+                },
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      if (state is RegisterFailure) ...[
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFEEFEF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/icons/ic_info.png',
+                                width: 18,
+                                height: 18,
+                                color: const Color(0xFFC94A4A),
+                                errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  state.error,
+                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                      PrimaryButton(
+                        text: 'Gửi OTP xác nhận',
+                        iconPath: 'assets/icons/ic_arrow_right.png',
+                        isLoading: state is RegisterLoading,
+                        isDisabled: !_isFormValid(),
+                        onPressed: () {
+                          context.read<RegisterCubit>().submitInfo(
+                            _emailController.text.trim(),
+                            _phoneController.text.trim(),
+                            _passwordController.text,
+                          );
+                        },
+                      ),
+                    ],
+                  );
                 },
               ),
               const SizedBox(height: 24),

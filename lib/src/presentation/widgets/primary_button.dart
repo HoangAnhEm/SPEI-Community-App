@@ -4,53 +4,66 @@ class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final String? iconPath;
+  final bool isLoading;
+  final bool isDisabled;
 
   const PrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.iconPath,
+    this.isLoading = false,
+    this.isDisabled = false,
   });
 
   @override
   Widget build(BuildContext context) {
     const buttonColor = Color(0xFF3B7D53);
+    const disabledColor = Color(0xFFA5C3B1);
 
     return SizedBox(
       width: double.infinity,
       height: 56,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: (isLoading || isDisabled) ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
+          backgroundColor: isDisabled ? disabledColor : buttonColor,
+          disabledBackgroundColor: disabledColor,
           foregroundColor: Colors.white,
+          disabledForegroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           elevation: 0,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (iconPath != null) ...[
-              Image.asset(
-                iconPath!,
-                width: 20,
-                height: 20,
-                color: Colors.white,
-                errorBuilder: (context, error, stackTrace) => const SizedBox(width: 20, height: 20),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (iconPath != null) ...[
+                    Image.asset(
+                      iconPath!,
+                      width: 20,
+                      height: 20,
+                      color: Colors.white,
+                      errorBuilder: (context, error, stackTrace) => const SizedBox(width: 20, height: 20),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-            ],
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

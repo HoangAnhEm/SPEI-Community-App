@@ -1,0 +1,13 @@
+class User {
+  final String id;
+  final String email;
+  final String phone;
+  final String role;
+
+  const User({
+    required this.id,
+    required this.email,
+    required this.phone,
+    required this.role,
+  });
+}

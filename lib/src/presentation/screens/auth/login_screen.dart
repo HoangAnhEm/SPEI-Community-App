@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../config/di/di.dart';
+import '../../blocs/login/login_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/primary_button.dart';
@@ -13,6 +16,43 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isPasswordVisible = false;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<LoginCubit>(),
+      child: const _LoginScreenView(),
+    );
+  }
+}
+
+class _LoginScreenView extends StatefulWidget {
+  const _LoginScreenView();
+
+  @override
+  State<_LoginScreenView> createState() => _LoginScreenViewState();
+}
+
+class _LoginScreenViewState extends State<_LoginScreenView> {
+  bool _isPasswordVisible = false;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
               
               // Form
               CustomTextField(
+                controller: _usernameController,
                 label: 'Email hoặc số điện thoại',
                 hintText: 'lan.nguyen@example.com',
                 suffixIcon: Padding(
@@ -91,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 16),
               CustomTextField(
+                controller: _passwordController,
                 label: 'Mật khẩu',
                 hintText: '••••••••••••',
                 isPassword: !_isPasswordVisible,
@@ -134,11 +176,28 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 24),
               
               // Login Button
-              PrimaryButton(
-                text: 'Đăng nhập',
-                iconPath: 'assets/icons/ic_arrow_right.png',
-                onPressed: () {
-                  // TODO: Gọi LoginCubit
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+                    );
+                  } else if (state is LoginSuccess) {
+                    context.go('/');
+                  }
+                },
+                builder: (context, state) {
+                  return PrimaryButton(
+                    text: 'Đăng nhập',
+                    iconPath: 'assets/icons/ic_arrow_right.png',
+                    isLoading: state is LoginLoading,
+                    onPressed: () {
+                      context.read<LoginCubit>().login(
+                        _usernameController.text.trim(),
+                        _passwordController.text,
+                      );
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 24),

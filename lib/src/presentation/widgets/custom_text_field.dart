@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final TextInputType keyboardType;
   final TextEditingController? controller;
+  final String? errorText;
 
   const CustomTextField({
     super.key,
@@ -18,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.keyboardType = TextInputType.text,
     this.controller,
+    this.errorText,
   });
 
   @override
@@ -59,10 +61,23 @@ class CustomTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF3B7D53), width: 1.5),
+              borderSide: BorderSide(
+                color: errorText != null ? Colors.red : const Color(0xFF3B7D53), 
+                width: 1.5
+              ),
             ),
           ),
         ),
+        if (errorText != null && errorText!.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            errorText!,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.red,
+            ),
+          ),
+        ],
       ],
     );
   }

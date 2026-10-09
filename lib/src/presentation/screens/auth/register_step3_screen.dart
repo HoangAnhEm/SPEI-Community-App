@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../blocs/register/register_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/primary_button.dart';
 
@@ -68,9 +70,9 @@ class RegisterStep3Screen extends StatelessWidget {
                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF3B7D53)),
                     ),
                     const SizedBox(height: 12),
-                    const Text(
-                      '0912 ••• 678',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: darkTextColor, letterSpacing: 1),
+                    Text(
+                      _formatPhone(context.read<RegisterCubit>().currentPhone),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: darkTextColor, letterSpacing: 1),
                     ),
                     const SizedBox(height: 12),
                     const Text(
@@ -99,9 +101,9 @@ class RegisterStep3Screen extends StatelessWidget {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: darkTextColor),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Email: lan.nguyen@example.com',
-                      style: TextStyle(fontSize: 13, color: darkTextColor),
+                    Text(
+                      'Email: ${context.read<RegisterCubit>().currentEmail ?? 'lan.nguyen@example.com'}',
+                      style: const TextStyle(fontSize: 13, color: darkTextColor),
                     ),
                     const SizedBox(height: 12),
                     Container(
@@ -116,9 +118,9 @@ class RegisterStep3Screen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Vai trò: Người dùng • Dành cho gia đình',
-                      style: TextStyle(fontSize: 13, color: subTextColor),
+                    Text(
+                      'Vai trò: ${context.read<RegisterCubit>().registeredUser?.role ?? 'Người dùng • Dành cho gia đình'}',
+                      style: const TextStyle(fontSize: 13, color: subTextColor),
                     ),
                   ],
                 ),
@@ -162,4 +164,12 @@ class RegisterStep3Screen extends StatelessWidget {
       ),
     );
   }
+
+  String _formatPhone(String? phone) {
+    if (phone == null || phone.length < 7) return '0912 ••• 678';
+    final start = phone.substring(0, 4);
+    final end = phone.substring(phone.length - 3);
+    return '$start ••• $end';
+  }
 }
+

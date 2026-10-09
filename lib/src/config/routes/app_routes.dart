@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/screens/onboarding/onboarding_screen.dart';
 import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/register_step1_screen.dart';
@@ -26,11 +28,23 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           path: 'otp',
-          builder: (context, state) => const RegisterStep2Screen(),
+          builder: (context, state) {
+            final cubit = state.extra as RegisterCubit;
+            return BlocProvider.value(
+              value: cubit,
+              child: const RegisterStep2Screen(),
+            );
+          },
         ),
         GoRoute(
           path: 'success',
-          builder: (context, state) => const RegisterStep3Screen(),
+          builder: (context, state) {
+            final cubit = state.extra as RegisterCubit;
+            return BlocProvider.value(
+              value: cubit,
+              child: const RegisterStep3Screen(),
+            );
+          },
         ),
       ],
     ),
