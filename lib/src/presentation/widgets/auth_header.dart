@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../src/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthHeader extends StatelessWidget {
@@ -13,8 +14,8 @@ class AuthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,8 +25,8 @@ class AuthHeader extends StatelessWidget {
           children: [
             Image.asset(
               'assets/icons/logo.png', // Thay thế bằng logo.png
-              width: 40,
-              height: 40,
+              width: 76,
+              height: 57,
             ),
             const SizedBox(width: 12),
             const Column(
@@ -34,7 +35,7 @@ class AuthHeader extends StatelessWidget {
                 Text(
                   'SPEI Community',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: darkTextColor,
                   ),
@@ -42,7 +43,7 @@ class AuthHeader extends StatelessWidget {
                 Text(
                   'GIEO MẦM SỐNG XANH',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: subTextColor,
                     letterSpacing: 1.2,
@@ -52,7 +53,8 @@ class AuthHeader extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        if (showBackButton)
+          const SizedBox(height: 24),
         // Back Button & Step Text
         if (showBackButton)
           Row(
@@ -74,8 +76,8 @@ class AuthHeader extends StatelessWidget {
                       'assets/icons/ic_back.png',
                       width: 20,
                       height: 20,
-                      color: const Color(0xFF3B7D53),
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.arrow_back, color: Color(0xFF3B7D53), size: 20), // Fallback tạm
+                      color: AppColors.primary,
+                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.arrow_back, color: AppColors.primary, size: 20), // Fallback tạm
                     ),
                   ),
                 ),
@@ -102,3 +104,5 @@ class AuthHeader extends StatelessWidget {
     );
   }
 }
+
+

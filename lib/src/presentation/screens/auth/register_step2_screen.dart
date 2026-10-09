@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
@@ -88,12 +89,12 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFFFAF9F6);
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
-    const iconColor = Color(0xFF3B7D53);
-    const errorColor = Color(0xFFD32F2F);
-    const errorBgColor = Color(0xFFFDECEA);
+    const backgroundColor = AppColors.background;
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
+    const iconColor = AppColors.primary;
+    const errorColor = AppColors.error;
+    const errorBgColor = AppColors.errorBg;
 
     final defaultPinTheme = PinTheme(
       width: 50,
@@ -149,7 +150,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEBF1EB),
+                    color: AppColors.successBg,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Center(
@@ -181,14 +182,12 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                   if (state is RegisterOtpSuccess) {
                     context.push('/register/success', extra: context.read<RegisterCubit>());
                   } else if (state is RegisterResendSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Đã gửi lại mã OTP thành công.'), backgroundColor: Color(0xFF3B7D53)),
-                    );
                     _resetTimers(); // Bắt đầu đếm ngược lại sau khi gửi thành công
                   }
                 },
                 builder: (context, state) {
                   final bool hasError = state is RegisterFailure;
+                  final bool hasResendSuccess = state is RegisterResendSuccess;
                   final bool isExpired = _countdownSeconds == 0;
                   
                   return Column(
@@ -230,31 +229,37 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                       ),
                       const SizedBox(height: 24),
                       
-                      // Error / Expired message
-                      if (hasError || isExpired) ...[
+                      // Error / Expired / Success message
+                      if (hasError || isExpired || hasResendSuccess) ...[
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFEEFEF),
+                            color: hasResendSuccess ? AppColors.successBg : const Color(0xFFFEEFEF),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Image.asset(
-                                'assets/icons/ic_info.png',
+                                hasResendSuccess ? 'assets/icons/ic_check_circle.png' : 'assets/icons/ic_info.png',
                                 width: 18,
                                 height: 18,
-                                color: const Color(0xFFC94A4A),
+                                color: hasResendSuccess ? AppColors.primary : const Color(0xFFC94A4A),
                                 errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
-                                  isExpired 
-                                      ? 'Mã OTP đã hết hạn. Vui lòng bấm gửi lại mã mới.' 
-                                      : (state as RegisterFailure).error,
-                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                  hasResendSuccess
+                                      ? 'Đã gửi lại mã OTP thành công.'
+                                      : isExpired 
+                                          ? 'Mã OTP đã hết hạn. Vui lòng bấm gửi lại mã mới.' 
+                                          : (state as RegisterFailure).error,
+                                  style: TextStyle(
+                                    fontSize: 12, 
+                                    color: hasResendSuccess ? AppColors.primary : const Color(0xFFC94A4A), 
+                                    height: 1.4
+                                  ),
                                 ),
                               ),
                             ],
@@ -266,7 +271,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                       // Verify Button
                       PrimaryButton(
                         text: 'Xác nhận OTP',
-                        iconPath: 'assets/icons/ic_check_circle.png',
+                        iconPath: 'assets/icons/ic_check.png',
                         isLoading: state is RegisterLoading,
                         isDisabled: pinController.text.length != 6 || _countdownSeconds == 0,
                         onPressed: () {
@@ -338,7 +343,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                 child: Text(
                   'Trạng thái sau gửi OTP là minh họa; chưa gửi SMS thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: Color(0xFFB0B8B4), height: 1.5),
+                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),
               ),
             ],
@@ -348,3 +353,5 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
     );
   }
 }
+
+

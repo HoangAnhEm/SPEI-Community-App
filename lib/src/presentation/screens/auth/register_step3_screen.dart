@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../blocs/register/register_cubit.dart';
@@ -10,9 +11,9 @@ class RegisterStep3Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFFFAF9F6);
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
+    const backgroundColor = AppColors.background;
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -52,7 +53,7 @@ class RegisterStep3Screen extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEBF1EB),
+                  color: AppColors.successBg,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.green.withOpacity(0.1)),
                 ),
@@ -67,7 +68,7 @@ class RegisterStep3Screen extends StatelessWidget {
                     const SizedBox(height: 24),
                     const Text(
                       'Số điện thoại đã xác thực',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF3B7D53)),
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -109,12 +110,12 @@ class RegisterStep3Screen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFFF4E5),
+                        color: AppColors.warningBg,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Text(
                         'Email chưa xác thực',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFFB37322)),
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.warning),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -155,7 +156,7 @@ class RegisterStep3Screen extends StatelessWidget {
                 child: Text(
                   'Đây là trạng thái hoàn tất minh họa, chưa tạo tài khoản hay xác thực số điện thoại thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: Color(0xFFB0B8B4), height: 1.5),
+                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),
               ),
             ],
@@ -172,4 +173,6 @@ class RegisterStep3Screen extends StatelessWidget {
     return '$start ••• $end';
   }
 }
+
+
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/di/di.dart';
@@ -56,10 +57,11 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFFFAF9F6);
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
-    const iconColor = Color(0xFF3B7D53);
+    const backgroundColor = AppColors.background;
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
+    const mainTextColor = AppColors.primary;
+    const iconColor = AppColors.primary;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -70,7 +72,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const AuthHeader(),
-              const SizedBox(height: 32),
+              const SizedBox(height: 22),
               
               // Title
               const Text(
@@ -90,7 +92,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   color: subTextColor,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               
               // Illustration
               ClipRRect(
@@ -98,12 +100,12 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                 child: Image.asset(
                   'assets/images/onboarding_illustration.jpg', // Tạm dùng lại ảnh minh họa onboarding
                   width: double.infinity,
-                  height: 180,
+                  height: 150,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       width: double.infinity,
-                      height: 180,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade300,
                         borderRadius: BorderRadius.circular(16),
@@ -112,7 +114,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   },
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               
               // Form
               CustomTextField(
@@ -151,7 +153,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   },
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               
               // Forgot Password
               Align(
@@ -173,34 +175,63 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               
               // Login Button
               BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
-                  if (state is LoginFailure) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.error), backgroundColor: Colors.red),
-                    );
-                  } else if (state is LoginSuccess) {
+                  if (state is LoginSuccess) {
                     context.go('/');
                   }
                 },
                 builder: (context, state) {
-                  return PrimaryButton(
-                    text: 'Đăng nhập',
-                    iconPath: 'assets/icons/ic_arrow_right.png',
-                    isLoading: state is LoginLoading,
-                    onPressed: () {
-                      context.read<LoginCubit>().login(
-                        _usernameController.text.trim(),
-                        _passwordController.text,
-                      );
-                    },
+                  return Column(
+                    children: [
+                      if (state is LoginFailure) ...[
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/icons/ic_info.png',
+                                width: 18,
+                                height: 18,
+                                color: const Color(0xFFC94A4A),
+                                errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  state.error,
+                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                      PrimaryButton(
+                        text: 'Đăng nhập',
+                        iconPath: 'assets/icons/ic_arrow_right.png',
+                        isLoading: state is LoginLoading,
+                        onPressed: () {
+                          context.read<LoginCubit>().login(
+                            _usernameController.text.trim(),
+                            _passwordController.text,
+                          );
+                        },
+                      ),
+                    ],
                   );
                 },
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               
               // Register Link
               Center(
@@ -225,21 +256,21 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               
               // Message Chip
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEBF1EB),
+                  color: AppColors.successBg,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
                     Image.asset(
                       'assets/icons/mam_ai_avatar.png',
-                      width: 24,
-                      height: 24,
+                      width: 42,
+                      height: 42,
                       errorBuilder: (context, error, stackTrace) =>
                           const Icon(Icons.eco, color: iconColor, size: 24),
                     ),
@@ -249,7 +280,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                         'Mỗi việc nhỏ hôm nay là một mầm xanh cho ngày mai.',
                         style: TextStyle(
                           fontSize: 13,
-                          color: darkTextColor,
+                          color: mainTextColor,
                           height: 1.4,
                         ),
                       ),
@@ -266,7 +297,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 10,
-                    color: Color(0xFFB0B8B4),
+                    color: AppColors.greyText,
                     height: 1.5,
                   ),
                 ),
@@ -278,3 +309,5 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
     );
   }
 }
+
+

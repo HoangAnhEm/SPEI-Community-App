@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../src/core/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -24,7 +25,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const darkTextColor = Color(0xFF1B3D2F);
+    const darkTextColor = AppColors.darkText;
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +63,7 @@ class CustomTextField extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: errorText != null ? Colors.red : const Color(0xFF3B7D53), 
+                color: errorText != null ? Colors.red : AppColors.primary, 
                 width: 1.5
               ),
             ),
@@ -82,3 +83,5 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
+

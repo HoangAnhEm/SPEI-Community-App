@@ -41,7 +41,7 @@ class MockAuthRemoteDataSource {
       id: 'u_999',
       email: _tempEmail ?? 'newuser@example.com',
       phone: _tempPhone ?? phone,
-      role: 'Người dùng',
+      role: 'Người dùng • Dành cho gia đình',
     );
   }
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../src/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../widgets/auth_header.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -7,12 +10,13 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Colors based on the design
-    const backgroundColor = Color(0xFFFAF9F6);
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
-    const buttonColor = Color(0xFF3B7D53);
-    const iconBgColor = Color(0xFFEBF1EB);
-    const iconColor = Color(0xFF3B7D53);
+    const backgroundColor = AppColors.background;
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
+    const mainTitleColor = AppColors.primary;
+    const buttonColor = AppColors.primary;
+    const iconBgColor = AppColors.successBg;
+    const iconColor = AppColors.primary;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -23,39 +27,8 @@ class OnboardingScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header: Logo and Title
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/icons/logo.png', // Logo nhỏ
-                    width: 48,
-                    height: 48,
-                  ),
-                  const SizedBox(width: 12),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'SPEI Community',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: darkTextColor,
-                        ),
-                      ),
-                      Text(
-                        'GIEO MẦM SỐNG XANH',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: subTextColor,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
+              const AuthHeader(showBackButton: false),
+              const SizedBox(height: 18),
 
               // Main Illustration with Chip
               Stack(
@@ -66,12 +39,12 @@ class OnboardingScreen extends StatelessWidget {
                     child: Image.asset(
                       'assets/images/onboarding_illustration.jpg',
                       width: double.infinity,
-                      height: 240,
+                      height: 300,
                       fit: BoxFit.fill,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           width: double.infinity,
-                          height: 240,
+                          height: 300,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade300,
                             borderRadius: BorderRadius.circular(16),
@@ -89,7 +62,7 @@ class OnboardingScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
@@ -102,12 +75,22 @@ class OnboardingScreen extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Image.asset(
-                            'assets/icons/mam_ai_avatar.png', // Avatar Mầm AI
-                            width: 20,
-                            height: 20,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.eco, color: Colors.green, size: 20),
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: const BoxDecoration(
+                              color: AppColors.successBg,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                'assets/icons/mam_ai_avatar.png', // Avatar Mầm AI
+                                width: 32,
+                                height: 32,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.eco, color: Colors.green, size: 20),
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 8),
                           const Text(
@@ -115,7 +98,7 @@ class OnboardingScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: darkTextColor,
+                              color: mainTitleColor,
                             ),
                           ),
                         ],
@@ -124,7 +107,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 18),
 
               // Title and Subtitle
               const Text(
@@ -145,7 +128,7 @@ class OnboardingScreen extends StatelessWidget {
                   color: subTextColor,
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 18),
 
               // Feature List
               _buildFeatureItem(
@@ -177,7 +160,7 @@ class OnboardingScreen extends StatelessWidget {
                 darkTextColor: darkTextColor,
                 subTextColor: subTextColor,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 18),
 
               // Action Button
               SizedBox(
@@ -212,7 +195,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 18),
 
               // Footer Text
               const Center(
@@ -232,7 +215,7 @@ class OnboardingScreen extends StatelessWidget {
                   'Bản mẫu giao diện • Dữ liệu minh họa',
                   style: TextStyle(
                     fontSize: 10,
-                    color: Color(0xFFB0B8B4),
+                    color: AppColors.subText,
                   ),
                 ),
               ),
@@ -298,3 +281,5 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 }
+
+

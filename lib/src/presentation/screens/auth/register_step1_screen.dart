@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../config/di/di.dart';
@@ -92,10 +93,11 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFFFAF9F6);
-    const darkTextColor = Color(0xFF1B3D2F);
-    const subTextColor = Color(0xFF7B8780);
-    const iconColor = Color(0xFF3B7D53);
+    const backgroundColor = AppColors.background;
+    const darkTextColor = AppColors.darkText;
+    const subTextColor = AppColors.subText;
+    const mainTextColor = AppColors.primary;
+    const iconColor = AppColors.primary;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -332,7 +334,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEBF1EB),
+                  color: AppColors.successBg,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -349,7 +351,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                     const Expanded(
                       child: Text(
                         'Tài khoản mới có vai trò Người dùng. Quyền quản trị chỉ được ban quản trị cấp riêng.',
-                        style: TextStyle(fontSize: 12, color: subTextColor, height: 1.4),
+                        style: TextStyle(fontSize: 12, color: mainTextColor, height: 1.4),
                       ),
                     ),
                   ],
@@ -362,7 +364,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                 child: Text(
                   'Bản mẫu không gửi SMS hoặc tạo tài khoản thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: Color(0xFFB0B8B4), height: 1.5),
+                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),
               ),
             ],
@@ -373,7 +375,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
   }
 
   Widget _buildChecklistItem(String part1, String part2) {
-    const subTextColor = Color(0xFF7B8780);
+    const subTextColor = AppColors.subText;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -401,3 +403,5 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
     );
   }
 }
+
+
