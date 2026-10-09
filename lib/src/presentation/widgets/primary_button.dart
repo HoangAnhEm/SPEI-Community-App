@@ -5,6 +5,7 @@ class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final String? iconPath;
+  final IconData? fallbackIcon;
   final bool isLoading;
   final bool isDisabled;
 
@@ -13,6 +14,7 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.iconPath,
+    this.fallbackIcon,
     this.isLoading = false,
     this.isDisabled = false,
   });
@@ -52,7 +54,9 @@ class PrimaryButton extends StatelessWidget {
                       width: 20,
                       height: 20,
                       color: Colors.white,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox(width: 20, height: 20),
+                      errorBuilder: (context, error, stackTrace) => fallbackIcon != null
+                          ? Icon(fallbackIcon, color: Colors.white, size: 20)
+                          : const SizedBox(width: 20, height: 20),
                     ),
                     const SizedBox(width: 8),
                   ],

@@ -57,7 +57,7 @@ class RegisterStep3Screen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.successBg,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.green.withOpacity(0.1)),
+                  border: Border.all(color: AppColors.divider),
                 ),
                 child: Column(
                   children: [
@@ -94,7 +94,7 @@ class RegisterStep3Screen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade200),
+                  border: Border.all(color: AppColors.divider),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

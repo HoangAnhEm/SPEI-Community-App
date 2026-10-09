@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../src/core/constants/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              _buildGridMenu(),
+              _buildGridMenu(context),
               const SizedBox(height: 12),
               _buildTaskCard(),
               const SizedBox(height: 18),
@@ -286,7 +287,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGridMenu() {
+  Widget _buildGridMenu(BuildContext context) {
     return GridView.count(
       crossAxisCount: 2,
       shrinkWrap: true,
@@ -295,7 +296,9 @@ class HomeScreen extends StatelessWidget {
       mainAxisSpacing: 16,
       childAspectRatio: 1.4,
       children: [
-        _buildGridItem('assets/icons/feature_electric.png', AppColors.primary, AppColors.successBg, 'Tính phát thải', 'Từ điện sử dụng'),
+        _buildGridItem('assets/icons/feature_electric.png', AppColors.primary, AppColors.successBg, 'Tính phát thải', 'Từ điện sử dụng', onTap: () {
+          context.push('/input-electricity');
+        }),
         _buildGridItem('assets/icons/ic_chat_bubble.png', AppColors.bluePrimary, AppColors.blueBg,'Hỏi bạn Mầm AI', 'Học xanh cùng con'),
         _buildGridItem('assets/icons/ic_camera.png', AppColors.bluePrimary, AppColors.blueBg,'Gửi phản ánh', 'Góp ý môi trường'),
         _buildGridItem('assets/icons/feature_gift.png', AppColors.primary, AppColors.successBg,'Đổi quà xanh', 'Quà cho cả nhà'),
@@ -303,10 +306,12 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGridItem(String iconAsset, Color iconColor,Color iconBgColor, String title, String subtitle) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
+  Widget _buildGridItem(String iconAsset, Color iconColor,Color iconBgColor, String title, String subtitle, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.grey.shade200),
         borderRadius: BorderRadius.circular(20),
@@ -346,6 +351,7 @@ class HomeScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 11, color: AppColors.subText),
           ),
         ],
+      ),
       ),
     );
   }

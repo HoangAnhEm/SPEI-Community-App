@@ -195,7 +195,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: AppColors.primary,
+                            color: AppColors.errorBg,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(

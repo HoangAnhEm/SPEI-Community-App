@@ -10,6 +10,7 @@ import '../../presentation/screens/auth/register_step3_screen.dart';
 import '../../presentation/screens/auth/recovery_step1_screen.dart';
 import '../../presentation/screens/auth/recovery_step3_screen.dart';
 import '../../presentation/screens/main/main_layout_screen.dart';
+import '../../presentation/screens/electricity/input_electricity_screen.dart';
 import '../di/di.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/auth/auth_state.dart';
@@ -54,6 +55,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const MainLayoutScreen(),
+    ),
+    GoRoute(
+      path: '/input-electricity',
+      builder: (context, state) => const InputElectricityScreen(),
     ),
     GoRoute(
       path: '/onboarding',
