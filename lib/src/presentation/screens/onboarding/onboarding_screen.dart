@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../config/di/di.dart';
+import '../../../domain/repositories/auth_repository.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
 import '../../widgets/auth_header.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -167,9 +172,12 @@ class OnboardingScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to Login
-                    context.push('/login');
+                  onPressed: () async {
+                    // Mark as not first time
+                    await getIt<AuthRepository>().setFirstTime(false);
+                    if (context.mounted) {
+                      context.read<AuthBloc>().add(AppStarted());
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,

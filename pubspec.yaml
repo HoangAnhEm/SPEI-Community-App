@@ -46,7 +46,7 @@ dependencies:
   get_it: ^9.1.1
 
   # Local Storage & Database
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.5.5
   flutter_secure_storage: ^9.2.4
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1

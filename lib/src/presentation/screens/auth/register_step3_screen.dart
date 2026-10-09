@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../blocs/register/register_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/primary_button.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
 
 class RegisterStep3Screen extends StatelessWidget {
   const RegisterStep3Screen({super.key});
@@ -133,7 +135,8 @@ class RegisterStep3Screen extends StatelessWidget {
                 text: 'Về trang chủ gia đình',
                 iconPath: 'assets/icons/ic_home.png',
                 onPressed: () {
-                  context.go('/');
+                  context.read<AuthBloc>().add(AuthStatusChanged());
+                  // GoRouter sẽ tự động redirect
                 },
               ),
               const SizedBox(height: 32),

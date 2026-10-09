@@ -7,6 +7,8 @@ import '../../blocs/login/login_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/primary_button.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -183,7 +185,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
               BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
                   if (state is LoginSuccess) {
-                    context.go('/');
+                    context.read<AuthBloc>().add(AuthStatusChanged());
                   }
                 },
                 builder: (context, state) {

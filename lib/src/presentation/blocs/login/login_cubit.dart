@@ -18,7 +18,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
       final user = await _authRepository.login(username, password);
-      // TODO: Cập nhật AuthBloc với user state (Global)
       emit(LoginSuccess(user));
     } catch (e) {
       emit(LoginFailure(e.toString().replaceAll('Exception: ', '')));
