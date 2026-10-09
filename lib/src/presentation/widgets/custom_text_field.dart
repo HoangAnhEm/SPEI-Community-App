@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController? controller;
   final String? errorText;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.controller,
     this.errorText,
+    this.onChanged,
   });
 
   @override
@@ -43,6 +45,7 @@ class CustomTextField extends StatelessWidget {
           controller: controller,
           obscureText: isPassword,
           keyboardType: keyboardType,
+          onChanged: onChanged,
           style: const TextStyle(fontSize: 15),
           decoration: InputDecoration(
             hintText: hintText,

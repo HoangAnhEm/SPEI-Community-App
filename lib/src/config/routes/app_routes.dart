@@ -7,6 +7,8 @@ import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/auth/register_step1_screen.dart';
 import '../../presentation/screens/auth/register_step2_screen.dart';
 import '../../presentation/screens/auth/register_step3_screen.dart';
+import '../../presentation/screens/auth/recovery_step1_screen.dart';
+import '../../presentation/screens/auth/recovery_step3_screen.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,6 +47,20 @@ final GoRouter appRouter = GoRouter(
               child: const RegisterStep3Screen(),
             );
           },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/recovery',
+      builder: (context, state) => const RecoveryStep1Screen(),
+      routes: [
+        GoRoute(
+          path: 'step1',
+          builder: (context, state) => const RecoveryStep1Screen(),
+        ),
+        GoRoute(
+          path: 'step3',
+          builder: (context, state) => const RecoveryStep3Screen(),
         ),
       ],
     ),

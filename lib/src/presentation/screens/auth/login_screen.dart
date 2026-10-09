@@ -159,7 +159,9 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push('/recovery/step1');
+                  },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     minimumSize: const Size(50, 30),
@@ -169,7 +171,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                     'Quên mật khẩu?',
                     style: TextStyle(
                       fontSize: 13,
-                      color: iconColor,
+                      color: AppColors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
