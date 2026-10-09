@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import '../../widgets/primary_button.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -47,7 +48,7 @@ class _InputElectricityScreenState extends State<InputElectricityScreen> {
                       iconPath: 'assets/icons/ic_calculator.png',
                       fallbackIcon: Icons.calculate_outlined,
                       onPressed: () {
-                        // TODO: Calculate emission
+                        context.push('/electricity-result');
                       },
                     ),
                     const SizedBox(height: 24),
