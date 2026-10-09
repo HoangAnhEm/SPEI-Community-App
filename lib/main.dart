@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AuthBloc>()..add(AppStarted()),
+      lazy: false,
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Spei Community',
