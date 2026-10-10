@@ -9,15 +9,15 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit(this._authRepository) : super(LoginInitial());
 
-  Future<void> login(String username, String password) async {
-    if (username.isEmpty || password.isEmpty) {
+  Future<void> login(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
       emit(LoginFailure('Vui lòng nhập đầy đủ thông tin.'));
       return;
     }
 
     emit(LoginLoading());
     try {
-      final user = await _authRepository.login(username, password);
+      final user = await _authRepository.login(email, password);
       emit(LoginSuccess(user));
     } catch (e) {
       emit(LoginFailure(e.toString().replaceAll('Exception: ', '')));

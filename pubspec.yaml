@@ -40,7 +40,7 @@ dependencies:
   go_router: ^14.2.7
 
   # Networking
-  dio: ^5.4.0
+  dio: ^5.11.1
 
   # Dependency Injection
   get_it: ^9.1.1

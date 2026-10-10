@@ -38,6 +38,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -45,6 +46,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
     super.initState();
     _emailController.addListener(_updateState);
     _phoneController.addListener(_updateState);
+    _fullNameController.addListener(_updateState);
     _passwordController.addListener(_updateState);
   }
 
@@ -56,15 +58,18 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
   void dispose() {
     _emailController.removeListener(_updateState);
     _phoneController.removeListener(_updateState);
+    _fullNameController.removeListener(_updateState);
     _passwordController.removeListener(_updateState);
     _emailController.dispose();
     _phoneController.dispose();
+    _fullNameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   bool _isFormValid() {
     return _emailController.text.isNotEmpty && _emailError() == null &&
+        _fullNameController.text.isNotEmpty && _fullNameController.text.trim().length >= 2 &&
         _phoneController.text.isNotEmpty && _phoneError() == null &&
         _passwordController.text.isNotEmpty && _passError() == null &&
         _agreeTerms;
@@ -131,6 +136,24 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                 ),
               ),
               const SizedBox(height: 32),
+              
+              // Full Name
+              CustomTextField(
+                controller: _fullNameController,
+                label: 'Họ và tên *',
+                hintText: 'VD: Nguyễn Văn A',
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Image.asset(
+                    'assets/icons/ic_user.png',
+                    width: 20,
+                    height: 20,
+                    color: iconColor,
+                    errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
               
               // Email
               CustomTextField(
@@ -300,6 +323,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                           context.read<RegisterCubit>().submitInfo(
                             _emailController.text.trim(),
                             _phoneController.text.trim(),
+                            _fullNameController.text.trim(),
                             _passwordController.text,
                           );
                         },

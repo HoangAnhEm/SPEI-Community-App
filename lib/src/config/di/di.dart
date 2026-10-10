@@ -2,8 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../../core/network/dio_client.dart';
-import '../../data/datasources/mock_auth_remote_data_source.dart';
+import '../../core/network/api_client.dart';
+import '../../data/datasources/remote/auth_remote_data_source.dart';
 import '../../data/datasources/local/local_data_source.dart';
 import '../../data/datasources/local/local_data_source_impl.dart';
 import '../../data/repositories_impl/auth_repository_impl.dart';
@@ -19,11 +19,12 @@ Future<void> setupDependencies() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   getIt.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
-  getIt.registerLazySingleton<Dio>(() => DioClient().dio);
+  getIt.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(getIt(), getIt()));
+  getIt.registerLazySingleton<ApiClient>(() => ApiClient(getIt()));
+  getIt.registerLazySingleton<Dio>(() => getIt<ApiClient>().dio);
 
   // Data sources
-  getIt.registerLazySingleton<MockAuthRemoteDataSource>(() => MockAuthRemoteDataSource());
-  getIt.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(getIt(), getIt()));
+  getIt.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSource(getIt()));
   
   // Repositories
   getIt.registerLazySingleton<AuthRepository>(

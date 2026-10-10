@@ -14,15 +14,15 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._authRepository) : super(RegisterInitial());
 
-  Future<void> submitInfo(String email, String phone, String password) async {
-    if (email.isEmpty || phone.isEmpty || password.isEmpty) {
+  Future<void> submitInfo(String email, String phone, String fullName, String password) async {
+    if (email.isEmpty || phone.isEmpty || fullName.isEmpty || password.isEmpty) {
       emit(RegisterFailure('Vui lòng nhập đầy đủ thông tin.'));
       return;
     }
     
     emit(RegisterLoading());
     try {
-      await _authRepository.registerInfo(email, phone, password);
+      await _authRepository.registerInfo(email, phone, fullName, password);
       currentPhone = phone;
       currentEmail = email;
       emit(RegisterInfoSuccess());
@@ -32,8 +32,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> verifyOtp(String otp) async {
-    if (currentPhone == null) {
-      emit(RegisterFailure('Không tìm thấy thông tin số điện thoại.'));
+    if (currentEmail == null) {
+      emit(RegisterFailure('Không tìm thấy thông tin email.'));
       return;
     }
     if (otp.length != 6) {
@@ -43,7 +43,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     emit(RegisterLoading());
     try {
-      final user = await _authRepository.verifyOtp(currentPhone!, otp);
+      final user = await _authRepository.verifyOtp(currentEmail!, otp, 'register');
       registeredUser = user;
       emit(RegisterOtpSuccess(user));
     } catch (e) {
@@ -52,14 +52,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> resendOtp() async {
-    if (currentPhone == null) {
-      emit(RegisterFailure('Không tìm thấy thông tin số điện thoại.'));
+    if (currentEmail == null) {
+      emit(RegisterFailure('Không tìm thấy thông tin email.'));
       return;
     }
 
     emit(RegisterLoading());
     try {
-      await _authRepository.resendOtp(currentPhone!);
+      await _authRepository.resendOtp(currentEmail!, 'register');
       emit(RegisterResendSuccess());
     } catch (e) {
       emit(RegisterFailure(e.toString().replaceAll('Exception: ', '')));

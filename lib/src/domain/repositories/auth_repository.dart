@@ -1,10 +1,10 @@
 import '../entities/user.dart';
 
 abstract class AuthRepository {
-  Future<User> login(String username, String password);
-  Future<void> registerInfo(String email, String phone, String password);
-  Future<void> resendOtp(String phone);
-  Future<User> verifyOtp(String phone, String otp);
+  Future<User> login(String email, String password);
+  Future<void> registerInfo(String email, String phone, String fullName, String password);
+  Future<void> resendOtp(String email, String purpose);
+  Future<User> verifyOtp(String email, String otp, String purpose);
   Future<void> logout();
   Future<User?> checkAuthStatus();
   Future<bool> isFirstTime();

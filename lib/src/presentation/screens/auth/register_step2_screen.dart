@@ -70,13 +70,6 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
     return '$m:$s';
   }
 
-  String _formatPhone(String? phone) {
-    if (phone == null || phone.length < 7) return '0912 ••• 678';
-    final start = phone.substring(0, 4);
-    final end = phone.substring(phone.length - 3);
-    return '$start ••• $end';
-  }
-
   @override
   void dispose() {
     _countdownTimer?.cancel();
@@ -126,7 +119,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
               const SizedBox(height: 32),
               
               const Text(
-                'Xác thực số điện thoại',
+                'Xác thực Email',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -135,7 +128,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Mã OTP đã được gửi qua SMS đến số ${_formatPhone(context.read<RegisterCubit>().currentPhone)}.\nNhập 6 chữ số để hoàn tất đăng ký.',
+                'Mã OTP đã được gửi đến email ${context.read<RegisterCubit>().currentEmail}.\nNhập 6 chữ số để hoàn tất.',
                 style: const TextStyle(
                   fontSize: 14,
                   height: 1.5,
@@ -155,7 +148,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                   ),
                   child: Center(
                     child: Image.asset(
-                      'assets/icons/ic_phone_large.png',
+                      'assets/icons/ic_mail.png',
                       width: 32,
                       height: 32,
                       color: iconColor,
@@ -306,7 +299,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                 child: GestureDetector(
                   onTap: () => context.pop(),
                   child: const Text(
-                    'Sửa số điện thoại',
+                    'Sửa Email',
                     style: TextStyle(fontSize: 13, color: iconColor, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -341,7 +334,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
               // Footer
               const Center(
                 child: Text(
-                  'Trạng thái sau gửi OTP là minh họa; chưa gửi SMS thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                  'Trạng thái sau gửi OTP là minh họa; chưa gửi Email thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),
