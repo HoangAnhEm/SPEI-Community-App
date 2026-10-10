@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import '../home/home_screen.dart';
 import '../mam_ai/mam_ai_screen.dart';
+import '../reward/reward_screen.dart';
 
 class MainLayoutScreen extends StatefulWidget {
   const MainLayoutScreen({super.key});
@@ -17,7 +18,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     const HomeScreen(),
     const MamAiScreen(),
     const Scaffold(body: Center(child: Text('Phản ánh', style: TextStyle(color: AppColors.darkText)))),
-    const Scaffold(body: Center(child: Text('Điểm xanh', style: TextStyle(color: AppColors.darkText)))),
+    const RewardScreen(),
   ];
 
   Widget _buildIcon(String asset, bool isSelected) {

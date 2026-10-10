@@ -52,7 +52,7 @@ class _InputElectricityScreenState extends State<InputElectricityScreen> {
                       },
                     ),
                     const SizedBox(height: 24),
-                    _buildInfoFooter(), 
+                    _buildInfoFooter(),
                     const SizedBox(height: 24),
                     const Center(
                       child: Text(
