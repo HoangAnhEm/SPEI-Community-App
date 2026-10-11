@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/household_invitation.dart';
 import '../../../domain/entities/household_join_request.dart';
 import '../../../domain/repositories/household_repository.dart';
+import '../../../config/di/di.dart';
+import '../emission/emission_cubit.dart';
 import 'household_state.dart';
 
 class HouseholdCubit extends Cubit<HouseholdState> {
@@ -57,6 +59,16 @@ class HouseholdCubit extends Cubit<HouseholdState> {
         myJoinRequests: myReqs,
         errorMessage: null,
       ));
+
+      if (household != null) {
+        try {
+          getIt<EmissionCubit>().loadEmissions();
+        } catch (_) {}
+      } else {
+        try {
+          getIt<EmissionCubit>().reset();
+        } catch (_) {}
+      }
     } catch (e) {
       emit(state.copyWith(
         status: HouseholdStatus.error,

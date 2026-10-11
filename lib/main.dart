@@ -7,6 +7,7 @@ import 'src/presentation/blocs/auth/auth_bloc.dart';
 import 'src/presentation/blocs/auth/auth_event.dart';
 
 import 'src/presentation/blocs/household/household_cubit.dart';
+import 'src/presentation/blocs/emission/emission_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<HouseholdCubit>(
           create: (context) => getIt<HouseholdCubit>(),
+          lazy: false,
+        ),
+        BlocProvider<EmissionCubit>(
+          create: (context) => getIt<EmissionCubit>(),
           lazy: false,
         ),
       ],
