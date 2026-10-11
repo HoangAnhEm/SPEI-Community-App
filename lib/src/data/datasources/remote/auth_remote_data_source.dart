@@ -91,4 +91,15 @@ class AuthRemoteDataSource {
       throw Exception(e.response?.data?['message'] ?? 'Không thể đặt lại mật khẩu.');
     }
   }
+
+  Future<Map<String, dynamic>> refreshToken(String refreshToken) async {
+    try {
+      final response = await _dio.post('/auth/refresh', data: {
+        'refresh_token': refreshToken,
+      });
+      return response.data['data']; // { access_token, refresh_token, token_type, expires_in }
+    } on DioException catch (e) {
+      throw Exception(e.response?.data?['message'] ?? 'Phiên làm việc đã hết hạn.');
+    }
+  }
 }

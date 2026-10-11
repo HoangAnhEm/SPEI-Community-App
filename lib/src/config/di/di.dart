@@ -13,6 +13,8 @@ import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/recovery/recovery_cubit.dart';
 
+import '../../presentation/blocs/auth/auth_event.dart';
+
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
@@ -21,7 +23,12 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   getIt.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
   getIt.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(getIt(), getIt()));
-  getIt.registerLazySingleton<ApiClient>(() => ApiClient(getIt()));
+  getIt.registerLazySingleton<ApiClient>(() => ApiClient(
+    getIt(),
+    onSessionExpired: () {
+      getIt<AuthBloc>().add(AuthLogoutRequested());
+    },
+  ));
   getIt.registerLazySingleton<Dio>(() => getIt<ApiClient>().dio);
 
   // Data sources

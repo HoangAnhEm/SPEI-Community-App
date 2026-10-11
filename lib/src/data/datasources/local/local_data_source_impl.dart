@@ -13,6 +13,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   static const String _keyUser = 'cached_user';
   static const String _keyFirstTime = 'is_first_time';
   static const String _keyToken = 'auth_token';
+  static const String _keyRefreshToken = 'refresh_token';
 
   @override
   Future<void> saveUser(User user) async {
@@ -59,7 +60,18 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
+  Future<void> saveRefreshToken(String token) async {
+    await _secureStorage.write(key: _keyRefreshToken, value: token);
+  }
+
+  @override
+  Future<String?> getRefreshToken() async {
+    return await _secureStorage.read(key: _keyRefreshToken);
+  }
+
+  @override
   Future<void> clearToken() async {
     await _secureStorage.delete(key: _keyToken);
+    await _secureStorage.delete(key: _keyRefreshToken);
   }
 }

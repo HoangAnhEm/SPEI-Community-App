@@ -15,10 +15,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<User> login(String email, String password) async {
     final tokens = await remoteDataSource.login(email, password);
-    final accessToken = tokens['access_token'];
+    final accessToken = tokens['access_token'] as String;
+    final refreshToken = tokens['refresh_token'] as String?;
     
     // Lưu token ngay để các api gọi sau có header
     await localDataSource.saveToken(accessToken); 
+    if (refreshToken != null) {
+      await localDataSource.saveRefreshToken(refreshToken);
+    }
 
     // Lấy thông tin user
     final user = await remoteDataSource.getMyProfile(accessToken);
@@ -41,8 +45,14 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<User> verifyOtp(String email, String otp, String purpose) async {
     final data = await remoteDataSource.verifyOtp(email, otp, purpose);
     
-    final accessToken = data['tokens']['access_token'];
-    await localDataSource.saveToken(accessToken);
+    final accessToken = data['tokens']?['access_token'] as String?;
+    final refreshToken = data['tokens']?['refresh_token'] as String?;
+    if (accessToken != null) {
+      await localDataSource.saveToken(accessToken);
+    }
+    if (refreshToken != null) {
+      await localDataSource.saveRefreshToken(refreshToken);
+    }
     
     final user = User.fromJson(data['user']);
     await localDataSource.saveUser(user);
