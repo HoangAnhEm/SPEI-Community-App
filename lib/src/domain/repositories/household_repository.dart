@@ -1,6 +1,7 @@
 import '../entities/household.dart';
 import '../entities/household_invitation.dart';
 import '../entities/household_join_request.dart';
+import '../entities/household_lookup_result.dart';
 import '../entities/user_lookup_result.dart';
 
 abstract class HouseholdRepository {
@@ -23,6 +24,7 @@ abstract class HouseholdRepository {
   Future<void> revokeInvitation(String invitationId);
 
   // --- Yêu cầu gia nhập (Join Requests) ---
+  Future<HouseholdLookupResult> lookupHousehold(String householdId);
   Future<HouseholdJoinRequest> createJoinRequest(String householdId);
   Future<List<HouseholdJoinRequest>> getMyJoinRequests();
   Future<void> cancelMyJoinRequest(String requestId);

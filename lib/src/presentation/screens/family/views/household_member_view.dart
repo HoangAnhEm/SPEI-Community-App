@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../blocs/household/household_cubit.dart';
 import '../../../blocs/household/household_state.dart';
@@ -104,9 +105,7 @@ class HouseholdMemberView extends StatelessWidget {
                   title: 'Tìm hộ bằng QR',
                   subtitle: 'Có thể gửi yêu cầu cho hộ khác',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Tính năng quét QR tìm hộ sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/scan-qr');
                   },
                 ),
                 const SizedBox(height: 16),

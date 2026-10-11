@@ -25,6 +25,9 @@ import '../../presentation/screens/profile/change_password_success_screen.dart';
 import '../../presentation/blocs/change_password/change_password_cubit.dart';
 import '../../presentation/blocs/create_household/create_household_cubit.dart';
 import '../../presentation/screens/family/create_household_screen.dart';
+import '../../presentation/screens/family/scan_household_qr_screen.dart';
+import '../../presentation/screens/family/household_lookup_result_screen.dart';
+import '../../presentation/blocs/household_lookup/household_lookup_cubit.dart';
 import '../../presentation/screens/common/custom_success_screen.dart';
 import '../../domain/entities/household.dart';
 import '../../core/constants/app_colors.dart';
@@ -194,6 +197,20 @@ final GoRouter appRouter = GoRouter(
           },
         ),
       ],
+    ),
+    GoRoute(
+      path: '/family/scan-qr',
+      builder: (context, state) => const ScanHouseholdQrScreen(),
+    ),
+    GoRoute(
+      path: '/family/lookup-result',
+      builder: (context, state) {
+        final householdId = state.extra as String? ?? '';
+        return BlocProvider(
+          create: (_) => getIt<HouseholdLookupCubit>(),
+          child: HouseholdLookupResultScreen(householdId: householdId),
+        );
+      },
     ),
     GoRoute(
       path: '/common-success',

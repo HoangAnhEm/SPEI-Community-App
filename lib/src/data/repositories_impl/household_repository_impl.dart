@@ -1,6 +1,7 @@
 import '../../domain/entities/household.dart';
 import '../../domain/entities/household_invitation.dart';
 import '../../domain/entities/household_join_request.dart';
+import '../../domain/entities/household_lookup_result.dart';
 import '../../domain/entities/user_lookup_result.dart';
 import '../../domain/repositories/household_repository.dart';
 import '../datasources/remote/household_remote_data_source.dart';
@@ -99,6 +100,12 @@ class HouseholdRepositoryImpl implements HouseholdRepository {
   }
 
   // --- Yêu cầu gia nhập (Join Requests) ---
+
+  @override
+  Future<HouseholdLookupResult> lookupHousehold(String householdId) async {
+    final data = await remoteDataSource.lookupHousehold(householdId);
+    return HouseholdLookupResult.fromJson(data);
+  }
 
   @override
   Future<HouseholdJoinRequest> createJoinRequest(String householdId) async {

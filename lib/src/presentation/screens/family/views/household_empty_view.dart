@@ -104,9 +104,7 @@ class HouseholdEmptyView extends StatelessWidget {
                 // Nút 2: Quét QR hộ gia đình
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Tính năng quét QR hộ gia đình sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/scan-qr');
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Container(

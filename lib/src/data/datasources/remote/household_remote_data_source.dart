@@ -146,6 +146,18 @@ class HouseholdRemoteDataSource {
 
   // --- Yêu cầu gia nhập (Join Requests) ---
 
+  Future<Map<String, dynamic>> lookupHousehold(String householdId) async {
+    try {
+      final response = await _dio.get(
+        '/household/lookup',
+        queryParameters: {'household_id': householdId},
+      );
+      return response.data['data'] as Map<String, dynamic>;
+    } on DioException catch (e) {
+      throw Exception(e.response?.data?['message'] ?? 'Không thể tra cứu thông tin hộ gia đình.');
+    }
+  }
+
   Future<Map<String, dynamic>> createJoinRequest(String householdId) async {
     try {
       final response = await _dio.post(
