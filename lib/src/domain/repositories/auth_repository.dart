@@ -7,6 +7,7 @@ abstract class AuthRepository {
   Future<User> verifyOtp(String email, String otp, String purpose);
   Future<void> forgotPassword(String email);
   Future<void> resetPassword(String newPassword);
+  Future<void> changePassword(String currentPassword, String newPassword);
   Future<void> logout();
   Future<User?> checkAuthStatus();
   Future<bool> isFirstTime();

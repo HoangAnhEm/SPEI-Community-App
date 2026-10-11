@@ -102,4 +102,15 @@ class AuthRemoteDataSource {
       throw Exception(e.response?.data?['message'] ?? 'Phiên làm việc đã hết hạn.');
     }
   }
+
+  Future<void> changePassword(String currentPassword, String newPassword) async {
+    try {
+      await _dio.post('/auth/change-password', data: {
+        'current_password': currentPassword,
+        'new_password': newPassword,
+      });
+    } on DioException catch (e) {
+      throw Exception(e.response?.data?['message'] ?? 'Đổi mật khẩu thất bại.');
+    }
+  }
 }

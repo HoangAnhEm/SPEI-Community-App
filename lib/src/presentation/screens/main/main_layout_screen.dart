@@ -3,6 +3,7 @@ import '../../../../src/core/constants/app_colors.dart';
 import '../home/home_screen.dart';
 import '../mam_ai/mam_ai_screen.dart';
 import '../reward/reward_screen.dart';
+import '../family/family_screen.dart';
 
 class MainLayoutScreen extends StatefulWidget {
   const MainLayoutScreen({super.key});
@@ -19,16 +20,17 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     const MamAiScreen(),
     const Scaffold(body: Center(child: Text('Phản ánh', style: TextStyle(color: AppColors.darkText)))),
     const RewardScreen(),
+    const FamilyScreen(),
   ];
 
-  Widget _buildIcon(String asset, bool isSelected) {
+  Widget _buildIcon(String asset, bool isSelected, {IconData fallback = Icons.circle_outlined}) {
     return Image.asset(
       asset,
       width: 24,
       height: 24,
       color: isSelected ? AppColors.primary : AppColors.greyText,
       errorBuilder: (context, error, stackTrace) => Icon(
-        Icons.circle_outlined,
+        fallback,
         color: isSelected ? AppColors.primary : AppColors.greyText,
         size: 24,
       ),
@@ -83,6 +85,11 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
               icon: _buildIcon('assets/icons/feature_gift.png', false),
               selectedIcon: _buildIcon('assets/icons/feature_gift.png', true),
               label: 'Điểm xanh',
+            ),
+            NavigationDestination(
+              icon: _buildIcon('assets/icons/ic_family.png', false, fallback: Icons.people_outline),
+              selectedIcon: _buildIcon('assets/icons/ic_family.png', true, fallback: Icons.people_outline),
+              label: 'Gia đình',
             ),
           ],
         ),

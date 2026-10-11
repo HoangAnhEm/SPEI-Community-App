@@ -18,6 +18,11 @@ import '../../presentation/screens/electricity/electricity_result_screen.dart';
 import '../../presentation/screens/reward/reward_screen.dart';
 import '../../presentation/screens/reward/reward_store_screen.dart';
 import '../../presentation/screens/reward/reward_detail_screen.dart';
+import '../../presentation/screens/profile/profile_screen.dart';
+import '../../presentation/screens/profile/my_qr_screen.dart';
+import '../../presentation/screens/profile/change_password_screen.dart';
+import '../../presentation/screens/profile/change_password_success_screen.dart';
+import '../../presentation/blocs/change_password/change_password_cubit.dart';
 import '../di/di.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/auth/auth_state.dart';
@@ -62,6 +67,29 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const MainLayoutScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
+      routes: [
+        GoRoute(
+          path: 'qr',
+          builder: (context, state) => const MyQrScreen(),
+        ),
+        GoRoute(
+          path: 'change-password',
+          builder: (context, state) => BlocProvider(
+            create: (_) => getIt<ChangePasswordCubit>(),
+            child: const ChangePasswordScreen(),
+          ),
+          routes: [
+            GoRoute(
+              path: 'success',
+              builder: (context, state) => const ChangePasswordSuccessScreen(),
+            ),
+          ],
+        ),
+      ],
     ),
     GoRoute(
       path: '/input-electricity',

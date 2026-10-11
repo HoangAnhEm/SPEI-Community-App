@@ -71,6 +71,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<void> changePassword(String currentPassword, String newPassword) {
+    return remoteDataSource.changePassword(currentPassword, newPassword);
+  }
+
+  @override
   Future<void> logout() async {
     await localDataSource.clearUser();
     await localDataSource.clearToken();

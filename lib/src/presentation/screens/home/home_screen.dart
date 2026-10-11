@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeader(),
+              _buildHeader(context),
               const SizedBox(height: 24),
               _buildGreeting(),
               const SizedBox(height: 24),
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       children: [
         Image.asset(
@@ -85,6 +85,18 @@ class HomeScreen extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) => const Icon(Icons.notifications_none, color: AppColors.primary),
           ),
           onPressed: () {},
+        ),
+        IconButton(
+          icon: Image.asset(
+            'assets/icons/ic_user.png',
+            width: 24,
+            height: 24,
+            color: AppColors.primary,
+            errorBuilder: (context, error, stackTrace) => const Icon(Icons.person_outline, color: AppColors.primary),
+          ),
+          onPressed: () {
+            context.push('/profile');
+          },
         ),
       ],
     );
