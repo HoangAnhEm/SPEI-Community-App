@@ -85,9 +85,7 @@ class HouseholdOwnerView extends StatelessWidget {
                   title: 'QR hộ gia đình',
                   subtitle: 'Chia sẻ để người khác gửi yêu cầu',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Tính năng QR hộ gia đình sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/qr');
                   },
                 ),
                 const SizedBox(height: 12),

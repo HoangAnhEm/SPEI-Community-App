@@ -31,6 +31,7 @@ import '../../presentation/blocs/household_lookup/household_lookup_cubit.dart';
 import '../../presentation/screens/family/sent_invitations_screen.dart';
 import '../../presentation/screens/family/household_join_requests_screen.dart';
 import '../../presentation/screens/family/invite_user_screen.dart';
+import '../../presentation/screens/family/household_qr_screen.dart';
 import '../../presentation/blocs/sent_invitations/sent_invitations_cubit.dart';
 import '../../presentation/blocs/household_join_requests/household_join_requests_cubit.dart';
 import '../../presentation/blocs/invite_user/invite_user_cubit.dart';
@@ -238,6 +239,10 @@ final GoRouter appRouter = GoRouter(
         create: (_) => getIt<InviteUserCubit>(),
         child: const InviteUserScreen(),
       ),
+    ),
+    GoRoute(
+      path: '/family/qr',
+      builder: (context, state) => const HouseholdQrScreen(),
     ),
     GoRoute(
       path: '/common-success',
