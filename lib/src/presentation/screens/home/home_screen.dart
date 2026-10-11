@@ -235,11 +235,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 16),
-          const Text(
-            'Ước tính từ điện • Hệ số minh hoạ 0,6592',
-            style: TextStyle(color: Color(0xFFE4F0DD), fontSize: 10),
-          ),
         ],
       ),
     );

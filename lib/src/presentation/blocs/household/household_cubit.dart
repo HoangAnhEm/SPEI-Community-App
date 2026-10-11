@@ -80,6 +80,58 @@ class HouseholdCubit extends Cubit<HouseholdState> {
     }
   }
 
+  Future<bool> transferOwnership(String newOwnerId) async {
+    emit(state.copyWith(isActionLoading: true, errorMessage: null));
+    try {
+      await _repository.transferOwnership(newOwnerId);
+      await loadHouseholdData();
+      return true;
+    } catch (e) {
+      emit(state.copyWith(
+        isActionLoading: false,
+        errorMessage: e.toString().replaceFirst('Exception: ', ''),
+      ));
+      return false;
+    }
+  }
+
+  Future<bool> removeMember(String targetUserId) async {
+    return removeMembers([targetUserId]);
+  }
+
+  Future<bool> removeMembers(List<String> targetUserIds) async {
+    emit(state.copyWith(isActionLoading: true, errorMessage: null));
+    try {
+      for (final id in targetUserIds) {
+        await _repository.removeMember(id);
+      }
+      await loadHouseholdData();
+      return true;
+    } catch (e) {
+      emit(state.copyWith(
+        isActionLoading: false,
+        errorMessage: e.toString().replaceFirst('Exception: ', ''),
+      ));
+      await loadHouseholdData();
+      return false;
+    }
+  }
+
+  Future<bool> deleteHousehold() async {
+    emit(state.copyWith(isActionLoading: true, errorMessage: null));
+    try {
+      await _repository.deleteHousehold();
+      await loadHouseholdData();
+      return true;
+    } catch (e) {
+      emit(state.copyWith(
+        isActionLoading: false,
+        errorMessage: e.toString().replaceFirst('Exception: ', ''),
+      ));
+      return false;
+    }
+  }
+
   void reset() {
     emit(const HouseholdState());
   }

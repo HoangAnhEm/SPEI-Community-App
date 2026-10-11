@@ -118,9 +118,7 @@ class HouseholdOwnerView extends StatelessWidget {
                   title: 'Quyền chủ hộ và xóa hộ',
                   subtitle: 'Chuyển quyền trước khi rời hộ',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Quản lý quyền chủ hộ và xóa hộ sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/owner-permissions');
                   },
                 ),
                 const SizedBox(height: 24),

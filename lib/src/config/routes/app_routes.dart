@@ -41,6 +41,9 @@ import '../../presentation/blocs/invite_user/invite_user_cubit.dart';
 import '../../presentation/blocs/received_invitations/received_invitations_cubit.dart';
 import '../../presentation/blocs/my_join_requests/my_join_requests_cubit.dart';
 import '../../domain/entities/household_invitation.dart';
+import '../../presentation/screens/family/owner_permissions_screen.dart';
+import '../../presentation/screens/family/transfer_ownership_screen.dart';
+import '../../presentation/screens/family/remove_members_screen.dart';
 import '../../presentation/screens/common/custom_success_screen.dart';
 import '../../domain/entities/household.dart';
 import '../../core/constants/app_colors.dart';
@@ -275,6 +278,20 @@ final GoRouter appRouter = GoRouter(
         create: (_) => getIt<MyJoinRequestsCubit>(),
         child: const MyJoinRequestsScreen(),
       ),
+    ),
+    GoRoute(
+      path: '/family/owner-permissions',
+      builder: (context, state) => const OwnerPermissionsScreen(),
+      routes: [
+        GoRoute(
+          path: 'transfer',
+          builder: (context, state) => const TransferOwnershipScreen(),
+        ),
+        GoRoute(
+          path: 'remove-members',
+          builder: (context, state) => const RemoveMembersScreen(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/common-success',
