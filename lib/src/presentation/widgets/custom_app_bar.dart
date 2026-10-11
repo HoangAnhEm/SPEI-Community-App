@@ -7,6 +7,8 @@ class CustomAppBar extends StatelessWidget {
   final String subtitle;
   final VoidCallback? onBack;
   final bool showBackButton;
+  final Widget? trailing;
+  final bool showTrailing;
 
   const CustomAppBar({
     super.key,
@@ -14,6 +16,8 @@ class CustomAppBar extends StatelessWidget {
     required this.subtitle,
     this.onBack,
     this.showBackButton = true,
+    this.trailing,
+    this.showTrailing = true,
   });
 
   @override
@@ -62,12 +66,15 @@ class CustomAppBar extends StatelessWidget {
               ],
             ),
           ),
-          Image.asset(
-            'assets/icons/logo.png',
-            width: 44,
-            height: 33,
-            errorBuilder: (context, error, stackTrace) => const Icon(Icons.eco, color: AppColors.primary),
-          ),
+          if (trailing != null)
+            trailing!
+          else if (showTrailing)
+            Image.asset(
+              'assets/icons/logo.png',
+              width: 44,
+              height: 33,
+              errorBuilder: (context, error, stackTrace) => const Icon(Icons.eco, color: AppColors.primary),
+            ),
         ],
       ),
     );

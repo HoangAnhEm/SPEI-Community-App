@@ -23,6 +23,11 @@ import '../../presentation/screens/profile/my_qr_screen.dart';
 import '../../presentation/screens/profile/change_password_screen.dart';
 import '../../presentation/screens/profile/change_password_success_screen.dart';
 import '../../presentation/blocs/change_password/change_password_cubit.dart';
+import '../../presentation/blocs/create_household/create_household_cubit.dart';
+import '../../presentation/screens/family/create_household_screen.dart';
+import '../../presentation/screens/common/custom_success_screen.dart';
+import '../../domain/entities/household.dart';
+import '../../core/constants/app_colors.dart';
 import '../di/di.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/auth/auth_state.dart';
@@ -90,6 +95,112 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/family/create',
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<CreateHouseholdCubit>(),
+        child: const CreateHouseholdScreen(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'success',
+          builder: (context, state) {
+            final household = state.extra as Household?;
+            return CustomSuccessScreen(
+              appBarTitle: 'SPEI Community',
+              appBarSubtitle: 'GIEO MẦM SỐNG XANH',
+              title: 'Mầm xanh đã sẵn sàng!',
+              subtitle: 'Hộ gia đình của bạn đã được tạo. Cả nhà có thể bắt đầu hành trình cùng SPEI Community.',
+              cardTag: 'Chủ hộ gia đình',
+              cardHighlightText: household?.name ?? 'Nhà Mầm xanh',
+              cardDescription: 'Đã tạo thành công hộ gia đình trên hệ thống.',
+              infoCard: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFFE8ECE5)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Thông tin hộ gia đình',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.darkText,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Tên hộ:', style: TextStyle(fontSize: 13, color: AppColors.subText)),
+                        Text(
+                          household?.name ?? 'Nhà Mầm xanh',
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkText),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Vai trò:', style: TextStyle(fontSize: 13, color: AppColors.subText)),
+                        Text('Chủ hộ', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.primary)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Trạng thái:', style: TextStyle(fontSize: 13, color: AppColors.subText)),
+                        Text('Đang hoạt động', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF2D4F3C))),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              buttonText: 'Về trang chủ gia đình',
+              buttonIcon: Icons.home_outlined,
+              onButtonPressed: () {
+                context.go('/');
+              },
+              bottomWidget: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      'assets/images/family_gardening.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Đây là trạng thái hoàn tất minh họa, bạn có thể mời thêm thành viên vào bất kỳ lúc nào.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: AppColors.greyText,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/common-success',
+      builder: (context, state) {
+        final args = state.extra as CustomSuccessArgs;
+        return CustomSuccessScreen.fromArgs(args: args);
+      },
     ),
     GoRoute(
       path: '/input-electricity',

@@ -16,6 +16,7 @@ import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/blocs/change_password/change_password_cubit.dart';
+import '../../presentation/blocs/create_household/create_household_cubit.dart';
 import '../../presentation/blocs/household/household_cubit.dart';
 
 import '../../presentation/blocs/auth/auth_event.dart';
@@ -57,4 +58,5 @@ Future<void> setupDependencies() async {
   getIt.registerFactory(() => RegisterCubit(getIt()));
   getIt.registerFactory(() => RecoveryCubit(getIt()));
   getIt.registerFactory(() => ChangePasswordCubit(getIt()));
+  getIt.registerFactory(() => CreateHouseholdCubit(getIt()));
 }

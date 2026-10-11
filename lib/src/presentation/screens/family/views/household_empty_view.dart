@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../blocs/household/household_state.dart';
 import '../../../widgets/custom_app_bar.dart';
@@ -71,9 +72,7 @@ class HouseholdEmptyView extends StatelessWidget {
                 // Nút 1: + Tạo hộ gia đình
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Tính năng tạo hộ gia đình sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/create');
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
