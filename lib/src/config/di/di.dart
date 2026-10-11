@@ -8,6 +8,9 @@ import '../../data/datasources/local/local_data_source.dart';
 import '../../data/datasources/local/local_data_source_impl.dart';
 import '../../data/repositories_impl/auth_repository_impl.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../domain/repositories/household_repository.dart';
+import '../../data/datasources/remote/household_remote_data_source.dart';
+import '../../data/repositories_impl/household_repository_impl.dart';
 import '../../presentation/blocs/login/login_cubit.dart';
 import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
@@ -34,10 +37,14 @@ Future<void> setupDependencies() async {
 
   // Data sources
   getIt.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<HouseholdRemoteDataSource>(() => HouseholdRemoteDataSource(getIt()));
   
   // Repositories
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(remoteDataSource: getIt(), localDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<HouseholdRepository>(
+    () => HouseholdRepositoryImpl(remoteDataSource: getIt()),
   );
   
   // Use cases
