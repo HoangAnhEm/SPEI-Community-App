@@ -50,9 +50,7 @@ class HouseholdOwnerView extends StatelessWidget {
                 // Nút + Mời người dùng
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Tính năng mời người dùng sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/invite-user');
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Container(

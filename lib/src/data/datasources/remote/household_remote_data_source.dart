@@ -77,11 +77,25 @@ class HouseholdRemoteDataSource {
 
   // --- Lời mời trực tiếp (Direct Invitations) ---
 
-  Future<Map<String, dynamic>> lookupUser(String userId) async {
+  Future<Map<String, dynamic>> lookupUser({
+    String? userId,
+    String? phoneNumber,
+    String? email,
+  }) async {
     try {
+      final queryParams = <String, dynamic>{};
+      if (userId != null && userId.trim().isNotEmpty) {
+        queryParams['user_id'] = userId.trim();
+      }
+      if (phoneNumber != null && phoneNumber.trim().isNotEmpty) {
+        queryParams['phone_number'] = phoneNumber.trim();
+      }
+      if (email != null && email.trim().isNotEmpty) {
+        queryParams['email'] = email.trim();
+      }
       final response = await _dio.get(
         '/household/invitations/lookup-user',
-        queryParameters: {'user_id': userId},
+        queryParameters: queryParams,
       );
       return response.data['data'] as Map<String, dynamic>;
     } on DioException catch (e) {

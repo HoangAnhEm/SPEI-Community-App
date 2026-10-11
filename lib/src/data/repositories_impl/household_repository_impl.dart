@@ -56,8 +56,16 @@ class HouseholdRepositoryImpl implements HouseholdRepository {
   // --- Lời mời trực tiếp (Direct Invitations) ---
 
   @override
-  Future<UserLookupResult> lookupUser(String userId) async {
-    final data = await remoteDataSource.lookupUser(userId);
+  Future<UserLookupResult> lookupUser({
+    String? userId,
+    String? phoneNumber,
+    String? email,
+  }) async {
+    final data = await remoteDataSource.lookupUser(
+      userId: userId,
+      phoneNumber: phoneNumber,
+      email: email,
+    );
     return UserLookupResult.fromJson(data);
   }
 

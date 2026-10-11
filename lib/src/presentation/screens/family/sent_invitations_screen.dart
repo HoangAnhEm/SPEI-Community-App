@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../domain/entities/household_invitation.dart';
 import '../../blocs/household/household_cubit.dart';
@@ -402,9 +403,7 @@ class _SentInvitationsScreenState extends State<SentInvitationsScreen> {
             // Nút Mời người dùng khác
             InkWell(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Tính năng mời người dùng khác sẽ được phát triển tiếp theo')),
-                );
+                context.push('/family/invite-user');
               },
               borderRadius: BorderRadius.circular(16),
               child: Container(

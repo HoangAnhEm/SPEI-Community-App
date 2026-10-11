@@ -14,8 +14,11 @@ abstract class HouseholdRepository {
   Future<void> leaveHousehold();
   Future<void> removeMember(String targetUserId);
 
-  // --- Lời mời trực tiếp (Direct Invitations) ---
-  Future<UserLookupResult> lookupUser(String userId);
+  Future<UserLookupResult> lookupUser({
+    String? userId,
+    String? phoneNumber,
+    String? email,
+  });
   Future<HouseholdInvitation> inviteDirect(String inviteeId);
   Future<List<HouseholdInvitation>> getSentInvitations();
   Future<List<HouseholdInvitation>> getReceivedInvitations();
