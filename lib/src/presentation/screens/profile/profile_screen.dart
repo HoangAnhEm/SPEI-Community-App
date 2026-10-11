@@ -6,6 +6,7 @@ import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
 import '../../blocs/auth/auth_state.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_confirm_dialog.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -326,93 +327,14 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _showLogoutDialog(BuildContext context, String fullName) {
-    showDialog(
+    CustomConfirmDialog.show(
       context: context,
-      builder: (dialogContext) => Dialog(
-        backgroundColor: const Color(0xFFF9FAF7),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        insetPadding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Đăng xuất khỏi SPEI?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkText,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Bạn sẽ cần đăng nhập lại để tiếp tục sử dụng tài khoản $fullName.',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppColors.subText,
-                  height: 1.45,
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // Button Hủy
-              InkWell(
-                onTap: () => Navigator.of(dialogContext).pop(),
-                borderRadius: BorderRadius.circular(14),
-                child: Container(
-                  width: double.infinity,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0xFFE2E8DE)),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Hủy',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              // Button Đăng xuất
-              InkWell(
-                onTap: () {
-                  Navigator.of(dialogContext).pop();
-                  context.read<AuthBloc>().add(AuthLogoutRequested());
-                },
-                borderRadius: BorderRadius.circular(14),
-                child: Container(
-                  width: double.infinity,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFDE8E8),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Đăng xuất',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFC94A4A),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      title: 'Đăng xuất khỏi SPEI?',
+      content: 'Bạn sẽ cần đăng nhập lại để tiếp tục sử dụng tài khoản $fullName.',
+      confirmText: 'Đăng xuất',
+      onConfirm: () {
+        context.read<AuthBloc>().add(AuthLogoutRequested());
+      },
     );
   }
 }

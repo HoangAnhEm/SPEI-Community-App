@@ -1,206 +1,107 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_state.dart';
+import '../../blocs/household/household_cubit.dart';
+import '../../blocs/household/household_state.dart';
+import 'views/household_empty_view.dart';
+import 'views/household_member_view.dart';
+import 'views/household_owner_view.dart';
 import '../../widgets/custom_app_bar.dart';
+import 'widgets/household_shimmer_loading.dart';
 
-class FamilyScreen extends StatelessWidget {
+class FamilyScreen extends StatefulWidget {
   const FamilyScreen({super.key});
+
+  @override
+  State<FamilyScreen> createState() => _FamilyScreenState();
+}
+
+class _FamilyScreenState extends State<FamilyScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final householdCubit = context.read<HouseholdCubit>();
+      if (householdCubit.state.status == HouseholdStatus.initial) {
+        final authState = context.read<AuthBloc>().state;
+        final userId = authState is AuthAuthenticated ? authState.user.id : null;
+        householdCubit.loadHouseholdData(userId: userId);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     const backgroundColor = AppColors.background;
-    const darkTextColor = AppColors.darkText;
-    const subTextColor = AppColors.subText;
 
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            const CustomAppBar(
-              title: 'Gia đình',
-              subtitle: 'Quản lý thành viên và kết nối hộ gia đình.',
-              showBackButton: false,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
+        child: BlocBuilder<HouseholdCubit, HouseholdState>(
+          builder: (context, state) {
+            Widget content;
+
+            if (state.status == HouseholdStatus.initial ||
+                (state.status == HouseholdStatus.loading && state.household == null)) {
+              content = const HouseholdShimmerLoading();
+            } else if (state.status == HouseholdStatus.error && state.household == null) {
+              content = SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Family Banner Card
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(
-                        color: AppColors.successBg,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 52,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFD6E8CD),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.family_restroom,
-                                color: AppColors.primary,
-                                size: 28,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          const Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hộ gia đình xanh',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: darkTextColor,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  'Cùng nhau tích lũy điểm mầm và bảo vệ môi trường.',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: subTextColor,
-                                    height: 1.4,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                    const CustomAppBar(
+                      title: 'Gia đình',
+                      subtitle: 'Quản lý thành viên và kết nối hộ gia đình.',
+                      showBackButton: false,
+                    ),
+                    const SizedBox(height: 60),
+                    const Icon(Icons.wifi_off_rounded, size: 54, color: AppColors.greyText),
+                    const SizedBox(height: 16),
+                    Text(
+                      state.errorMessage ?? 'Không thể tải thông tin gia đình.',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 14, color: AppColors.subText),
                     ),
                     const SizedBox(height: 20),
-
-                    const Text(
-                      'Thành viên trong nhà',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: darkTextColor,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-
-                    // Member 1 (Chủ hộ)
-                    _buildMemberCard(
-                      name: 'Nguyễn Thị Lan (Bạn)',
-                      role: 'Chủ hộ',
-                      initials: 'TL',
-                      isOwner: true,
-                    ),
-                    const SizedBox(height: 10),
-
-                    // Member 2
-                    _buildMemberCard(
-                      name: 'Trần Văn Minh',
-                      role: 'Thành viên',
-                      initials: 'VM',
-                      isOwner: false,
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Footer
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                      ),
+                      onPressed: () {
+                        final authState = context.read<AuthBloc>().state;
+                        final userId = authState is AuthAuthenticated ? authState.user.id : null;
+                        context.read<HouseholdCubit>().loadHouseholdData(userId: userId);
+                      },
+                      child: const Text('Thử lại'),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+              );
+            } else if (state.isFreeUser) {
+              content = HouseholdEmptyView(state: state);
+            } else if (state.isOwner) {
+              content = HouseholdOwnerView(state: state);
+            } else {
+              content = HouseholdMemberView(state: state);
+            }
 
-  Widget _buildMemberCard({
-    required String name,
-    required String role,
-    required String initials,
-    required bool isOwner,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: isOwner ? AppColors.successBg : const Color(0xFFF1F3F1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                initials,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: isOwner ? AppColors.primary : AppColors.darkText,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.darkText,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  role,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.subText,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (isOwner)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.successBg,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                'Chủ hộ',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primary,
-                ),
-              ),
-            ),
-        ],
+            return RefreshIndicator(
+              color: AppColors.primary,
+              backgroundColor: Colors.white,
+              onRefresh: () async {
+                final authState = context.read<AuthBloc>().state;
+                final userId = authState is AuthAuthenticated ? authState.user.id : null;
+                await context.read<HouseholdCubit>().loadHouseholdData(userId: userId);
+              },
+              child: content,
+            );
+          },
+        ),
       ),
     );
   }

@@ -16,6 +16,7 @@ import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/blocs/change_password/change_password_cubit.dart';
+import '../../presentation/blocs/household/household_cubit.dart';
 
 import '../../presentation/blocs/auth/auth_event.dart';
 
@@ -51,6 +52,7 @@ Future<void> setupDependencies() async {
   
   // Blocs
   getIt.registerLazySingleton(() => AuthBloc(getIt()));
+  getIt.registerLazySingleton(() => HouseholdCubit(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
   getIt.registerFactory(() => RegisterCubit(getIt()));
   getIt.registerFactory(() => RecoveryCubit(getIt()));

@@ -6,6 +6,8 @@ import 'src/config/routes/app_routes.dart';
 import 'src/presentation/blocs/auth/auth_bloc.dart';
 import 'src/presentation/blocs/auth/auth_event.dart';
 
+import 'src/presentation/blocs/household/household_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -25,9 +27,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<AuthBloc>()..add(AppStarted()),
-      lazy: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => getIt<AuthBloc>()..add(AppStarted()),
+          lazy: false,
+        ),
+        BlocProvider<HouseholdCubit>(
+          create: (context) => getIt<HouseholdCubit>(),
+          lazy: false,
+        ),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Spei Community',
