@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../blocs/household/household_state.dart';
 import '../../../widgets/custom_app_bar.dart';
@@ -99,9 +100,7 @@ class HouseholdOwnerView extends StatelessWidget {
                   title: 'Lời mời đã gửi',
                   subtitle: '${state.sentInvitationsCount} lời mời đang chờ • Xem và hủy',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Danh sách lời mời đã gửi sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/invitations/sent');
                   },
                 ),
                 const SizedBox(height: 12),
@@ -112,9 +111,7 @@ class HouseholdOwnerView extends StatelessWidget {
                   title: 'Yêu cầu tham gia',
                   subtitle: '${state.incomingJoinRequestsCount} yêu cầu mới • Chấp nhận hoặc từ chối',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Danh sách yêu cầu tham gia sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/join-requests');
                   },
                 ),
                 const SizedBox(height: 12),

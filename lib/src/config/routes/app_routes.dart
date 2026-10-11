@@ -28,6 +28,10 @@ import '../../presentation/screens/family/create_household_screen.dart';
 import '../../presentation/screens/family/scan_household_qr_screen.dart';
 import '../../presentation/screens/family/household_lookup_result_screen.dart';
 import '../../presentation/blocs/household_lookup/household_lookup_cubit.dart';
+import '../../presentation/screens/family/sent_invitations_screen.dart';
+import '../../presentation/screens/family/household_join_requests_screen.dart';
+import '../../presentation/blocs/sent_invitations/sent_invitations_cubit.dart';
+import '../../presentation/blocs/household_join_requests/household_join_requests_cubit.dart';
 import '../../presentation/screens/common/custom_success_screen.dart';
 import '../../domain/entities/household.dart';
 import '../../core/constants/app_colors.dart';
@@ -211,6 +215,20 @@ final GoRouter appRouter = GoRouter(
           child: HouseholdLookupResultScreen(householdId: householdId),
         );
       },
+    ),
+    GoRoute(
+      path: '/family/invitations/sent',
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<SentInvitationsCubit>(),
+        child: const SentInvitationsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/family/join-requests',
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<HouseholdJoinRequestsCubit>(),
+        child: const HouseholdJoinRequestsScreen(),
+      ),
     ),
     GoRoute(
       path: '/common-success',
