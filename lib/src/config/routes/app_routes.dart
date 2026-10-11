@@ -32,9 +32,15 @@ import '../../presentation/screens/family/sent_invitations_screen.dart';
 import '../../presentation/screens/family/household_join_requests_screen.dart';
 import '../../presentation/screens/family/invite_user_screen.dart';
 import '../../presentation/screens/family/household_qr_screen.dart';
+import '../../presentation/screens/family/received_invitations_screen.dart';
+import '../../presentation/screens/family/received_invitation_detail_screen.dart';
+import '../../presentation/screens/family/my_join_requests_screen.dart';
 import '../../presentation/blocs/sent_invitations/sent_invitations_cubit.dart';
 import '../../presentation/blocs/household_join_requests/household_join_requests_cubit.dart';
 import '../../presentation/blocs/invite_user/invite_user_cubit.dart';
+import '../../presentation/blocs/received_invitations/received_invitations_cubit.dart';
+import '../../presentation/blocs/my_join_requests/my_join_requests_cubit.dart';
+import '../../domain/entities/household_invitation.dart';
 import '../../presentation/screens/common/custom_success_screen.dart';
 import '../../domain/entities/household.dart';
 import '../../core/constants/app_colors.dart';
@@ -243,6 +249,32 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/family/qr',
       builder: (context, state) => const HouseholdQrScreen(),
+    ),
+    GoRoute(
+      path: '/family/invitations/received',
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<ReceivedInvitationsCubit>(),
+        child: const ReceivedInvitationsScreen(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'detail',
+          builder: (context, state) {
+            final invitation = state.extra as HouseholdInvitation;
+            return BlocProvider(
+              create: (_) => getIt<ReceivedInvitationsCubit>(),
+              child: ReceivedInvitationDetailScreen(invitation: invitation),
+            );
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/family/join-requests/my',
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<MyJoinRequestsCubit>(),
+        child: const MyJoinRequestsScreen(),
+      ),
     ),
     GoRoute(
       path: '/common-success',

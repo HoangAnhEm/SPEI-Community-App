@@ -151,9 +151,7 @@ class HouseholdEmptyView extends StatelessWidget {
                   title: 'Lời mời nhận được',
                   subtitle: '${state.receivedInvitationsCount} lời mời • Có thể chấp nhận ngay',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Danh sách lời mời nhận được sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/invitations/received');
                   },
                 ),
                 const SizedBox(height: 12),
@@ -164,9 +162,7 @@ class HouseholdEmptyView extends StatelessWidget {
                   title: 'Yêu cầu đã gửi',
                   subtitle: '${state.myJoinRequestsCount} yêu cầu • Theo dõi trạng thái',
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Danh sách yêu cầu đã gửi sẽ được phát triển tiếp theo')),
-                    );
+                    context.push('/family/join-requests/my');
                   },
                 ),
                 const SizedBox(height: 16),
