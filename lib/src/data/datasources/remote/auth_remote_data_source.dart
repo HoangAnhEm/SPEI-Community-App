@@ -69,4 +69,26 @@ class AuthRemoteDataSource {
       throw Exception(e.response?.data?['message'] ?? 'Mã OTP không hợp lệ.');
     }
   }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      await _dio.post('/auth/forgot-password', data: {
+        'email': email,
+      });
+    } on DioException catch (e) {
+      throw Exception(e.response?.data?['message'] ?? 'Không thể gửi yêu cầu lấy lại mật khẩu.');
+    }
+  }
+
+  Future<void> resetPassword(String newPassword) async {
+    try {
+      // NOTE: get_current_user require token in header. ApiClient interceptor has already added token if present in LocalDataSource.
+      // So we just need to send new_password
+      await _dio.post('/auth/reset-password', data: {
+        'new_password': newPassword,
+      });
+    } on DioException catch (e) {
+      throw Exception(e.response?.data?['message'] ?? 'Không thể đặt lại mật khẩu.');
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../blocs/register/register_cubit.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/primary_button.dart';

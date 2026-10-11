@@ -11,6 +11,7 @@ import '../../domain/repositories/auth_repository.dart';
 import '../../presentation/blocs/login/login_cubit.dart';
 import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
+import '../../presentation/blocs/recovery/recovery_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -37,4 +38,5 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton(() => AuthBloc(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
   getIt.registerFactory(() => RegisterCubit(getIt()));
+  getIt.registerFactory(() => RecoveryCubit(getIt()));
 }

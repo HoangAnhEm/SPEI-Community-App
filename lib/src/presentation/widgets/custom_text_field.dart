@@ -28,6 +28,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const darkTextColor = AppColors.darkText;
+    final bool hasError = errorText != null && errorText!.isNotEmpty;
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,17 +58,21 @@ class CustomTextField extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderSide: BorderSide(
+                color: hasError ? Colors.red : Colors.grey.shade300,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderSide: BorderSide(
+                color: hasError ? Colors.red : Colors.grey.shade300,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: errorText != null ? Colors.red : AppColors.primary, 
-                width: 1.5
+                color: hasError ? Colors.red : AppColors.primary, 
+                width: 1.5,
               ),
             ),
           ),

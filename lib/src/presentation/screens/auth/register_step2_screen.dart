@@ -227,7 +227,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: hasResendSuccess ? AppColors.successBg : const Color(0xFFFEEFEF),
+                            color: hasResendSuccess ? AppColors.successBg : errorBgColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(

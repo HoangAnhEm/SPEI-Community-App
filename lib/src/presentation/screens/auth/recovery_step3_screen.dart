@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../blocs/recovery/recovery_cubit.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import '../../widgets/auth_header.dart';
 import '../../widgets/custom_text_field.dart';
@@ -29,6 +31,16 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
     final pass = _passController.text;
     final confirm = _confirmPassController.text;
     return pass.isNotEmpty && pass == confirm && pass.length >= 8;
+  }
+
+  String? _confirmPassError() {
+    final pass = _passController.text;
+    final confirm = _confirmPassController.text;
+    if (confirm.isEmpty) return null;
+    if (confirm != pass) {
+      return 'Mật khẩu nhập lại không khớp';
+    }
+    return null;
   }
 
   Widget _buildChecklistItem(String part1, String part2) {
@@ -113,10 +125,10 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
                       errorBuilder: (context, error, stackTrace) => const Icon(Icons.security, color: AppColors.primary, size: 18),
                     ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Đã xác minh OTP SMS đến 0912 ••• 678. Bạn có thể đặt lại mật khẩu.',
-                        style: TextStyle(fontSize: 12, color: AppColors.primary, height: 1.4),
+                        'Đã xác minh OTP đến email ${context.read<RecoveryCubit>().currentEmail}. Bạn có thể đặt lại mật khẩu.',
+                        style: const TextStyle(fontSize: 12, color: AppColors.primary, height: 1.4),
                       ),
                     ),
                   ],
@@ -165,6 +177,7 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
                 label: 'Nhập lại mật khẩu mới',
                 hintText: '••••••••••••',
                 isPassword: !_isConfirmVisible,
+                errorText: _confirmPassError(),
                 onChanged: (_) => setState(() {}),
                 suffixIcon: IconButton(
                   icon: Image.asset(
@@ -184,25 +197,84 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Text('✓', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.subText)),
+                  Text(
+                    '✓',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: (_passController.text.isNotEmpty &&
+                              _confirmPassController.text.isNotEmpty &&
+                              _passController.text == _confirmPassController.text)
+                          ? AppColors.primary
+                          : AppColors.subText,
+                    ),
+                  ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'Mật khẩu nhập lại trùng khớp.',
-                    style: TextStyle(fontSize: 11, color: AppColors.subText),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: (_passController.text.isNotEmpty &&
+                              _confirmPassController.text.isNotEmpty &&
+                              _passController.text == _confirmPassController.text)
+                          ? AppColors.primary
+                          : AppColors.subText,
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 32),
               
               // Button
-              PrimaryButton(
-                text: 'Lưu mật khẩu mới',
-                iconPath: 'assets/icons/ic_check.png',
-                isDisabled: !_isValid(),
-                onPressed: () {
-                  // TODO: Gọi logic API đổi mật khẩu
-                  // Sau khi xong đưa về trang đăng nhập
-                  context.go('/login');
+              BlocConsumer<RecoveryCubit, RecoveryState>(
+                listener: (context, state) {
+                  if (state is RecoverySuccess) {
+                    context.go('/recovery/success', extra: context.read<RecoveryCubit>());
+                  }
+                },
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      if (state is RecoveryFailure) ...[
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFEEFEF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/icons/ic_info.png',
+                                width: 18,
+                                height: 18,
+                                color: const Color(0xFFC94A4A),
+                                errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  state.error,
+                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                      PrimaryButton(
+                        text: 'Lưu mật khẩu mới',
+                        iconPath: 'assets/icons/ic_check.png',
+                        isLoading: state is RecoveryLoading,
+                        isDisabled: !_isValid(),
+                        onPressed: () {
+                          context.read<RecoveryCubit>().resetPassword(_passController.text);
+                        },
+                      ),
+                    ],
+                  );
                 },
               ),
               const SizedBox(height: 32),

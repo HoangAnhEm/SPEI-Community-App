@@ -8,7 +8,10 @@ import '../../presentation/screens/auth/register_step1_screen.dart';
 import '../../presentation/screens/auth/register_step2_screen.dart';
 import '../../presentation/screens/auth/register_step3_screen.dart';
 import '../../presentation/screens/auth/recovery_step1_screen.dart';
+import '../../presentation/screens/auth/recovery_step2_screen.dart';
 import '../../presentation/screens/auth/recovery_step3_screen.dart';
+import '../../presentation/screens/auth/recovery_success_screen.dart';
+import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/screens/main/main_layout_screen.dart';
 import '../../presentation/screens/electricity/input_electricity_screen.dart';
 import '../../presentation/screens/electricity/electricity_result_screen.dart';
@@ -123,8 +126,37 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => const RecoveryStep1Screen(),
         ),
         GoRoute(
+          path: 'step2',
+          builder: (context, state) {
+            final cubit = state.extra as RecoveryCubit;
+            return BlocProvider.value(
+              value: cubit,
+              child: const RecoveryStep2Screen(),
+            );
+          },
+        ),
+        GoRoute(
           path: 'step3',
-          builder: (context, state) => const RecoveryStep3Screen(),
+          builder: (context, state) {
+            final cubit = state.extra as RecoveryCubit;
+            return BlocProvider.value(
+              value: cubit,
+              child: const RecoveryStep3Screen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'success',
+          builder: (context, state) {
+            final cubit = state.extra as RecoveryCubit?;
+            if (cubit != null) {
+              return BlocProvider.value(
+                value: cubit,
+                child: const RecoverySuccessScreen(),
+              );
+            }
+            return const RecoverySuccessScreen();
+          },
         ),
       ],
     ),

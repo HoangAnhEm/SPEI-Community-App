@@ -53,35 +53,36 @@ class AuthHeader extends StatelessWidget {
             ),
           ],
         ),
-        if (showBackButton)
+        if (showBackButton || stepText != null)
           const SizedBox(height: 24),
         // Back Button & Step Text
-        if (showBackButton)
+        if (showBackButton || stepText != null)
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: showBackButton ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
             children: [
-              InkWell(
-                onTap: () => context.pop(),
-                borderRadius: BorderRadius.circular(24),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey.shade200),
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/icons/ic_back.png',
-                      width: 20,
-                      height: 20,
-                      color: AppColors.primary,
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.arrow_back, color: AppColors.primary, size: 20), // Fallback tạm
+              if (showBackButton)
+                InkWell(
+                  onTap: () => context.pop(),
+                  borderRadius: BorderRadius.circular(24),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.shade200),
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/icons/ic_back.png',
+                        width: 20,
+                        height: 20,
+                        color: AppColors.primary,
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.arrow_back, color: AppColors.primary, size: 20), // Fallback tạm
+                      ),
                     ),
                   ),
                 ),
-              ),
               if (stepText != null)
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

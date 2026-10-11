@@ -5,14 +5,30 @@ import '../../widgets/auth_header.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/primary_button.dart';
 
-class RecoveryStep1Screen extends StatefulWidget {
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../config/di/di.dart';
+import '../../blocs/recovery/recovery_cubit.dart';
+
+class RecoveryStep1Screen extends StatelessWidget {
   const RecoveryStep1Screen({super.key});
 
   @override
-  State<RecoveryStep1Screen> createState() => _RecoveryStep1ScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<RecoveryCubit>(),
+      child: const _RecoveryStep1View(),
+    );
+  }
 }
 
-class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
+class _RecoveryStep1View extends StatefulWidget {
+  const _RecoveryStep1View();
+
+  @override
+  State<_RecoveryStep1View> createState() => _RecoveryStep1ViewState();
+}
+
+class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
   final TextEditingController _inputController = TextEditingController();
 
   @override
@@ -22,7 +38,7 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
   }
 
   bool _isValid() {
-    return _inputController.text.trim().isNotEmpty;
+    return _inputController.text.trim().isNotEmpty && _inputController.text.contains('@');
   }
 
   @override
@@ -51,7 +67,7 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
               ),
               const SizedBox(height: 12),
               const Text(
-                'Nhập email hoặc số điện thoại đã đăng ký. Mình sẽ giúp bạn trở lại với cả nhà.',
+                'Nhập email đã đăng ký để nhận mã OTP khôi phục mật khẩu.',
                 style: TextStyle(
                   fontSize: 14,
                   height: 1.5,
@@ -63,17 +79,17 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
               // Input Field
               CustomTextField(
                 controller: _inputController,
-                label: 'Email hoặc số điện thoại',
-                hintText: '0912 345 678',
+                label: 'Email đã đăng ký',
+                hintText: 'ngocanh@spei.vn',
                 onChanged: (_) => setState(() {}),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Image.asset(
-                    'assets/icons/ic_phone.png',
+                    'assets/icons/ic_mail.png',
                     width: 20,
                     height: 20,
                     color: AppColors.primary,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.phone, color: AppColors.primary, size: 20),
+                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.mail, color: AppColors.primary, size: 20),
                   ),
                 ),
               ),
@@ -109,21 +125,21 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'SMS đến số điện thoại',
+                          const Text(
+                            'Email đã đăng ký',
                             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkText),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
-                            '0912 ••• 678 • Đã xác thực',
-                            style: TextStyle(fontSize: 12, color: AppColors.subText),
+                            '${_inputController.text.isEmpty ? 'ngocanh@spei.vn' : _inputController.text} • Đã xác thực',
+                            style: const TextStyle(fontSize: 12, color: AppColors.subText),
                           ),
-                          SizedBox(height: 12),
-                          Text(
+                          const SizedBox(height: 12),
+                          const Text(
                             'Kênh đang chọn',
                             style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary),
                           ),
@@ -155,7 +171,7 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
                     const SizedBox(width: 12),
                     const Expanded(
                       child: Text(
-                        'Nhập số điện thoại: nhận OTP qua SMS. Nhập email: chỉ nhận OTP qua email đã xác thực; nếu chưa xác thực, hãy dùng số điện thoại liên kết.',
+                        'Mã OTP chỉ được gửi đến email đã đăng ký. Kiểm tra hộp thư đến và thư rác nếu chưa nhận được mã.',
                         style: TextStyle(fontSize: 12, color: Color(0xFF2A6C91), height: 1.4),
                       ),
                     ),
@@ -165,12 +181,55 @@ class _RecoveryStep1ScreenState extends State<RecoveryStep1Screen> {
               const SizedBox(height: 22),
               
               // Button
-              PrimaryButton(
-                text: 'Gửi OTP khôi phục',
-                iconPath: 'assets/icons/ic_arrow_right.png',
-                isDisabled: !_isValid(),
-                onPressed: () {
-                  context.push('/recovery/step3');
+              BlocConsumer<RecoveryCubit, RecoveryState>(
+                listener: (context, state) {
+                  if (state is RecoveryOtpRequested) {
+                    context.push('/recovery/step2', extra: context.read<RecoveryCubit>());
+                  }
+                },
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      if (state is RecoveryFailure) ...[
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFEEFEF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'assets/icons/ic_info.png',
+                                width: 18,
+                                height: 18,
+                                color: const Color(0xFFC94A4A),
+                                errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  state.error,
+                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                      PrimaryButton(
+                        text: 'Gửi OTP khôi phục',
+                        iconPath: 'assets/icons/ic_arrow_right.png',
+                        isLoading: state is RecoveryLoading,
+                        isDisabled: !_isValid(),
+                        onPressed: () {
+                          context.read<RecoveryCubit>().requestRecoveryOtp(_inputController.text.trim());
+                        },
+                      ),
+                    ],
+                  );
                 },
               ),
               const SizedBox(height: 22),
