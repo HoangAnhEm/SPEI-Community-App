@@ -318,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Tính phát thải',
           'Từ điện sử dụng',
           onTap: () {
-            context.push('/input-electricity');
+            context.push('/emission/history');
           },
         ),
         _buildGridItem(
@@ -591,7 +591,7 @@ class _EmissionSummaryCardState extends State<_EmissionSummaryCard> {
     return InkWell(
       onTap: () {
         if (hasHousehold) {
-          context.push('/input-electricity');
+          context.push('/emission/history');
         } else {
           context.push('/family/create');
         }

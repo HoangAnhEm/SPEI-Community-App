@@ -13,8 +13,11 @@ import '../../presentation/screens/auth/recovery_step3_screen.dart';
 import '../../presentation/screens/auth/recovery_success_screen.dart';
 import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/screens/main/main_layout_screen.dart';
-import '../../presentation/screens/electricity/input_electricity_screen.dart';
-import '../../presentation/screens/electricity/electricity_result_screen.dart';
+import '../../presentation/screens/emission/family_emission_history_screen.dart';
+import '../../presentation/screens/emission/emission_data_entry_screen.dart';
+import '../../presentation/screens/emission/emission_record_detail_screen.dart';
+import '../../presentation/screens/emission/emission_record_edit_screen.dart';
+import '../../domain/entities/household_emission.dart';
 import '../../presentation/screens/reward/reward_screen.dart';
 import '../../presentation/screens/reward/reward_store_screen.dart';
 import '../../presentation/screens/reward/reward_detail_screen.dart';
@@ -301,12 +304,43 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/input-electricity',
-      builder: (context, state) => const InputElectricityScreen(),
+      path: '/emission/history',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return FamilyEmissionHistoryScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
+        );
+      },
     ),
     GoRoute(
-      path: '/electricity-result',
-      builder: (context, state) => const ElectricityResultScreen(),
+      path: '/emission/entry',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return EmissionDataEntryScreen(
+          year: extra?['year'] as int?,
+          month: extra?['month'] as int?,
+          initialCategory: extra?['category'] as String?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/record-detail',
+      builder: (context, state) {
+        final record = state.extra as HouseholdEmission?;
+        return EmissionRecordDetailScreen(record: record);
+      },
+    ),
+    GoRoute(
+      path: '/emission/record-edit',
+      builder: (context, state) {
+        final record = state.extra as HouseholdEmission?;
+        return EmissionRecordEditScreen(record: record);
+      },
+    ),
+    GoRoute(
+      path: '/input-electricity',
+      builder: (context, state) => const FamilyEmissionHistoryScreen(),
     ),
     GoRoute(
       path: '/reward',
