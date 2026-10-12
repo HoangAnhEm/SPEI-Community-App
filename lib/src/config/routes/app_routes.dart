@@ -346,50 +346,80 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/emission/input/electricity',
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
+        final extra = state.extra is Map<String, dynamic>
+            ? state.extra as Map<String, dynamic>
+            : null;
+        final editRecord = state.extra is HouseholdEmission
+            ? state.extra as HouseholdEmission
+            : extra?['editRecord'] as HouseholdEmission?;
         return InputElectricityEmissionScreen(
-          initialYear: extra?['year'] as int?,
-          initialMonth: extra?['month'] as int?,
+          initialYear: editRecord?.periodYear ?? extra?['year'] as int?,
+          initialMonth: editRecord?.periodMonth ?? extra?['month'] as int?,
+          editRecord: editRecord,
         );
       },
     ),
     GoRoute(
       path: '/emission/input/transportation',
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
+        final extra = state.extra is Map<String, dynamic>
+            ? state.extra as Map<String, dynamic>
+            : null;
+        final editRecord = state.extra is HouseholdEmission
+            ? state.extra as HouseholdEmission
+            : extra?['editRecord'] as HouseholdEmission?;
         return InputTransportationEmissionScreen(
-          initialYear: extra?['year'] as int?,
-          initialMonth: extra?['month'] as int?,
+          initialYear: editRecord?.periodYear ?? extra?['year'] as int?,
+          initialMonth: editRecord?.periodMonth ?? extra?['month'] as int?,
+          editRecord: editRecord,
         );
       },
     ),
     GoRoute(
       path: '/emission/input/gas',
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
+        final extra = state.extra is Map<String, dynamic>
+            ? state.extra as Map<String, dynamic>
+            : null;
+        final editRecord = state.extra is HouseholdEmission
+            ? state.extra as HouseholdEmission
+            : extra?['editRecord'] as HouseholdEmission?;
         return InputGasEmissionScreen(
-          initialYear: extra?['year'] as int?,
-          initialMonth: extra?['month'] as int?,
+          initialYear: editRecord?.periodYear ?? extra?['year'] as int?,
+          initialMonth: editRecord?.periodMonth ?? extra?['month'] as int?,
+          editRecord: editRecord,
         );
       },
     ),
     GoRoute(
       path: '/emission/input/refrigerant',
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
+        final extra = state.extra is Map<String, dynamic>
+            ? state.extra as Map<String, dynamic>
+            : null;
+        final editRecord = state.extra is HouseholdEmission
+            ? state.extra as HouseholdEmission
+            : extra?['editRecord'] as HouseholdEmission?;
         return InputRefrigerantEmissionScreen(
-          initialYear: extra?['year'] as int?,
-          initialMonth: extra?['month'] as int?,
+          initialYear: editRecord?.periodYear ?? extra?['year'] as int?,
+          initialMonth: editRecord?.periodMonth ?? extra?['month'] as int?,
+          editRecord: editRecord,
         );
       },
     ),
     GoRoute(
       path: '/emission/input/waste',
       builder: (context, state) {
-        final extra = state.extra as Map<String, dynamic>?;
+        final extra = state.extra is Map<String, dynamic>
+            ? state.extra as Map<String, dynamic>
+            : null;
+        final editRecord = state.extra is HouseholdEmission
+            ? state.extra as HouseholdEmission
+            : extra?['editRecord'] as HouseholdEmission?;
         return InputWasteEmissionScreen(
-          initialYear: extra?['year'] as int?,
-          initialMonth: extra?['month'] as int?,
+          initialYear: editRecord?.periodYear ?? extra?['year'] as int?,
+          initialMonth: editRecord?.periodMonth ?? extra?['month'] as int?,
+          editRecord: editRecord,
         );
       },
     ),

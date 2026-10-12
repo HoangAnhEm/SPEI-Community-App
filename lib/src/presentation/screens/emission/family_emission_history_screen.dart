@@ -1106,7 +1106,7 @@ class _FamilyEmissionHistoryScreenState
               ),
               InkWell(
                 onTap: () {
-                  context.push('/emission/record-edit', extra: record);
+                  _navigateToEditEmission(context, record);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
@@ -1125,6 +1125,34 @@ class _FamilyEmissionHistoryScreenState
         ],
       ),
     );
+  }
+
+  void _navigateToEditEmission(BuildContext context, HouseholdEmission record) {
+    final extra = {
+      'editRecord': record,
+      'year': record.periodYear,
+      'month': record.periodMonth,
+    };
+    switch (record.category) {
+      case 'electricity':
+        context.push('/emission/input/electricity', extra: extra);
+        break;
+      case 'transportation':
+        context.push('/emission/input/transportation', extra: extra);
+        break;
+      case 'gas':
+        context.push('/emission/input/gas', extra: extra);
+        break;
+      case 'refrigerant':
+        context.push('/emission/input/refrigerant', extra: extra);
+        break;
+      case 'waste':
+        context.push('/emission/input/waste', extra: extra);
+        break;
+      default:
+        context.push('/emission/input/electricity', extra: extra);
+        break;
+    }
   }
 
   /// 8. Section: Item tháng trước (chạm để chuyển nhanh sang tháng trước)

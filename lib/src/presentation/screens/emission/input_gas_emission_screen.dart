@@ -3,17 +3,20 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
+import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Gas nhà mình (gồm 2 cách: Từ bình & phần dùng, Nhập kg thực tế)
 class InputGasEmissionScreen extends StatefulWidget {
   final int? initialYear;
   final int? initialMonth;
+  final HouseholdEmission? editRecord;
 
   const InputGasEmissionScreen({
     super.key,
     this.initialYear,
     this.initialMonth,
+    this.editRecord,
   });
 
   @override
@@ -44,8 +47,29 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedYear = widget.initialYear ?? now.year;
-    _selectedMonth = widget.initialMonth ?? now.month;
+    _selectedYear =
+        widget.editRecord?.periodYear ?? widget.initialYear ?? now.year;
+    _selectedMonth =
+        widget.editRecord?.periodMonth ?? widget.initialMonth ?? now.month;
+
+    if (widget.editRecord != null) {
+      final rec = widget.editRecord!;
+      final details = rec.details;
+      _sourceNameController.text =
+          details.sourceLabel?.isNotEmpty == true
+              ? details.sourceLabel!
+              : 'Bếp gia đình';
+      _gasInputMode = 0; // Chuyển sang chế độ nhập kg thực tế
+      final weight = details is GasDetails
+          ? details.weightKg
+          : ((details.raw['weight_kg'] as num?)?.toDouble() ??
+              (details.raw['input_value'] as num?)?.toDouble());
+      if (weight != null) {
+        _directKgController.text = weight == weight.roundToDouble()
+            ? weight.toInt().toString()
+            : weight.toString().replaceAll('.', ',');
+      }
+    }
 
     _cylinderWeightController.addListener(_onCalculatedChanged);
     _percentUsedController.addListener(_onCalculatedChanged);
@@ -139,6 +163,8 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
           MapEntry('Tỷ lệ bình đã dùng', '${_percentUsedController.text.trim()}% bình ${_cylinderWeightController.text.trim()} kg'),
       ],
       payload: payload,
+      isEdit: widget.editRecord != null,
+      editingEmissionId: widget.editRecord?.id,
     );
 
     context.push('/emission/preview', extra: args);

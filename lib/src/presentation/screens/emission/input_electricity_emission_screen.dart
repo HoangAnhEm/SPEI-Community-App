@@ -3,17 +3,20 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
+import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Điện gia đình (gồm 2 chế độ: Số điện kWh & Tiền điện VNĐ)
 class InputElectricityEmissionScreen extends StatefulWidget {
   final int? initialYear;
   final int? initialMonth;
+  final HouseholdEmission? editRecord;
 
   const InputElectricityEmissionScreen({
     super.key,
     this.initialYear,
     this.initialMonth,
+    this.editRecord,
   });
 
   @override
@@ -59,8 +62,42 @@ class _InputElectricityEmissionScreenState
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedYear = widget.initialYear ?? now.year;
-    _selectedMonth = widget.initialMonth ?? now.month;
+    _selectedYear =
+        widget.editRecord?.periodYear ?? widget.initialYear ?? now.year;
+    _selectedMonth =
+        widget.editRecord?.periodMonth ?? widget.initialMonth ?? now.month;
+
+    if (widget.editRecord != null) {
+      final details = widget.editRecord!.details;
+      final inputType = details is ElectricityDetails
+          ? details.inputType
+          : (details.raw['input_type'] as String? ?? 'kwh');
+      final inputValue = details is ElectricityDetails
+          ? details.inputValue
+          : (details.raw['input_value'] as num?)?.toDouble();
+
+      if (inputType == 'money_vnd') {
+        _selectedTabIndex = 1;
+        _sourceNameVndController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Điện nhà chính';
+        if (inputValue != null) {
+          _totalPaymentController.text = _formatVnd(inputValue.toInt());
+        }
+      } else {
+        _selectedTabIndex = 0;
+        _sourceNameKwhController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Điện nhà chính';
+        if (inputValue != null) {
+          _kwhController.text = inputValue == inputValue.roundToDouble()
+              ? inputValue.toInt().toString()
+              : inputValue.toString().replaceAll('.', ',');
+        }
+      }
+    }
 
     _totalPaymentController.addListener(_onPaymentChanged);
     _taxFeeController.addListener(_onPaymentChanged);
@@ -145,6 +182,8 @@ class _InputElectricityEmissionScreenState
           MapEntry('Lượng ghi nhận', '${_kwhController.text.trim()} kWh'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);
@@ -180,6 +219,8 @@ class _InputElectricityEmissionScreenState
           const MapEntry('Cách quy đổi', 'Theo biểu giá bậc thang điện sinh hoạt'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);

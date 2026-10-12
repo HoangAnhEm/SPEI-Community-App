@@ -3,17 +3,20 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
+import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Môi chất làm lạnh (gồm 2 chế độ: Tủ lạnh & Điều hòa)
 class InputRefrigerantEmissionScreen extends StatefulWidget {
   final int? initialYear;
   final int? initialMonth;
+  final HouseholdEmission? editRecord;
 
   const InputRefrigerantEmissionScreen({
     super.key,
     this.initialYear,
     this.initialMonth,
+    this.editRecord,
   });
 
   @override
@@ -45,8 +48,46 @@ class _InputRefrigerantEmissionScreenState
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedYear = widget.initialYear ?? now.year;
-    _selectedMonth = widget.initialMonth ?? now.month;
+    _selectedYear =
+        widget.editRecord?.periodYear ?? widget.initialYear ?? now.year;
+    _selectedMonth =
+        widget.editRecord?.periodMonth ?? widget.initialMonth ?? now.month;
+
+    if (widget.editRecord != null) {
+      final rec = widget.editRecord!;
+      final details = rec.details;
+      final qty = details is RefrigerantDetails
+          ? details.quantity
+          : ((details.raw['quantity'] as num?)?.toDouble() ??
+              (details.raw['input_value'] as num?)?.toDouble());
+      final refType = details is RefrigerantDetails
+          ? details.refrigerantType
+          : (details.raw['refrigerant_type'] as String?);
+      final qtyStr = qty != null
+          ? (qty == qty.roundToDouble()
+              ? qty.toInt().toString()
+              : qty.toString().replaceAll('.', ','))
+          : '';
+      if (rec.subCategory == 'air_conditioner' || refType == 'R600a') {
+        _selectedTabIndex = 1;
+        _acSourceController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Điều hòa phòng ngủ';
+        if (qtyStr.isNotEmpty) {
+          _acKgController.text = qtyStr;
+        }
+      } else {
+        _selectedTabIndex = 0;
+        _fridgeSourceController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Tủ lạnh phòng bếp';
+        if (qtyStr.isNotEmpty) {
+          _fridgeKgController.text = qtyStr;
+        }
+      }
+    }
 
     _fridgeKgController.addListener(_onInputChanged);
     _acKgController.addListener(_onInputChanged);
@@ -117,6 +158,8 @@ class _InputRefrigerantEmissionScreenState
           MapEntry('Lượng rò rỉ / bổ sung', '${_fridgeKgController.text.trim()} kg'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);
@@ -154,6 +197,8 @@ class _InputRefrigerantEmissionScreenState
           MapEntry('Lượng rò rỉ / bổ sung', '${_acKgController.text.trim()} kg'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);

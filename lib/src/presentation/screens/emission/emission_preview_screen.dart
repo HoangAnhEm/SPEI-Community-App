@@ -20,6 +20,8 @@ class EmissionPreviewArgs {
   final String inputMethodLabel;
   final List<MapEntry<String, String>> displayFields;
   final EmissionPayload payload;
+  final bool isEdit;
+  final String? editingEmissionId;
 
   const EmissionPreviewArgs({
     required this.year,
@@ -31,6 +33,8 @@ class EmissionPreviewArgs {
     required this.inputMethodLabel,
     required this.displayFields,
     required this.payload,
+    this.isEdit = false,
+    this.editingEmissionId,
   });
 }
 
@@ -150,13 +154,24 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
 
     try {
       final repo = getIt<EmissionRepository>();
-      await repo.recordHouseholdEmission(
-        RecordHouseholdEmissionRequest(
-          periodYear: widget.args.year,
-          periodMonth: widget.args.month,
-          payload: widget.args.payload,
-        ),
-      );
+      if (widget.args.isEdit && widget.args.editingEmissionId != null) {
+        await repo.updateHouseholdEmission(
+          emissionId: widget.args.editingEmissionId!,
+          request: UpdateHouseholdEmissionRequest(
+            periodYear: widget.args.year,
+            periodMonth: widget.args.month,
+            payload: widget.args.payload,
+          ),
+        );
+      } else {
+        await repo.recordHouseholdEmission(
+          RecordHouseholdEmissionRequest(
+            periodYear: widget.args.year,
+            periodMonth: widget.args.month,
+            payload: widget.args.payload,
+          ),
+        );
+      }
 
       // Cập nhật lại lịch sử phát thải ở nền
       try {
@@ -171,13 +186,17 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       // Chuyển sang màn hình thành công dùng chung
       final monthStr = widget.args.month.toString().padLeft(2, '0');
       final successArgs = CustomSuccessArgs(
-        title: 'Ghi nhận phát thải thành công!',
-        subtitle:
-            'Dữ liệu phát thải ${widget.args.categoryTitle} tháng $monthStr/${widget.args.year} của gia đình bạn đã được ghi nhận vào hệ thống.',
+        title: widget.args.isEdit
+            ? 'Cập nhật bản ghi thành công!'
+            : 'Ghi nhận phát thải thành công!',
+        subtitle: widget.args.isEdit
+            ? 'Bản ghi phát thải ${widget.args.categoryTitle} tháng $monthStr/${widget.args.year} đã được cập nhật thành công.'
+            : 'Dữ liệu phát thải ${widget.args.categoryTitle} tháng $monthStr/${widget.args.year} của gia đình bạn đã được ghi nhận vào hệ thống.',
         cardTag: 'Phát thải gia đình',
         cardHighlightText: '$_co2eKgFormatted kg CO₂e',
-        cardDescription:
-            'Bản ghi đã được lưu vào hệ thống để theo dõi và tính điểm mầm xanh.',
+        cardDescription: widget.args.isEdit
+            ? 'Dữ liệu phát thải mới đã được đồng bộ vào hệ thống.'
+            : 'Bản ghi đã được lưu vào hệ thống để theo dõi và tính điểm mầm xanh.',
         buttonText: 'Về phát thải gia đình',
         onButtonPressedWithContext: (ctx) {
           ctx.go('/emission/history', extra: {
@@ -720,9 +739,11 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                   color: Colors.white,
                 ),
               )
-            : const Text(
-                'Xác nhận lưu dữ liệu tháng',
-                style: TextStyle(
+            : Text(
+                widget.args.isEdit
+                    ? 'Xác nhận cập nhật bản ghi'
+                    : 'Xác nhận lưu dữ liệu tháng',
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

@@ -3,17 +3,20 @@ import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
+import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Phương tiện (gồm 2 chế độ: Xe xăng & Xe điện)
 class InputTransportationEmissionScreen extends StatefulWidget {
   final int? initialYear;
   final int? initialMonth;
+  final HouseholdEmission? editRecord;
 
   const InputTransportationEmissionScreen({
     super.key,
     this.initialYear,
     this.initialMonth,
+    this.editRecord,
   });
 
   @override
@@ -45,8 +48,45 @@ class _InputTransportationEmissionScreenState
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedYear = widget.initialYear ?? now.year;
-    _selectedMonth = widget.initialMonth ?? now.month;
+    _selectedYear =
+        widget.editRecord?.periodYear ?? widget.initialYear ?? now.year;
+    _selectedMonth =
+        widget.editRecord?.periodMonth ?? widget.initialMonth ?? now.month;
+
+    if (widget.editRecord != null) {
+      final rec = widget.editRecord!;
+      final details = rec.details;
+      final inputType = details is TransportationDetails
+          ? details.inputType
+          : (details.raw['input_type'] as String? ?? '');
+      final inputValue = details is TransportationDetails
+          ? details.inputValue
+          : (details.raw['input_value'] as num?)?.toDouble();
+
+      if (rec.subCategory == 'electric_bike' || inputType == 'kwh') {
+        _selectedTabIndex = 1;
+        _evSourceController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Xe của con';
+        if (inputValue != null) {
+          _evKwhController.text = inputValue == inputValue.roundToDouble()
+              ? inputValue.toInt().toString()
+              : inputValue.toString().replaceAll('.', ',');
+        }
+      } else {
+        _selectedTabIndex = 0;
+        _gasolineSourceController.text =
+            details.sourceLabel?.isNotEmpty == true
+                ? details.sourceLabel!
+                : 'Xe của bố';
+        if (inputValue != null) {
+          _gasolineLitersController.text = inputValue == inputValue.roundToDouble()
+              ? inputValue.toInt().toString()
+              : inputValue.toString().replaceAll('.', ',');
+        }
+      }
+    }
 
     _gasolineLitersController.addListener(_onInputChanged);
     _evKwhController.addListener(_onInputChanged);
@@ -125,6 +165,8 @@ class _InputTransportationEmissionScreenState
           MapEntry('Lượng xăng tiêu thụ', '${_gasolineLitersController.text.trim()} lít'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);
@@ -158,6 +200,8 @@ class _InputTransportationEmissionScreenState
           MapEntry('Điện năng sạc', '${_evKwhController.text.trim()} kWh'),
         ],
         payload: payload,
+        isEdit: widget.editRecord != null,
+        editingEmissionId: widget.editRecord?.id,
       );
 
       context.push('/emission/preview', extra: args);

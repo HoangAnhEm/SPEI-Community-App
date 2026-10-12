@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/emission_details.dart';
+import '../../../domain/entities/household_emission.dart';
 import 'widgets/emission_month_picker_sheet.dart';
 import 'emission_preview_screen.dart';
 
@@ -9,11 +10,13 @@ import 'emission_preview_screen.dart';
 class InputWasteEmissionScreen extends StatefulWidget {
   final int? initialYear;
   final int? initialMonth;
+  final HouseholdEmission? editRecord;
 
   const InputWasteEmissionScreen({
     super.key,
     this.initialYear,
     this.initialMonth,
+    this.editRecord,
   });
 
   @override
@@ -38,11 +41,54 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedYear = widget.initialYear ?? now.year;
-    _selectedMonth = widget.initialMonth ?? now.month;
+    _selectedYear =
+        widget.editRecord?.periodYear ?? widget.initialYear ?? now.year;
+    _selectedMonth =
+        widget.editRecord?.periodMonth ?? widget.initialMonth ?? now.month;
 
-    // Mặc định chọn Chất thải rắn sinh hoạt
-    _selectedWasteType = WasteTypeItem.all.first;
+    if (widget.editRecord != null) {
+      final rec = widget.editRecord!;
+      final details = rec.details;
+      _sourceNameController.text = details.sourceLabel ?? '';
+
+      final wasteCode = details is WasteDetails
+          ? details.wasteCode
+          : (details.raw['waste_code'] as String?);
+      final wasteTypeName = details is WasteDetails
+          ? details.wasteTypeName
+          : (details.raw['waste_type_name'] as String?);
+
+      final match = WasteTypeItem.all.firstWhere(
+        (w) =>
+            w.key == rec.subCategory ||
+            (wasteCode != null && w.wasteCode == wasteCode) ||
+            (wasteTypeName != null && w.name == wasteTypeName),
+        orElse: () => WasteTypeItem.all.first,
+      );
+      _selectedWasteType = match;
+
+      final qty = details is WasteDetails
+          ? details.quantity
+          : ((details.raw['quantity'] as num?)?.toDouble() ??
+              (details.raw['input_value'] as num?)?.toDouble());
+      final qtyStr = qty != null
+          ? (qty == qty.roundToDouble()
+              ? qty.toInt().toString()
+              : qty.toString().replaceAll('.', ','))
+          : '';
+      if (_isWastewater) {
+        if (qtyStr.isNotEmpty) {
+          _quantityM3Controller.text = qtyStr;
+        }
+      } else {
+        if (qtyStr.isNotEmpty) {
+          _quantityKgController.text = qtyStr;
+        }
+      }
+    } else {
+      // Mặc định chọn Chất thải rắn sinh hoạt
+      _selectedWasteType = WasteTypeItem.all.first;
+    }
   }
 
   @override
@@ -129,6 +175,8 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
         ),
       ],
       payload: payload,
+      isEdit: widget.editRecord != null,
+      editingEmissionId: widget.editRecord?.id,
     );
 
     context.push('/emission/preview', extra: args);
