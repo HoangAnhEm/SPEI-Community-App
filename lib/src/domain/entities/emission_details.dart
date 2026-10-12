@@ -41,9 +41,29 @@ class EmissionCategory {
       case 'refrigerator':
         return 'Tủ lạnh';
       case 'solid_waste':
-        return 'Rác thải sinh hoạt';
+        return 'Chất thải rắn sinh hoạt';
+      case 'hazardous_printer_cartridge':
+      case 'hazardous_cartridge':
+        return 'Hộp mực in thải (08 02 04)';
+      case 'hazardous_ink':
+        return 'Mực in thải (08 02 01)';
+      case 'hazardous_metal_packaging':
+        return 'Bao bì kim loại nhiễm hại (18 01 02)';
+      case 'hazardous_fluorescent_lamp':
+        return 'Bóng đèn huỳnh quang thải (16 01 06)';
+      case 'hazardous_lead_battery':
+      case 'hazardous_battery':
+        return 'Pin, ắc quy chì thải (19 06 01)';
+      case 'hazardous_engine_oil':
+      case 'hazardous_oil':
+        return 'Dầu động cơ, bôi trơn thải (17 02 03)';
+      case 'hazardous_absorbent_material':
+      case 'hazardous_absorbent':
+        return 'Giẻ lau, vật liệu lọc nhiễm hại (18 02 01)';
+      case 'hazardous_grease':
+        return 'Các loại dầu mỡ thải (16 01 08)';
       case 'wastewater':
-        return 'Nước thải sinh hoạt';
+        return 'Nước thải KCN';
       default:
         return subCategory;
     }
@@ -236,10 +256,14 @@ class RefrigerantDetails extends EmissionDetails {
   }
 }
 
-/// 5. Chi tiết phát thải rác & nước thải (Waste)
 class WasteDetails extends EmissionDetails {
-  final String unit; // 'kg' | 'm3'
+  final String unit; // 'kg' | 'm3' | 'ton'
   final double quantity;
+  final String? wasteType;
+  final String? wasteCode;
+  final String? treatmentMethod;
+  final String? wasteTypeName;
+  final String? emissionFactorUnit;
 
   const WasteDetails({
     super.sourceLabel,
@@ -247,6 +271,11 @@ class WasteDetails extends EmissionDetails {
     super.raw,
     required this.unit,
     required this.quantity,
+    this.wasteType,
+    this.wasteCode,
+    this.treatmentMethod,
+    this.wasteTypeName,
+    this.emissionFactorUnit,
   });
 
   factory WasteDetails.fromJson(Map<String, dynamic> json) {
@@ -256,6 +285,11 @@ class WasteDetails extends EmissionDetails {
       raw: Map<String, dynamic>.from(json),
       unit: json['unit'] as String? ?? 'kg',
       quantity: (json['quantity'] as num?)?.toDouble() ?? 0.0,
+      wasteType: json['waste_type'] as String? ?? json['waste_type_key'] as String?,
+      wasteCode: json['waste_code'] as String?,
+      treatmentMethod: json['treatment_method'] as String?,
+      wasteTypeName: json['waste_type_name'] as String?,
+      emissionFactorUnit: json['emission_factor_unit'] as String?,
     );
   }
 
@@ -267,8 +301,126 @@ class WasteDetails extends EmissionDetails {
     };
     if (sourceLabel != null) map['source_label'] = sourceLabel;
     if (emissionFactor != null) map['emission_factor'] = emissionFactor;
+    if (wasteType != null) map['waste_type'] = wasteType;
+    if (wasteCode != null) map['waste_code'] = wasteCode;
+    if (treatmentMethod != null) map['treatment_method'] = treatmentMethod;
+    if (wasteTypeName != null) map['waste_type_name'] = wasteTypeName;
+    if (emissionFactorUnit != null) map['emission_factor_unit'] = emissionFactorUnit;
     return map;
   }
+}
+
+class WasteTypeItem {
+  final String key;
+  final String name;
+  final String? wasteCode;
+  final String treatmentMethod;
+  final double emissionFactor;
+  final String emissionFactorUnit;
+  final String defaultUnit;
+
+  const WasteTypeItem({
+    required this.key,
+    required this.name,
+    this.wasteCode,
+    required this.treatmentMethod,
+    required this.emissionFactor,
+    required this.emissionFactorUnit,
+    required this.defaultUnit,
+  });
+
+  static const List<WasteTypeItem> all = [
+    WasteTypeItem(
+      key: 'solid_waste',
+      name: 'Chất thải rắn sinh hoạt',
+      wasteCode: null,
+      treatmentMethod: 'Chôn lấp',
+      emissionFactor: 497.24244,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_printer_cartridge',
+      name: 'Hộp mực in thải có các thành phần nguy hại',
+      wasteCode: '08 02 04',
+      treatmentMethod: 'Thiêu đốt',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_ink',
+      name: 'Mực in thải có thành phần nguy hại',
+      wasteCode: '08 02 01',
+      treatmentMethod: 'Thiêu đốt',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_metal_packaging',
+      name: 'Bao bì cứng thải bằng kim loại nhiễm các thành phần nguy hại',
+      wasteCode: '18 01 02',
+      treatmentMethod: 'Tẩy rửa',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_fluorescent_lamp',
+      name: 'Bóng đèn huỳnh quang thải',
+      wasteCode: '16 01 06',
+      treatmentMethod: 'Nghiền, HR',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_lead_battery',
+      name: 'Pin, ắc quy chì thải',
+      wasteCode: '19 06 01',
+      treatmentMethod: 'Tẩy rửa, Tháo dỡ',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_engine_oil',
+      name: 'Dầu động cơ, hộp số và bôi trơn tổng hợp thải',
+      wasteCode: '17 02 03',
+      treatmentMethod: 'Tái chế',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_absorbent_material',
+      name: 'Chất hấp thụ, vật liệu lọc, giẻ lau, vải bảo vệ thải bị nhiễm các thành phần nguy hại',
+      wasteCode: '18 02 01',
+      treatmentMethod: 'Thiêu đốt',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'hazardous_grease',
+      name: 'Các loại dầu mỡ thải',
+      wasteCode: '16 01 08',
+      treatmentMethod: 'Thiêu đốt',
+      emissionFactor: 4.68568,
+      emissionFactorUnit: 'kg CO2e/tấn',
+      defaultUnit: 'kg',
+    ),
+    WasteTypeItem(
+      key: 'wastewater',
+      name: 'Nước thải xử lý ở hệ thống xử lý nước thải KCN',
+      wasteCode: null,
+      treatmentMethod: 'Hệ thống XL nước thải KCN',
+      emissionFactor: 0.18574,
+      emissionFactorUnit: 'kg CO2e/m3',
+      defaultUnit: 'm3',
+    ),
+  ];
 }
 
 /// Chi tiết chung dự phòng (Generic fallback cho trường hợp chưa xác định hoặc mở rộng trong tương lai)

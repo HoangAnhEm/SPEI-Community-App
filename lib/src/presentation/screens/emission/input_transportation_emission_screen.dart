@@ -39,15 +39,6 @@ class _InputTransportationEmissionScreenState
   final TextEditingController _evKwhController =
       TextEditingController(text: '30');
 
-  String _selectedEvChargingSource =
-      'Trạm sạc / nguồn điện chưa tính ở điện nhà';
-
-  final List<String> _evChargingSources = [
-    'Trạm sạc / nguồn điện chưa tính ở điện nhà',
-    'Đồng hồ sạc riêng tại nhà',
-    'Sạc tại cơ quan / điểm công cộng',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -859,54 +850,6 @@ class _InputTransportationEmissionScreenState
           const Text(
             'Nhập điện lấy từ nguồn sạc, không nhập dung lượng pin.',
             style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
-          ),
-          const SizedBox(height: 18),
-
-          // Nguồn sạc
-          const Text(
-            'Nguồn sạc',
-            style: TextStyle(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: _selectedEvChargingSource,
-                isExpanded: true,
-                icon: const Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: Color(0xFF2E7D32),
-                ),
-                items: _evChargingSources.map((source) {
-                  return DropdownMenuItem<String>(
-                    value: source,
-                    child: Text(
-                      source,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF1F2937),
-                      ),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (newVal) {
-                  if (newVal != null) {
-                    setState(() {
-                      _selectedEvChargingSource = newVal;
-                    });
-                  }
-                },
-              ),
-            ),
           ),
         ],
       ),

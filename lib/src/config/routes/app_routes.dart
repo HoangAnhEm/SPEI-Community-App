@@ -18,6 +18,10 @@ import '../../presentation/screens/emission/select_emission_type_screen.dart';
 import '../../presentation/screens/emission/input_electricity_emission_screen.dart';
 import '../../presentation/screens/emission/input_transportation_emission_screen.dart';
 import '../../presentation/screens/emission/input_gas_emission_screen.dart';
+import '../../presentation/screens/emission/input_refrigerant_emission_screen.dart';
+import '../../presentation/screens/emission/input_waste_emission_screen.dart';
+import '../../presentation/screens/emission/select_waste_type_screen.dart';
+import '../../domain/entities/emission_details.dart';
 import '../../presentation/screens/emission/emission_record_detail_screen.dart';
 import '../../presentation/screens/emission/emission_record_edit_screen.dart';
 import '../../domain/entities/household_emission.dart';
@@ -366,6 +370,33 @@ final GoRouter appRouter = GoRouter(
           initialYear: extra?['year'] as int?,
           initialMonth: extra?['month'] as int?,
         );
+      },
+    ),
+    GoRoute(
+      path: '/emission/input/refrigerant',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return InputRefrigerantEmissionScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/input/waste',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return InputWasteEmissionScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/waste/select-type',
+      builder: (context, state) {
+        final selected = state.extra as WasteTypeItem?;
+        return SelectWasteTypeScreen(initialSelected: selected);
       },
     ),
     GoRoute(

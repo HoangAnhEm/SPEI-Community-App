@@ -101,20 +101,17 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
           'month': _month,
         });
         break;
-      default:
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Biểu mẫu nhập liệu ${option.title} sẽ sớm được cập nhật.',
-            ),
-            duration: const Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        );
+      case EmissionCategory.refrigerant:
+        context.push('/emission/input/refrigerant', extra: {
+          'year': _year,
+          'month': _month,
+        });
+        break;
+      case EmissionCategory.waste:
+        context.push('/emission/input/waste', extra: {
+          'year': _year,
+          'month': _month,
+        });
         break;
     }
   }
