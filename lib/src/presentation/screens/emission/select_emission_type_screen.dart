@@ -18,14 +18,14 @@ class EmissionTypeOption {
   });
 }
 
-/// Màn hình "Chọn loại phát thải" (thay thế màn cũ ở Image 2)
+/// Màn hình "Chọn loại phát thải"
 /// Được điều hướng tới từ nút "+ Nhập dữ liệu tháng ..." tại màn Phát thải gia đình.
-class EmissionDataEntryScreen extends StatefulWidget {
+class SelectEmissionTypeScreen extends StatefulWidget {
   final int? year;
   final int? month;
   final String? initialCategory;
 
-  const EmissionDataEntryScreen({
+  const SelectEmissionTypeScreen({
     super.key,
     this.year,
     this.month,
@@ -33,12 +33,10 @@ class EmissionDataEntryScreen extends StatefulWidget {
   });
 
   @override
-  State<EmissionDataEntryScreen> createState() => _EmissionDataEntryScreenState();
+  State<SelectEmissionTypeScreen> createState() => _SelectEmissionTypeScreenState();
 }
 
-typedef SelectEmissionTypeScreen = EmissionDataEntryScreen;
-
-class _EmissionDataEntryScreenState extends State<EmissionDataEntryScreen> {
+class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
   late int _year;
   late int _month;
 
@@ -149,7 +147,7 @@ class _EmissionDataEntryScreenState extends State<EmissionDataEntryScreen> {
     );
   }
 
-  /// 1. Header chuẩn theo Thiết kế Ảnh 1
+  /// 1. Header chuẩn theo Thiết kế
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
@@ -335,14 +333,11 @@ class _EmissionDataEntryScreenState extends State<EmissionDataEntryScreen> {
 
                 const SizedBox(width: 8),
 
-                // Ký tự / chevron điều hướng bên phải theo ảnh mẫu
-                const Text(
-                  'v',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF6B7280),
-                  ),
+                // Icon chevron điều hướng bên phải (>)
+                const Icon(
+                  Icons.chevron_right,
+                  size: 22,
+                  color: Color(0xFF6B7280),
                 ),
               ],
             ),

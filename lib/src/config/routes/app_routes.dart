@@ -14,7 +14,7 @@ import '../../presentation/screens/auth/recovery_success_screen.dart';
 import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/screens/main/main_layout_screen.dart';
 import '../../presentation/screens/emission/family_emission_history_screen.dart';
-import '../../presentation/screens/emission/emission_data_entry_screen.dart';
+import '../../presentation/screens/emission/select_emission_type_screen.dart';
 import '../../presentation/screens/emission/emission_record_detail_screen.dart';
 import '../../presentation/screens/emission/emission_record_edit_screen.dart';
 import '../../domain/entities/household_emission.dart';
@@ -314,10 +314,21 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: '/emission/select-type',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return SelectEmissionTypeScreen(
+          year: extra?['year'] as int?,
+          month: extra?['month'] as int?,
+          initialCategory: extra?['category'] as String?,
+        );
+      },
+    ),
+    GoRoute(
       path: '/emission/entry',
       builder: (context, state) {
         final extra = state.extra as Map<String, dynamic>?;
-        return EmissionDataEntryScreen(
+        return SelectEmissionTypeScreen(
           year: extra?['year'] as int?,
           month: extra?['month'] as int?,
           initialCategory: extra?['category'] as String?,

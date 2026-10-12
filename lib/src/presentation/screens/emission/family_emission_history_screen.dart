@@ -1225,7 +1225,7 @@ class _FamilyEmissionHistoryScreenState
       height: 52,
       child: ElevatedButton(
         onPressed: () {
-          context.push('/emission/entry', extra: {
+          context.push('/emission/select-type', extra: {
             'year': _selectedYear,
             'month': _selectedMonth,
           });
