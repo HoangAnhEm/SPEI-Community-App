@@ -9,6 +9,7 @@ import 'src/presentation/blocs/auth/auth_event.dart';
 import 'src/presentation/blocs/household/household_cubit.dart';
 import 'src/presentation/blocs/emission/emission_cubit.dart';
 import 'src/presentation/blocs/incident/incident_cubit.dart';
+import 'src/presentation/blocs/chat/chat_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +46,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<IncidentCubit>(
           create: (context) => getIt<IncidentCubit>()..loadMyIncidents(),
+          lazy: false,
+        ),
+        BlocProvider<ChatCubit>(
+          create: (context) => getIt<ChatCubit>(),
           lazy: false,
         ),
       ],

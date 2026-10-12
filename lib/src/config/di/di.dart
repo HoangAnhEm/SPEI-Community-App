@@ -35,6 +35,7 @@ import '../../presentation/blocs/household_join_requests/household_join_requests
 import '../../presentation/blocs/invite_user/invite_user_cubit.dart';
 import '../../presentation/blocs/received_invitations/received_invitations_cubit.dart';
 import '../../presentation/blocs/my_join_requests/my_join_requests_cubit.dart';
+import '../../presentation/blocs/chat/chat_cubit.dart';
 
 import '../../presentation/blocs/auth/auth_event.dart';
 
@@ -85,6 +86,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton(() => HouseholdCubit(getIt()));
   getIt.registerLazySingleton(() => EmissionCubit(getIt()));
   getIt.registerLazySingleton(() => IncidentCubit(getIt()));
+  getIt.registerLazySingleton(() => ChatCubit(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
   getIt.registerFactory(() => RegisterCubit(getIt()));
   getIt.registerFactory(() => RecoveryCubit(getIt()));
