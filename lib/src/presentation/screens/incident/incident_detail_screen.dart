@@ -25,13 +25,6 @@ class IncidentDetailScreen extends StatefulWidget {
 }
 
 class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
-  String _formatDate(DateTime dt) {
-    final d = dt.day.toString().padLeft(2, '0');
-    final m = dt.month.toString().padLeft(2, '0');
-    final y = dt.year.toString();
-    return '$d/$m/$y';
-  }
-
   String _formatDateTime(DateTime dt) {
     final d = dt.day.toString().padLeft(2, '0');
     final m = dt.month.toString().padLeft(2, '0');
@@ -521,61 +514,90 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
     );
   }
 
-  /// Timeline bám sát 3 bước model: pending -> investigating -> resolved (hoặc rejected)
+  /// Timeline bám sát 5 bước vòng đời Backend (hoặc bước từ chối)
   Widget _buildVerticalTimeline(Incident incident) {
-    final isInvestigating = incident.status.isInvestigating;
-    final isResolved = incident.status.isResolved;
-    final isRejected = incident.status.isRejected;
-
     final createdTimeStr = _formatDateTime(incident.createdAt.toLocal());
-    final nowTimeStr = _formatDate(DateTime.now());
+    final currentStep = incident.step; // 1..5 hoặc -1 nếu rejected
+    final isRejected = incident.status.isRejected;
+    final isClosed = incident.status.isClosed;
+
+    // Định nghĩa 5 mốc tiến trình chuẩn của hệ thống
+    final stepDefs = [
+      (
+        step: 1,
+        title: 'Đã gửi',
+        desc: 'Phản ánh đã được ghi nhận trên hệ thống',
+        time: createdTimeStr,
+      ),
+      (
+        step: 2,
+        title: 'Đang kiểm tra',
+        desc: currentStep >= 2
+            ? 'Ban quản trị tiếp nhận và xác thực thông tin'
+            : 'Chờ kiểm tra thông tin',
+        time: null,
+      ),
+      (
+        step: 3,
+        title: 'Đã chuyển cơ quan chức năng',
+        desc: currentStep >= 3
+            ? 'Hồ sơ đã được chuyển tiếp đến cơ quan có thẩm quyền'
+            : 'Chờ chuyển tiếp hồ sơ',
+        time: null,
+      ),
+      (
+        step: 4,
+        title: 'Đang xử lý',
+        desc: currentStep >= 4
+            ? 'Cơ quan chức năng đang xử lý tại hiện trường'
+            : 'Chờ tiến hành xử lý',
+        time: null,
+      ),
+      (
+        step: 5,
+        title: isClosed ? 'Đóng hồ sơ' : 'Đã giải quyết',
+        desc: currentStep >= 5
+            ? (incident.adminNotes ?? 'Vấn đề vi phạm môi trường đã được giải quyết')
+            : 'Chờ kết quả giải quyết',
+        time: null,
+      ),
+    ];
 
     return Column(
       children: [
-        // Bước 1: Đã tiếp nhận (pending)
-        _buildTimelineStep(
-          title: 'Đã tiếp nhận',
-          timeSubtitle: createdTimeStr,
-          statusNote: 'Phản ánh đã được ghi nhận trên hệ thống',
-          state: TimelineState.completed,
-          isFirst: true,
-          isLast: false,
-        ),
+        for (int i = 0; i < stepDefs.length; i++) ...[
+          () {
+            final def = stepDefs[i];
+            TimelineState stepState;
+            if (isRejected) {
+              stepState = def.step == 1
+                  ? TimelineState.completed
+                  : TimelineState.future;
+            } else if (def.step < currentStep) {
+              stepState = TimelineState.completed;
+            } else if (def.step == currentStep) {
+              stepState = TimelineState.inProgress;
+            } else {
+              stepState = TimelineState.future;
+            }
 
-        // Bước 2: Đang xử lý (investigating)
-        _buildTimelineStep(
-          title: 'Đang xử lý',
-          timeSubtitle: (isInvestigating || isResolved || isRejected)
-              ? 'Ban quản trị đang phối hợp xác minh'
-              : 'Chờ phân công xử lý',
-          statusNote: (isInvestigating)
-              ? 'Đang kiểm tra hiện trường và phối hợp khắc phục'
-              : null,
-          state: (isResolved || isRejected)
-              ? TimelineState.completed
-              : (isInvestigating ? TimelineState.inProgress : TimelineState.future),
-          isFirst: false,
-          isLast: false,
-        ),
-
-        // Bước 3: Hoàn tất (resolved) HOẶC Từ chối (rejected)
+            return _buildTimelineStep(
+              title: def.title,
+              timeSubtitle: def.desc,
+              statusNote: def.time,
+              state: stepState,
+              isFirst: i == 0,
+              isLast: i == stepDefs.length - 1 && !isRejected,
+            );
+          }(),
+        ],
         if (isRejected)
           _buildTimelineStep(
             title: 'Từ chối giải quyết',
-            timeSubtitle: nowTimeStr,
-            statusNote: 'Phản ánh không hợp lệ hoặc không thuộc thẩm quyền',
+            timeSubtitle: incident.adminNotes ??
+                'Phản ánh không hợp lệ hoặc không thuộc thẩm quyền xử lý',
+            statusNote: 'Hồ sơ đã bị từ chối',
             state: TimelineState.rejected,
-            isFirst: false,
-            isLast: true,
-          )
-        else
-          _buildTimelineStep(
-            title: isResolved ? 'Hoàn tất xử lý' : 'Hoàn tất',
-            timeSubtitle: isResolved ? nowTimeStr : 'Chờ cập nhật kết quả',
-            statusNote: isResolved
-                ? 'Vấn đề vi phạm môi trường đã được xử lý xong'
-                : null,
-            state: isResolved ? TimelineState.completed : TimelineState.future,
             isFirst: false,
             isLast: true,
           ),
@@ -762,20 +784,35 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
 
   ({Color bg, Color text}) _getStatusColors(IncidentStatus status) {
     switch (status) {
-      case IncidentStatus.pending:
+      case IncidentStatus.submitted:
         return (
           bg: const Color(0xFFE8F1FD),
           text: const Color(0xFF1E60AA),
         );
-      case IncidentStatus.investigating:
+      case IncidentStatus.underReview:
         return (
           bg: const Color(0xFFFEF3E2),
           text: const Color(0xFFB45309),
+        );
+      case IncidentStatus.forwarded:
+        return (
+          bg: const Color(0xFFF3E8FF),
+          text: const Color(0xFF7E22CE),
+        );
+      case IncidentStatus.inProgress:
+        return (
+          bg: const Color(0xFFE0F2FE),
+          text: const Color(0xFF0369A1),
         );
       case IncidentStatus.resolved:
         return (
           bg: const Color(0xFFEBF5EE),
           text: const Color(0xFF2E7D32),
+        );
+      case IncidentStatus.closed:
+        return (
+          bg: const Color(0xFFF1F5F9),
+          text: const Color(0xFF475569),
         );
       case IncidentStatus.rejected:
         return (

@@ -150,33 +150,65 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                       const SizedBox(width: 8),
                       _buildFilterPill(
                         context,
-                        label: 'Chờ tiếp nhận (${state.countPending})',
-                        filterKey: IncidentStatus.pending.value,
-                        isSelected:
-                            state.selectedFilter == IncidentStatus.pending.value,
+                        label: 'Đã gửi (${state.countSubmitted})',
+                        filterKey: IncidentStatus.submitted.value,
+                        isSelected: state.selectedFilter ==
+                            IncidentStatus.submitted.value,
                         activeColor: const Color(0xFFE8F1FD),
                         textColor: const Color(0xFF1E60AA),
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
                         context,
-                        label: 'Đang xử lý (${state.countInvestigating})',
-                        filterKey: IncidentStatus.investigating.value,
+                        label: 'Đang kiểm tra (${state.countUnderReview})',
+                        filterKey: IncidentStatus.underReview.value,
                         isSelected: state.selectedFilter ==
-                            IncidentStatus.investigating.value,
+                            IncidentStatus.underReview.value,
                         activeColor: const Color(0xFFFEF3E2),
                         textColor: const Color(0xFFB45309),
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
                         context,
-                        label: 'Hoàn tất (${state.countResolved})',
+                        label: 'Đã chuyển CQCN (${state.countForwarded})',
+                        filterKey: IncidentStatus.forwarded.value,
+                        isSelected: state.selectedFilter ==
+                            IncidentStatus.forwarded.value,
+                        activeColor: const Color(0xFFF3E8FF),
+                        textColor: const Color(0xFF7E22CE),
+                      ),
+                      const SizedBox(width: 8),
+                      _buildFilterPill(
+                        context,
+                        label: 'Đang xử lý (${state.countInProgress})',
+                        filterKey: IncidentStatus.inProgress.value,
+                        isSelected: state.selectedFilter ==
+                            IncidentStatus.inProgress.value,
+                        activeColor: const Color(0xFFE0F2FE),
+                        textColor: const Color(0xFF0369A1),
+                      ),
+                      const SizedBox(width: 8),
+                      _buildFilterPill(
+                        context,
+                        label: 'Đã giải quyết (${state.countResolved})',
                         filterKey: IncidentStatus.resolved.value,
-                        isSelected:
-                            state.selectedFilter == IncidentStatus.resolved.value,
+                        isSelected: state.selectedFilter ==
+                            IncidentStatus.resolved.value,
                         activeColor: const Color(0xFFEBF5EE),
                         textColor: const Color(0xFF2E7D32),
                       ),
+                      if (state.countClosed > 0) ...[
+                        const SizedBox(width: 8),
+                        _buildFilterPill(
+                          context,
+                          label: 'Đóng hồ sơ (${state.countClosed})',
+                          filterKey: IncidentStatus.closed.value,
+                          isSelected: state.selectedFilter ==
+                              IncidentStatus.closed.value,
+                          activeColor: const Color(0xFFF1F5F9),
+                          textColor: const Color(0xFF475569),
+                        ),
+                      ],
                       if (state.countRejected > 0) ...[
                         const SizedBox(width: 8),
                         _buildFilterPill(
@@ -504,20 +536,35 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
 
   ({Color bg, Color text}) _getStatusColors(IncidentStatus status) {
     switch (status) {
-      case IncidentStatus.pending:
+      case IncidentStatus.submitted:
         return (
           bg: const Color(0xFFE8F1FD),
           text: const Color(0xFF1E60AA),
         );
-      case IncidentStatus.investigating:
+      case IncidentStatus.underReview:
         return (
           bg: const Color(0xFFFEF3E2),
           text: const Color(0xFFB45309),
+        );
+      case IncidentStatus.forwarded:
+        return (
+          bg: const Color(0xFFF3E8FF),
+          text: const Color(0xFF7E22CE),
+        );
+      case IncidentStatus.inProgress:
+        return (
+          bg: const Color(0xFFE0F2FE),
+          text: const Color(0xFF0369A1),
         );
       case IncidentStatus.resolved:
         return (
           bg: const Color(0xFFEBF5EE),
           text: const Color(0xFF2E7D32),
+        );
+      case IncidentStatus.closed:
+        return (
+          bg: const Color(0xFFF1F5F9),
+          text: const Color(0xFF475569),
         );
       case IncidentStatus.rejected:
         return (

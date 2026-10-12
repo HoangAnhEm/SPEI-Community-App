@@ -6,7 +6,7 @@ enum IncidentListStatus { initial, loading, loaded, error }
 class IncidentState extends Equatable {
   final IncidentListStatus status;
   final List<Incident> incidents;
-  final String selectedFilter; // 'all' | 'pending' | 'investigating' | 'resolved' | 'rejected'
+  final String selectedFilter; // 'all' | 'submitted' | 'under_review' | 'forwarded' | 'in_progress' | 'resolved' | 'closed' | 'rejected'
   final String? errorMessage;
   final bool isSubmitting;
   final String? submitErrorMessage;
@@ -29,9 +29,12 @@ class IncidentState extends Equatable {
   }
 
   int get countAll => incidents.length;
-  int get countPending => incidents.where((i) => i.status.isPending).length;
-  int get countInvestigating => incidents.where((i) => i.status.isInvestigating).length;
+  int get countSubmitted => incidents.where((i) => i.status.isSubmitted).length;
+  int get countUnderReview => incidents.where((i) => i.status.isUnderReview).length;
+  int get countForwarded => incidents.where((i) => i.status.isForwarded).length;
+  int get countInProgress => incidents.where((i) => i.status.isInProgress).length;
   int get countResolved => incidents.where((i) => i.status.isResolved).length;
+  int get countClosed => incidents.where((i) => i.status.isClosed).length;
   int get countRejected => incidents.where((i) => i.status.isRejected).length;
 
   IncidentState copyWith({

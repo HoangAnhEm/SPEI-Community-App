@@ -1,8 +1,12 @@
+/// 7 trạng thái vòng đời của phản ánh vi phạm môi trường theo chuẩn Backend
 enum IncidentStatus {
-  pending('pending', 'Chờ tiếp nhận'),
-  investigating('investigating', 'Đang xác minh'),
-  resolved('resolved', 'Đã xử lý'),
-  rejected('rejected', 'Đã từ chối');
+  submitted('submitted', 'Đã gửi'),
+  underReview('under_review', 'Đang kiểm tra'),
+  forwarded('forwarded', 'Đã chuyển cơ quan chức năng'),
+  inProgress('in_progress', 'Đang xử lý'),
+  resolved('resolved', 'Đã giải quyết'),
+  closed('closed', 'Đóng hồ sơ'),
+  rejected('rejected', 'Từ chối');
 
   final String value;
   final String label;
@@ -10,17 +14,81 @@ enum IncidentStatus {
   const IncidentStatus(this.value, this.label);
 
   static IncidentStatus fromString(String? value) {
-    if (value == null) return IncidentStatus.pending;
+    if (value == null) return IncidentStatus.submitted;
+    final lower = value.toLowerCase();
+    // Tương thích ngược nếu còn sót dữ liệu cũ từ cache
+    if (lower == 'pending') return IncidentStatus.submitted;
+    if (lower == 'investigating') return IncidentStatus.inProgress;
+
     return IncidentStatus.values.firstWhere(
-      (s) => s.value.toLowerCase() == value.toLowerCase(),
-      orElse: () => IncidentStatus.pending,
+      (s) => s.value.toLowerCase() == lower,
+      orElse: () => IncidentStatus.submitted,
     );
   }
 
-  bool get isPending => this == IncidentStatus.pending;
-  bool get isInvestigating => this == IncidentStatus.investigating;
+  bool get isSubmitted => this == IncidentStatus.submitted;
+  bool get isUnderReview => this == IncidentStatus.underReview;
+  bool get isForwarded => this == IncidentStatus.forwarded;
+  bool get isInProgress => this == IncidentStatus.inProgress;
   bool get isResolved => this == IncidentStatus.resolved;
+  bool get isClosed => this == IncidentStatus.closed;
   bool get isRejected => this == IncidentStatus.rejected;
+
+  /// Thứ tự bước trong quy trình milestone (1 đến 5; -1 cho từ chối)
+  int get defaultStep {
+    switch (this) {
+      case IncidentStatus.submitted:
+        return 1;
+      case IncidentStatus.underReview:
+        return 2;
+      case IncidentStatus.forwarded:
+        return 3;
+      case IncidentStatus.inProgress:
+        return 4;
+      case IncidentStatus.resolved:
+      case IncidentStatus.closed:
+        return 5;
+      case IncidentStatus.rejected:
+        return -1;
+    }
+  }
+}
+
+/// Bước tiến trình trong vòng đời xử lý phản ánh (đồng bộ từ Backend IncidentLifecycleStep)
+class IncidentLifecycleStep {
+  final int step;
+  final String code;
+  final String label;
+  final bool isCurrent;
+  final bool isCompleted;
+
+  const IncidentLifecycleStep({
+    required this.step,
+    required this.code,
+    required this.label,
+    required this.isCurrent,
+    required this.isCompleted,
+  });
+
+  factory IncidentLifecycleStep.fromJson(Map<String, dynamic> json) {
+    return IncidentLifecycleStep(
+      step: json['step'] as int? ?? 1,
+      code: json['code'] as String? ?? '',
+      label: json['label'] as String? ?? '',
+      isCurrent: json['is_current'] as bool? ?? false,
+      isCompleted: json['is_completed'] as bool? ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'step': step,
+      'code': code,
+      'label': label,
+      'is_current': isCurrent,
+      'is_completed': isCompleted,
+    };
+  }
 }
 
 /// Thông tin tệp chứng cứ đính kèm phản ánh (ảnh/video)
@@ -100,6 +168,9 @@ class Incident {
   final double longitude;
   final DateTime occurredAt;
   final IncidentStatus status;
+  final String? statusLabelRaw;
+  final int? currentStep;
+  final List<IncidentLifecycleStep> lifecycleStepper;
   final String? adminNotes;
   final DateTime createdAt;
   final List<IncidentEvidence> evidences;
@@ -114,12 +185,22 @@ class Incident {
     required this.longitude,
     required this.occurredAt,
     required this.status,
+    this.statusLabelRaw,
+    this.currentStep,
+    this.lifecycleStepper = const [],
     this.adminNotes,
     required this.createdAt,
     this.evidences = const [],
   });
 
-  String get statusLabel => status.label;
+  /// Nhãn hiển thị trạng thái (ưu tiên nhãn từ Backend gửi về)
+  String get statusLabel =>
+      (statusLabelRaw != null && statusLabelRaw!.isNotEmpty)
+          ? statusLabelRaw!
+          : status.label;
+
+  /// Bước hiện tại trong quy trình
+  int get step => currentStep ?? status.defaultStep;
 
   /// Đường dẫn hình ảnh đầu tiên để hiển thị thumbnail nếu có
   String? get primaryImageUrl {
@@ -139,6 +220,14 @@ class Incident {
             .toList()
         : <IncidentEvidence>[];
 
+    final stepperJson = json['lifecycle_stepper'] as List<dynamic>?;
+    final parsedStepper = stepperJson != null
+        ? stepperJson
+            .map((e) =>
+                IncidentLifecycleStep.fromJson(e as Map<String, dynamic>))
+            .toList()
+        : <IncidentLifecycleStep>[];
+
     return Incident(
       id: json['id'] as String? ?? '',
       reportCode: json['report_code'] as String? ?? '',
@@ -150,6 +239,9 @@ class Incident {
       occurredAt: DateTime.tryParse(json['occurred_at'] as String? ?? '') ??
           DateTime.now(),
       status: IncidentStatus.fromString(json['status'] as String?),
+      statusLabelRaw: json['status_label'] as String?,
+      currentStep: json['current_step'] as int?,
+      lifecycleStepper: parsedStepper,
       adminNotes: json['admin_notes'] as String?,
       createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ??
           DateTime.now(),
@@ -168,6 +260,9 @@ class Incident {
       'longitude': longitude,
       'occurred_at': occurredAt.toIso8601String(),
       'status': status.value,
+      'status_label': statusLabel,
+      if (currentStep != null) 'current_step': currentStep,
+      'lifecycle_stepper': lifecycleStepper.map((e) => e.toJson()).toList(),
       'admin_notes': adminNotes,
       'created_at': createdAt.toIso8601String(),
       'evidences': evidences.map((e) => e.toJson()).toList(),
@@ -184,6 +279,9 @@ class Incident {
     double? longitude,
     DateTime? occurredAt,
     IncidentStatus? status,
+    String? statusLabelRaw,
+    int? currentStep,
+    List<IncidentLifecycleStep>? lifecycleStepper,
     String? adminNotes,
     DateTime? createdAt,
     List<IncidentEvidence>? evidences,
@@ -198,6 +296,9 @@ class Incident {
       longitude: longitude ?? this.longitude,
       occurredAt: occurredAt ?? this.occurredAt,
       status: status ?? this.status,
+      statusLabelRaw: statusLabelRaw ?? this.statusLabelRaw,
+      currentStep: currentStep ?? this.currentStep,
+      lifecycleStepper: lifecycleStepper ?? this.lifecycleStepper,
       adminNotes: adminNotes ?? this.adminNotes,
       createdAt: createdAt ?? this.createdAt,
       evidences: evidences ?? this.evidences,

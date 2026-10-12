@@ -8,7 +8,7 @@ class IncidentRemoteDataSource {
 
   Dio get _dio => _apiClient.dio;
 
-  /// Lấy danh sách phản ánh (có lọc trạng thái: 'all', 'pending', 'investigating', 'resolved', 'rejected')
+  /// Lấy danh sách phản ánh (có lọc trạng thái: 'all', 'submitted', 'under_review', 'forwarded', 'in_progress', 'resolved', 'closed', 'rejected')
   Future<List<dynamic>> getIncidents({
     String status = 'all',
     int limit = 50,
