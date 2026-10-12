@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
+import '../../../domain/entities/emission_details.dart';
+import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Gas nhà mình (gồm 2 cách: Từ bình & phần dùng, Nhập kg thực tế)
 class InputGasEmissionScreen extends StatefulWidget {
@@ -99,21 +101,47 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
   }
 
   void _handleContinue() {
-    final amount = _gasInputMode == 1
-        ? '$_calculatedGasKgString kg'
-        : '${_directKgController.text} kg';
+    final weight = _gasInputMode == 1
+        ? _calculatedGasKg
+        : (double.tryParse(_directKgController.text.trim().replaceAll(',', '.')) ?? 0.0);
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Đã ghi nhận $amount gas cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.',
-        ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    if (weight <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Vui lòng nhập khối lượng gas hợp lệ (> 0 kg).')),
+      );
+      return;
+    }
+
+    final sourceName = _sourceNameController.text.trim();
+    final weightDisplay = _gasInputMode == 1 ? _calculatedGasKgString : _directKgController.text.trim();
+
+    final payload = EmissionPayload.gas(
+      subCategory: 'lpg',
+      details: GasDetails(
+        sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+        gasType: 'lpg',
+        weightKg: weight,
       ),
     );
+
+    final args = EmissionPreviewArgs(
+      year: _selectedYear,
+      month: _selectedMonth,
+      category: EmissionCategory.gas,
+      subCategory: 'lpg',
+      categoryTitle: 'Khí đốt (Gas)',
+      sourceName: sourceName.isNotEmpty ? sourceName : null,
+      inputMethodLabel: 'Gas — kg thực dùng',
+      displayFields: [
+        const MapEntry('Loại khí đốt', 'Bình gas hóa lỏng (LPG)'),
+        MapEntry('Khối lượng thực dùng', '$weightDisplay kg'),
+        if (_gasInputMode == 1)
+          MapEntry('Tỷ lệ bình đã dùng', '${_percentUsedController.text.trim()}% bình ${_cylinderWeightController.text.trim()} kg'),
+      ],
+      payload: payload,
+    );
+
+    context.push('/emission/preview', extra: args);
   }
 
   @override

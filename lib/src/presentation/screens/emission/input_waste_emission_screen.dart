@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/emission_details.dart';
 import 'widgets/emission_month_picker_sheet.dart';
+import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Chất thải & nước thải (Ảnh 3)
 class InputWasteEmissionScreen extends StatefulWidget {
@@ -84,21 +85,53 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
   }
 
   void _handleContinue() {
-    final amount = _isWastewater
-        ? '${_quantityM3Controller.text} m³'
-        : '${_quantityKgController.text} kg';
+    final quantity = _isWastewater
+        ? (double.tryParse(_quantityM3Controller.text.trim().replaceAll(',', '.')) ?? 0.0)
+        : (double.tryParse(_quantityKgController.text.trim().replaceAll(',', '.')) ?? 0.0);
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Đã ghi nhận $amount ${_selectedWasteType.name} cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.',
-        ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    final unit = _isWastewater ? 'm³' : 'kg';
+    if (quantity <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Vui lòng nhập khối lượng hoặc thể tích hợp lệ (> 0 $unit).')),
+      );
+      return;
+    }
+
+    final sourceName = _sourceNameController.text.trim();
+    final payload = EmissionPayload.waste(
+      subCategory: _selectedWasteType.key,
+      details: WasteDetails(
+        sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+        unit: _isWastewater ? 'm3' : 'kg',
+        quantity: quantity,
+        wasteType: _selectedWasteType.key,
+        wasteCode: _selectedWasteType.wasteCode,
+        treatmentMethod: _selectedWasteType.treatmentMethod,
+        wasteTypeName: _selectedWasteType.name,
+        emissionFactorUnit: _selectedWasteType.emissionFactorUnit,
       ),
     );
+
+    final args = EmissionPreviewArgs(
+      year: _selectedYear,
+      month: _selectedMonth,
+      category: EmissionCategory.waste,
+      subCategory: _selectedWasteType.key,
+      categoryTitle: 'Chất thải & nước thải',
+      sourceName: sourceName.isNotEmpty ? sourceName : null,
+      inputMethodLabel: _isWastewater ? 'Nước thải KCN (m³)' : 'Khối lượng chất thải (kg)',
+      displayFields: [
+        MapEntry('Loại chất thải', _selectedWasteType.name),
+        MapEntry('Phương pháp xử lý', _selectedWasteType.treatmentMethod),
+        MapEntry(
+          _isWastewater ? 'Lượng nước thải đã xử lý' : 'Khối lượng trong tháng',
+          '${_isWastewater ? _quantityM3Controller.text.trim() : _quantityKgController.text.trim()} $unit',
+        ),
+      ],
+      payload: payload,
+    );
+
+    context.push('/emission/preview', extra: args);
   }
 
   @override

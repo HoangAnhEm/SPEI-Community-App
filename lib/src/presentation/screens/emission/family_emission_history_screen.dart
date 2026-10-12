@@ -164,8 +164,18 @@ class _FamilyEmissionHistoryScreenState
         .where((r) => r.category == activeCategory)
         .toList();
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFFBFBF8), // Nền kem thanh nhã theo thiết kế
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go('/');
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFBFBF8), // Nền kem thanh nhã theo thiết kế
       body: SafeArea(
         child: Column(
           children: [
@@ -251,8 +261,9 @@ class _FamilyEmissionHistoryScreenState
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   /// 1. Header trên cùng: Nút quay lại, Tiêu đề, Logo hộ gia đình
   Widget _buildHeader(BuildContext context) {
@@ -262,7 +273,13 @@ class _FamilyEmissionHistoryScreenState
         children: [
           // Nút quay lại bo tròn
           InkWell(
-            onTap: () => context.pop(),
+            onTap: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/');
+              }
+            },
             borderRadius: BorderRadius.circular(24),
             child: Container(
               width: 44,

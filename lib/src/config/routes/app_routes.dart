@@ -21,6 +21,7 @@ import '../../presentation/screens/emission/input_gas_emission_screen.dart';
 import '../../presentation/screens/emission/input_refrigerant_emission_screen.dart';
 import '../../presentation/screens/emission/input_waste_emission_screen.dart';
 import '../../presentation/screens/emission/select_waste_type_screen.dart';
+import '../../presentation/screens/emission/emission_preview_screen.dart';
 import '../../domain/entities/emission_details.dart';
 import '../../presentation/screens/emission/emission_record_detail_screen.dart';
 import '../../presentation/screens/emission/emission_record_edit_screen.dart';
@@ -397,6 +398,13 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final selected = state.extra as WasteTypeItem?;
         return SelectWasteTypeScreen(initialSelected: selected);
+      },
+    ),
+    GoRoute(
+      path: '/emission/preview',
+      builder: (context, state) {
+        final args = state.extra as EmissionPreviewArgs;
+        return EmissionPreviewScreen(args: args);
       },
     ),
     GoRoute(

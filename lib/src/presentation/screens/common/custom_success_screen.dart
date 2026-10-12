@@ -15,7 +15,8 @@ class CustomSuccessArgs {
   final String buttonText;
   final IconData? buttonIcon;
   final String? buttonIconAsset;
-  final VoidCallback onButtonPressed;
+  final VoidCallback? onButtonPressed;
+  final void Function(BuildContext context)? onButtonPressedWithContext;
   final Widget? bottomWidget;
   final String? footerNote;
 
@@ -31,7 +32,8 @@ class CustomSuccessArgs {
     required this.buttonText,
     this.buttonIcon,
     this.buttonIconAsset,
-    required this.onButtonPressed,
+    this.onButtonPressed,
+    this.onButtonPressedWithContext,
     this.bottomWidget,
     this.footerNote,
   });
@@ -51,7 +53,8 @@ class CustomSuccessScreen extends StatelessWidget {
   final String buttonText;
   final IconData? buttonIcon;
   final String? buttonIconAsset;
-  final VoidCallback onButtonPressed;
+  final VoidCallback? onButtonPressed;
+  final void Function(BuildContext context)? onButtonPressedWithContext;
   final Widget? bottomWidget;
   final String? footerNote;
 
@@ -68,7 +71,8 @@ class CustomSuccessScreen extends StatelessWidget {
     required this.buttonText,
     this.buttonIcon,
     this.buttonIconAsset,
-    required this.onButtonPressed,
+    this.onButtonPressed,
+    this.onButtonPressedWithContext,
     this.bottomWidget,
     this.footerNote,
   });
@@ -91,6 +95,7 @@ class CustomSuccessScreen extends StatelessWidget {
       buttonIcon: args.buttonIcon,
       buttonIconAsset: args.buttonIconAsset,
       onButtonPressed: args.onButtonPressed,
+      onButtonPressedWithContext: args.onButtonPressedWithContext,
       bottomWidget: args.bottomWidget,
       footerNote: args.footerNote,
     );
@@ -212,7 +217,13 @@ class CustomSuccessScreen extends StatelessWidget {
                         text: buttonText,
                         iconPath: buttonIconAsset,
                         fallbackIcon: buttonIcon,
-                        onPressed: onButtonPressed,
+                        onPressed: () {
+                          if (onButtonPressedWithContext != null) {
+                            onButtonPressedWithContext!(context);
+                          } else if (onButtonPressed != null) {
+                            onButtonPressed!();
+                          }
+                        },
                       ),
 
                       // Widget mở rộng phía dưới nếu có (hình minh họa...)

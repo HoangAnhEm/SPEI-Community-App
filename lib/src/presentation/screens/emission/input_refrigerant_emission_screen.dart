@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
+import '../../../domain/entities/emission_details.dart';
+import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Môi chất làm lạnh (gồm 2 chế độ: Tủ lạnh & Điều hòa)
 class InputRefrigerantEmissionScreen extends StatefulWidget {
@@ -81,22 +83,81 @@ class _InputRefrigerantEmissionScreenState
   }
 
   void _handleContinue() {
-    final amount = _selectedTabIndex == 0
-        ? '${_fridgeKgController.text} kg'
-        : '${_acKgController.text} kg';
-    final device = _selectedTabIndex == 0 ? 'Tủ lạnh' : 'Điều hòa';
+    if (_selectedTabIndex == 0) {
+      // Tủ lạnh (R32)
+      final kg = double.tryParse(_fridgeKgController.text.trim().replaceAll(',', '.')) ?? 0.0;
+      if (kg <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vui lòng nhập lượng rò rỉ/bổ sung hợp lệ (> 0 kg).')),
+        );
+        return;
+      }
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Đã ghi nhận $amount môi chất ($device) cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.',
+      final sourceName = _fridgeSourceController.text.trim();
+      final payload = EmissionPayload.refrigerant(
+        subCategory: 'refrigerator',
+        details: RefrigerantDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          refrigerantType: 'R32',
+          quantity: kg,
         ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.refrigerant,
+        subCategory: 'refrigerator',
+        categoryTitle: 'Môi chất làm lạnh',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Tủ lạnh — R32',
+        displayFields: [
+          const MapEntry('Thiết bị', 'Tủ lạnh'),
+          const MapEntry('Môi chất giả định', 'R32'),
+          MapEntry('Lượng rò rỉ / bổ sung', '${_fridgeKgController.text.trim()} kg'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    } else {
+      // Điều hòa (R600a)
+      final kg = double.tryParse(_acKgController.text.trim().replaceAll(',', '.')) ?? 0.0;
+      if (kg <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vui lòng nhập lượng rò rỉ/bổ sung hợp lệ (> 0 kg).')),
+        );
+        return;
+      }
+
+      final sourceName = _acSourceController.text.trim();
+      final payload = EmissionPayload.refrigerant(
+        subCategory: 'air_conditioner',
+        details: RefrigerantDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          refrigerantType: 'R600a',
+          quantity: kg,
+        ),
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.refrigerant,
+        subCategory: 'air_conditioner',
+        categoryTitle: 'Môi chất làm lạnh',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Điều hòa — R600a',
+        displayFields: [
+          const MapEntry('Thiết bị', 'Điều hòa'),
+          const MapEntry('Môi chất giả định', 'R600a'),
+          MapEntry('Lượng rò rỉ / bổ sung', '${_acKgController.text.trim()} kg'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    }
   }
 
   @override

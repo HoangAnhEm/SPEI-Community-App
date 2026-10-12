@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
+import '../../../domain/entities/emission_details.dart';
+import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Điện gia đình (gồm 2 chế độ: Số điện kWh & Tiền điện VNĐ)
 class InputElectricityEmissionScreen extends StatefulWidget {
@@ -108,20 +110,80 @@ class _InputElectricityEmissionScreenState
   }
 
   void _handleContinue() {
-    // Theo yêu cầu của user: "nhấn Xác nhận lưu dữ liệu tháng thì cũng nav sang trang mới thôi, còn trang mới thì chưa cần cứ từ từ"
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _selectedTabIndex == 0
-              ? 'Đã ghi nhận ${_kwhController.text} kWh cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.'
-              : 'Đã ghi nhận tiền điện ${_totalPaymentController.text} VNĐ cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.',
+    final sourceName = _selectedTabIndex == 0
+        ? _sourceNameKwhController.text.trim()
+        : _sourceNameVndController.text.trim();
+    if (_selectedTabIndex == 0) {
+      // Số điện kWh
+      final kwhText = _kwhController.text.trim().replaceAll(',', '.');
+      final kwh = double.tryParse(kwhText) ?? 0.0;
+      if (kwh <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vui lòng nhập lượng điện tiêu thụ hợp lệ (> 0 kWh).')),
+        );
+        return;
+      }
+
+      final payload = EmissionPayload.electricity(
+        details: ElectricityDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          inputType: 'kwh',
+          inputValue: kwh,
         ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.electricity,
+        subCategory: 'grid',
+        categoryTitle: 'Điện gia đình',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Số điện (kWh)',
+        displayFields: [
+          MapEntry('Trên hóa đơn', '${_kwhController.text.trim()} kWh'),
+          MapEntry('Lượng ghi nhận', '${_kwhController.text.trim()} kWh'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    } else {
+      // Tiền điện VNĐ
+      final moneyText = _totalPaymentController.text.trim().replaceAll('.', '').replaceAll(',', '.');
+      final amount = double.tryParse(moneyText) ?? 0.0;
+      if (amount <= 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vui lòng nhập tổng tiền thanh toán hợp lệ (> 0 VNĐ).')),
+        );
+        return;
+      }
+
+      final payload = EmissionPayload.electricity(
+        details: ElectricityDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          inputType: 'money_vnd',
+          inputValue: amount,
+        ),
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.electricity,
+        subCategory: 'grid',
+        categoryTitle: 'Điện gia đình',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Tiền điện (VNĐ)',
+        displayFields: [
+          MapEntry('Tổng tiền thanh toán', '${_totalPaymentController.text.trim()} VNĐ'),
+          const MapEntry('Cách quy đổi', 'Theo biểu giá bậc thang điện sinh hoạt'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    }
   }
 
   @override

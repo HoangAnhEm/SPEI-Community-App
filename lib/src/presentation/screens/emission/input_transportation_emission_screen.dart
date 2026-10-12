@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/emission_month_picker_sheet.dart';
+import '../../../domain/entities/emission_details.dart';
+import 'emission_preview_screen.dart';
 
 /// Màn hình nhập dữ liệu phát thải Phương tiện (gồm 2 chế độ: Xe xăng & Xe điện)
 class InputTransportationEmissionScreen extends StatefulWidget {
@@ -93,26 +95,73 @@ class _InputTransportationEmissionScreenState
   }
 
   void _handleContinue() {
-    if (_selectedTabIndex == 0 && !_isGasolineValid) {
-      return;
-    }
-    if (_selectedTabIndex == 1 && !_isEvValid) {
-      return;
-    }
+    if (_selectedTabIndex == 0) {
+      if (!_isGasolineValid) return;
+      final liters = double.tryParse(
+            _gasolineLitersController.text.trim().replaceAll(',', '.'),
+          ) ??
+          0.0;
+      final sourceName = _gasolineSourceController.text.trim();
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _selectedTabIndex == 0
-              ? 'Đã ghi nhận ${_gasolineLitersController.text} lít xăng cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.'
-              : 'Đã ghi nhận ${_evKwhController.text} kWh sạc xe cho $_monthLabel. Màn hình kết quả ước tính đang được hoàn thiện.',
+      final payload = EmissionPayload.transportation(
+        subCategory: 'gasoline_bike',
+        details: TransportationDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          inputType: 'liters',
+          inputValue: liters,
         ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.transportation,
+        subCategory: 'gasoline_bike',
+        categoryTitle: 'Phương tiện di chuyển',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Xe xăng — lít',
+        displayFields: [
+          const MapEntry('Phương tiện', 'Xe máy xăng'),
+          MapEntry('Lượng xăng tiêu thụ', '${_gasolineLitersController.text.trim()} lít'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    } else {
+      if (!_isEvValid) return;
+      final kwh = double.tryParse(
+            _evKwhController.text.trim().replaceAll(',', '.'),
+          ) ??
+          0.0;
+      final sourceName = _evSourceController.text.trim();
+
+      final payload = EmissionPayload.transportation(
+        subCategory: 'electric_bike',
+        details: TransportationDetails(
+          sourceLabel: sourceName.isNotEmpty ? sourceName : null,
+          inputType: 'kwh',
+          inputValue: kwh,
+        ),
+      );
+
+      final args = EmissionPreviewArgs(
+        year: _selectedYear,
+        month: _selectedMonth,
+        category: EmissionCategory.transportation,
+        subCategory: 'electric_bike',
+        categoryTitle: 'Phương tiện di chuyển',
+        sourceName: sourceName.isNotEmpty ? sourceName : null,
+        inputMethodLabel: 'Xe điện — kWh',
+        displayFields: [
+          const MapEntry('Phương tiện', 'Xe máy điện'),
+          MapEntry('Điện năng sạc', '${_evKwhController.text.trim()} kWh'),
+        ],
+        payload: payload,
+      );
+
+      context.push('/emission/preview', extra: args);
+    }
   }
 
   @override
