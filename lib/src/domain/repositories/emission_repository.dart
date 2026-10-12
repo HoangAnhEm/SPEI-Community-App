@@ -18,6 +18,15 @@ abstract class EmissionRepository {
   /// Lấy lịch sử phát thải của hộ gia đình theo thứ tự thời gian giảm dần
   Future<List<HouseholdEmission>> getHouseholdEmissionHistory({int limit = 12});
 
-  /// Ghi nhận hoặc cập nhật chỉ số phát thải tháng cho hộ gia đình
+  /// Ghi nhận chỉ số phát thải tháng cho hộ gia đình
   Future<HouseholdEmission> recordHouseholdEmission(RecordHouseholdEmissionRequest request);
+
+  /// Chỉnh sửa bản ghi phát thải hộ gia đình
+  Future<HouseholdEmission> updateHouseholdEmission({
+    required String emissionId,
+    required UpdateHouseholdEmissionRequest request,
+  });
+
+  /// Xóa bản ghi phát thải hộ gia đình
+  Future<void> deleteHouseholdEmission(String emissionId);
 }

@@ -571,3 +571,24 @@ class RecordHouseholdEmissionRequest {
     };
   }
 }
+
+class UpdateHouseholdEmissionRequest {
+  final int? periodYear;
+  final int? periodMonth;
+  final EmissionPayload payload;
+
+  const UpdateHouseholdEmissionRequest({
+    this.periodYear,
+    this.periodMonth,
+    required this.payload,
+  });
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      'payload': payload.toJson(),
+    };
+    if (periodYear != null) map['period_year'] = periodYear;
+    if (periodMonth != null) map['period_month'] = periodMonth;
+    return map;
+  }
+}

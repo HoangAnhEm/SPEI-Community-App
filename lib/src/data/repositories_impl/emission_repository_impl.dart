@@ -54,4 +54,21 @@ class EmissionRepositoryImpl implements EmissionRepository {
     final data = await remoteDataSource.recordHouseholdEmission(request);
     return HouseholdEmission.fromJson(data);
   }
+
+  @override
+  Future<HouseholdEmission> updateHouseholdEmission({
+    required String emissionId,
+    required UpdateHouseholdEmissionRequest request,
+  }) async {
+    final data = await remoteDataSource.updateHouseholdEmission(
+      emissionId: emissionId,
+      request: request,
+    );
+    return HouseholdEmission.fromJson(data);
+  }
+
+  @override
+  Future<void> deleteHouseholdEmission(String emissionId) async {
+    await remoteDataSource.deleteHouseholdEmission(emissionId);
+  }
 }
