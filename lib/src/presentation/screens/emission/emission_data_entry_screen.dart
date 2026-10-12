@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../config/di/di.dart';
 import '../../../domain/entities/emission_details.dart';
-import '../../../domain/repositories/emission_repository.dart';
-import '../../blocs/emission/emission_cubit.dart';
-import 'family_emission_history_screen.dart';
 
-/// Màn hình Nhập dữ liệu phát thải tháng
+/// Item model cho danh sách loại phát thải
+class EmissionTypeOption {
+  final String categoryKey;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  const EmissionTypeOption({
+    required this.categoryKey,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+}
+
+/// Màn hình "Chọn loại phát thải" (thay thế màn cũ ở Image 2)
+/// Được điều hướng tới từ nút "+ Nhập dữ liệu tháng ..." tại màn Phát thải gia đình.
 class EmissionDataEntryScreen extends StatefulWidget {
   final int? year;
   final int? month;
@@ -25,21 +36,43 @@ class EmissionDataEntryScreen extends StatefulWidget {
   State<EmissionDataEntryScreen> createState() => _EmissionDataEntryScreenState();
 }
 
+typedef SelectEmissionTypeScreen = EmissionDataEntryScreen;
+
 class _EmissionDataEntryScreenState extends State<EmissionDataEntryScreen> {
   late int _year;
   late int _month;
-  late String _selectedCategory;
 
-  final TextEditingController _sourceLabelController = TextEditingController();
-  final TextEditingController _quantityController = TextEditingController();
-  bool _isLoading = false;
-
-  final List<String> _categories = [
-    EmissionCategory.electricity,
-    EmissionCategory.gas,
-    EmissionCategory.waste,
-    EmissionCategory.refrigerant,
-    EmissionCategory.transportation,
+  final List<EmissionTypeOption> _options = const [
+    EmissionTypeOption(
+      categoryKey: EmissionCategory.electricity,
+      title: 'Điện gia đình',
+      subtitle: 'kWh / VNĐ',
+      icon: Icons.bolt_outlined,
+    ),
+    EmissionTypeOption(
+      categoryKey: EmissionCategory.transportation,
+      title: 'Phương tiện',
+      subtitle: 'Xe xăng · lít / Xe điện · kWh',
+      icon: Icons.directions_car_outlined,
+    ),
+    EmissionTypeOption(
+      categoryKey: EmissionCategory.refrigerant,
+      title: 'Môi chất làm lạnh',
+      subtitle: 'Tủ lạnh / Điều hòa · kg',
+      icon: Icons.kitchen_outlined,
+    ),
+    EmissionTypeOption(
+      categoryKey: EmissionCategory.gas,
+      title: 'Gas',
+      subtitle: 'kg',
+      icon: Icons.local_fire_department_outlined,
+    ),
+    EmissionTypeOption(
+      categoryKey: EmissionCategory.waste,
+      title: 'Chất thải & nước thải',
+      subtitle: 'kg / m³',
+      icon: Icons.delete_outline_rounded,
+    ),
   ];
 
   @override
@@ -48,372 +81,272 @@ class _EmissionDataEntryScreenState extends State<EmissionDataEntryScreen> {
     final now = DateTime.now();
     _year = widget.year ?? now.year;
     _month = widget.month ?? now.month;
-    _selectedCategory = widget.initialCategory ?? EmissionCategory.electricity;
   }
 
-  @override
-  void dispose() {
-    _sourceLabelController.dispose();
-    _quantityController.dispose();
-    super.dispose();
-  }
-
-  String _getCategoryUnit(String category) {
-    switch (category) {
-      case EmissionCategory.electricity:
-        return 'kWh';
-      case EmissionCategory.gas:
-        return 'kg gas';
-      case EmissionCategory.waste:
-        return 'kg rác';
-      case EmissionCategory.refrigerant:
-        return 'kg môi chất lạnh';
-      case EmissionCategory.transportation:
-        return 'lít nhiên liệu';
-      default:
-        return 'đơn vị';
-    }
-  }
-
-  Future<void> _handleSubmit() async {
-    final quantity = double.tryParse(_quantityController.text.replaceAll(',', '.'));
-    if (quantity == null || quantity <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Vui lòng nhập số lượng hợp lệ (> 0)'),
-          backgroundColor: Colors.red,
+  void _onSelectOption(EmissionTypeOption option) {
+    // Lưu ý từ user: "màn này sẽ nav đi nhiều màn khác tuỳ lựa chọn nhưng chưa code vội"
+    // Tạm thời hiển thị SnackBar thông báo phản hồi thao tác người dùng.
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Đã chọn ${option.title} (Tháng $_month/$_year). Biểu mẫu nhập liệu sẽ sớm được cập nhật.',
         ),
-      );
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    final sourceLabel = _sourceLabelController.text.trim();
-    late final EmissionPayload payload;
-    switch (_selectedCategory) {
-      case EmissionCategory.electricity:
-        payload = EmissionPayload.electricity(
-          details: ElectricityDetails(
-            inputType: 'kwh',
-            inputValue: quantity,
-            sourceLabel: sourceLabel.isNotEmpty ? sourceLabel : 'Điện sinh hoạt',
-          ),
-        );
-        break;
-      case EmissionCategory.gas:
-        payload = EmissionPayload.gas(
-          subCategory: 'lpg',
-          details: GasDetails(
-            gasType: 'lpg',
-            weightKg: quantity,
-            sourceLabel: sourceLabel.isNotEmpty ? sourceLabel : 'Bình gas gia đình',
-          ),
-        );
-        break;
-      case EmissionCategory.waste:
-        payload = EmissionPayload.waste(
-          subCategory: 'solid_waste',
-          details: WasteDetails(
-            unit: 'kg',
-            quantity: quantity,
-            sourceLabel: sourceLabel.isNotEmpty ? sourceLabel : 'Rác sinh hoạt',
-          ),
-        );
-        break;
-      case EmissionCategory.refrigerant:
-        payload = EmissionPayload.refrigerant(
-          subCategory: 'air_conditioner',
-          details: RefrigerantDetails(
-            refrigerantType: 'R32',
-            quantity: quantity,
-            sourceLabel: sourceLabel.isNotEmpty ? sourceLabel : 'Điều hòa không khí',
-          ),
-        );
-        break;
-      case EmissionCategory.transportation:
-        payload = EmissionPayload.transportation(
-          subCategory: 'gasoline_bike',
-          details: TransportationDetails(
-            inputType: 'liters',
-            inputValue: quantity,
-            sourceLabel: sourceLabel.isNotEmpty ? sourceLabel : 'Xe máy xăng',
-          ),
-        );
-        break;
-      default:
-        payload = EmissionPayload.electricity(
-          details: ElectricityDetails(
-            inputType: 'kwh',
-            inputValue: quantity,
-            sourceLabel: sourceLabel,
-          ),
-        );
-    }
-
-    try {
-      final request = RecordHouseholdEmissionRequest(
-        periodYear: _year,
-        periodMonth: _month,
-        payload: payload,
-      );
-
-      await getIt<EmissionRepository>().recordHouseholdEmission(request);
-
-      if (!mounted) return;
-      await context.read<EmissionCubit>().loadEmissions(year: _year, month: _month);
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Đã ghi nhận phát thải thành công vào hệ thống!'),
-          backgroundColor: Color(0xFF2E7D32),
-        ),
-      );
-
-      context.pop();
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString().replaceFirst('Exception: ', '')),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final curMM = _month.toString().padLeft(2, '0');
-
     return Scaffold(
-      backgroundColor: const Color(0xFFFBFBF8),
+      backgroundColor: const Color(0xFFF9FAF7),
       body: SafeArea(
         child: Column(
           children: [
-            // Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () => context.pop(),
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.grey.shade200),
-                      ),
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Color(0xFF1E5128),
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Nhập dữ liệu phát thải',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1B2E1E),
-                        ),
-                      ),
-                      Text(
-                        'Tháng $curMM/$_year',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Header: [Nút quay lại] [Chọn loại phát thải] [Logo avatar]
+            _buildHeader(context),
 
-            // Form
+            // Nội dung cuộn
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
-                      'Chọn phân loại phát thải',
-                      style: TextStyle(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
+                    // Card thông tin: "Bắt đầu từ hoạt động của bạn"
+                    _buildInfoCalloutCard(),
 
-                    // Grid chọn category
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: _categories.map((cat) {
-                        final isSelected = _selectedCategory == cat;
-                        final color = EmissionCategoryTheme.getColor(cat);
-                        final icon = EmissionCategoryTheme.getIcon(cat);
+                    const SizedBox(height: 18),
 
-                        return InkWell(
-                          onTap: () {
-                            setState(() {
-                              _selectedCategory = cat;
-                            });
-                          },
-                          borderRadius: BorderRadius.circular(16),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? color.withValues(alpha: 0.12)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: isSelected ? color : Colors.grey.shade300,
-                                width: isSelected ? 2 : 1,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(icon, size: 18, color: color),
-                                const SizedBox(width: 8),
-                                Text(
-                                  EmissionCategory.getLabel(cat),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: isSelected
-                                        ? FontWeight.bold
-                                        : FontWeight.w500,
-                                    color: isSelected
-                                        ? color
-                                        : const Color(0xFF374151),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 24),
+                    // Danh sách 5 loại phát thải
+                    ..._options.map((option) => _buildOptionCard(option)),
 
-                    // Tên thiết bị / nguồn phát thải
-                    const Text(
-                      'Tên nguồn phát thải / thiết bị',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1B2E1E),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: _sourceLabelController,
-                      decoration: InputDecoration(
-                        hintText: 'Ví dụ: Điện nhà chính, Điều hòa phòng khách...',
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
+                    const SizedBox(height: 48),
+
+                    // Footer ghi chú: "Bản mẫu giao diện • Dữ liệu minh họa"
+                    const Center(
+                      child: Text(
+                        'Bản mẫu giao diện • Dữ liệu minh họa',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF9CA3AF),
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Số lượng tiêu thụ
-                    Text(
-                      'Số lượng tiêu thụ (${_getCategoryUnit(_selectedCategory)})',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1B2E1E),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      controller: _quantityController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: '0,00',
-                        suffixText: _getCategoryUnit(_selectedCategory),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Nút xác nhận lưu
-                    SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _handleSubmit,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E7D32),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: _isLoading
-                            ? const SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2.5,
-                                ),
-                              )
-                            : const Text(
-                                'Lưu bản ghi phát thải',
-                                style: TextStyle(
-                                  fontSize: 15.5,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                      ),
-                    ),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// 1. Header chuẩn theo Thiết kế Ảnh 1
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+      child: Row(
+        children: [
+          // Nút quay lại bo tròn trắng
+          InkWell(
+            onTap: () => context.pop(),
+            borderRadius: BorderRadius.circular(24),
+            child: Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.grey.shade200),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Color(0xFF1E5128),
+                size: 20,
+              ),
+            ),
+          ),
+          const SizedBox(width: 14),
+
+          // Tiêu đề
+          const Expanded(
+            child: Text(
+              'Chọn loại phát thải',
+              style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1B2E1E),
+                letterSpacing: -0.3,
+              ),
+            ),
+          ),
+
+          // Logo avatar tròn
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.grey.shade200),
+              color: Colors.white,
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                'assets/icons/circle_center_logo.png',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('assets/icons/logo.png', fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 2. Hộp thông báo màu xanh dương nhạt (Info Callout)
+  Widget _buildInfoCalloutCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEDF5FA),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFD8E8F3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              Icon(
+                Icons.info_outline,
+                size: 20,
+                color: Color(0xFF1B598E),
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Bắt đầu từ hoạt động của bạn',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF1B4E75),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Điện, di chuyển hay sinh hoạt đều có loại số liệu riêng. Chọn một nguồn bên dưới để mở biểu mẫu phù hợp.',
+            style: TextStyle(
+              fontSize: 13.5,
+              color: Color(0xFF2B5B84),
+              height: 1.45,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 3. Thẻ card lựa chọn loại phát thải
+  Widget _buildOptionCard(EmissionTypeOption option) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _onSelectOption(option),
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                // Icon trong khối vuông xanh nhạt bo góc
+                Container(
+                  width: 46,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEDF6EE),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: const Color(0xFFDBEEDB)),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      option.icon,
+                      color: const Color(0xFF2E7D32),
+                      size: 24,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 14),
+
+                // Tiêu đề & phụ đề
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        option.title,
+                        style: const TextStyle(
+                          fontSize: 15.5,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF1F2937),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        option.subtitle,
+                        style: const TextStyle(
+                          fontSize: 12.5,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(width: 8),
+
+                // Ký tự / chevron điều hướng bên phải theo ảnh mẫu
+                const Text(
+                  'v',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF6B7280),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
