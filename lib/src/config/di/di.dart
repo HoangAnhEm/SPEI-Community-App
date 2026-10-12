@@ -25,6 +25,7 @@ import '../../presentation/blocs/change_password/change_password_cubit.dart';
 import '../../presentation/blocs/create_household/create_household_cubit.dart';
 import '../../presentation/blocs/household/household_cubit.dart';
 import '../../presentation/blocs/emission/emission_cubit.dart';
+import '../../presentation/blocs/incident/incident_cubit.dart';
 import '../../presentation/blocs/household_lookup/household_lookup_cubit.dart';
 import '../../presentation/blocs/sent_invitations/sent_invitations_cubit.dart';
 import '../../presentation/blocs/household_join_requests/household_join_requests_cubit.dart';
@@ -76,6 +77,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton(() => AuthBloc(getIt()));
   getIt.registerLazySingleton(() => HouseholdCubit(getIt()));
   getIt.registerLazySingleton(() => EmissionCubit(getIt()));
+  getIt.registerLazySingleton(() => IncidentCubit(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
   getIt.registerFactory(() => RegisterCubit(getIt()));
   getIt.registerFactory(() => RecoveryCubit(getIt()));

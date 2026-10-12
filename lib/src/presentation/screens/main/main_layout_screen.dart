@@ -4,6 +4,7 @@ import '../home/home_screen.dart';
 import '../mam_ai/mam_ai_screen.dart';
 import '../reward/reward_screen.dart';
 import '../family/family_screen.dart';
+import '../incident/incident_list_screen.dart';
 
 class MainLayoutScreen extends StatefulWidget {
   const MainLayoutScreen({super.key});
@@ -18,7 +19,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const MamAiScreen(),
-    const Scaffold(body: Center(child: Text('Phản ánh', style: TextStyle(color: AppColors.darkText)))),
+    const IncidentListScreen(showBackButton: false),
     const RewardScreen(),
     const FamilyScreen(),
   ];

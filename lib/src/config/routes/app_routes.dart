@@ -32,6 +32,10 @@ import '../../presentation/screens/emission/quick_calc/quick_calc_waste_screen.d
 import '../../presentation/screens/emission/quick_calc/quick_calc_gas_screen.dart';
 import '../../domain/entities/household_emission.dart';
 import '../../presentation/screens/reward/reward_screen.dart';
+import '../../domain/entities/incident.dart';
+import '../../presentation/screens/incident/incident_list_screen.dart';
+import '../../presentation/screens/incident/incident_detail_screen.dart';
+import '../../presentation/screens/incident/create_incident_screen.dart';
 import '../../presentation/screens/reward/reward_store_screen.dart';
 import '../../presentation/screens/reward/reward_detail_screen.dart';
 import '../../presentation/screens/profile/profile_screen.dart';
@@ -578,10 +582,27 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/',
-      builder: (context, state) => const Scaffold(
-        body: Center(child: Text('Spei Community - Home')),
-      ),
+      path: '/incidents',
+      builder: (context, state) => const IncidentListScreen(showBackButton: true),
+      routes: [
+        GoRoute(
+          path: 'create',
+          builder: (context, state) => const CreateIncidentScreen(),
+        ),
+        GoRoute(
+          path: 'add-evidence',
+          builder: (context, state) => CreateIncidentScreen(
+            incidentToAppend: state.extra as Incident?,
+          ),
+        ),
+        GoRoute(
+          path: ':id',
+          builder: (context, state) => IncidentDetailScreen(
+            incidentId: state.pathParameters['id']!,
+            initialIncident: state.extra as Incident?,
+          ),
+        ),
+      ],
     ),
   ],
 );

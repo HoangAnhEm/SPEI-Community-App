@@ -9,6 +9,8 @@ import '../../blocs/household/household_cubit.dart';
 import '../../blocs/household/household_state.dart';
 import '../../blocs/emission/emission_cubit.dart';
 import '../../blocs/emission/emission_state.dart';
+import '../../blocs/incident/incident_cubit.dart';
+import '../../blocs/incident/incident_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,6 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
       final emissionCubit = context.read<EmissionCubit>();
       if (emissionCubit.state.status == EmissionStatus.initial) {
         emissionCubit.loadEmissions();
+      }
+
+      final incCubit = context.read<IncidentCubit>();
+      if (incCubit.state.status == IncidentListStatus.initial) {
+        incCubit.loadMyIncidents();
       }
     });
   }
@@ -334,6 +341,9 @@ class _HomeScreenState extends State<HomeScreen> {
           AppColors.blueBg,
           'Gửi phản ánh',
           'Góp ý môi trường',
+          onTap: () {
+            context.push('/incidents/create');
+          },
         ),
         _buildGridItem(
           'assets/icons/feature_gift.png',
