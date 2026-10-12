@@ -15,6 +15,9 @@ import '../../presentation/blocs/recovery/recovery_cubit.dart';
 import '../../presentation/screens/main/main_layout_screen.dart';
 import '../../presentation/screens/emission/family_emission_history_screen.dart';
 import '../../presentation/screens/emission/select_emission_type_screen.dart';
+import '../../presentation/screens/emission/input_electricity_emission_screen.dart';
+import '../../presentation/screens/emission/input_transportation_emission_screen.dart';
+import '../../presentation/screens/emission/input_gas_emission_screen.dart';
 import '../../presentation/screens/emission/emission_record_detail_screen.dart';
 import '../../presentation/screens/emission/emission_record_edit_screen.dart';
 import '../../domain/entities/household_emission.dart';
@@ -332,6 +335,36 @@ final GoRouter appRouter = GoRouter(
           year: extra?['year'] as int?,
           month: extra?['month'] as int?,
           initialCategory: extra?['category'] as String?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/input/electricity',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return InputElectricityEmissionScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/input/transportation',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return InputTransportationEmissionScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/input/gas',
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        return InputGasEmissionScreen(
+          initialYear: extra?['year'] as int?,
+          initialMonth: extra?['month'] as int?,
         );
       },
     ),

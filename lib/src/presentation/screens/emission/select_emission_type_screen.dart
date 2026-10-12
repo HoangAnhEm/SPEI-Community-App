@@ -82,19 +82,41 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
   }
 
   void _onSelectOption(EmissionTypeOption option) {
-    // Lưu ý từ user: "màn này sẽ nav đi nhiều màn khác tuỳ lựa chọn nhưng chưa code vội"
-    // Tạm thời hiển thị SnackBar thông báo phản hồi thao tác người dùng.
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Đã chọn ${option.title} (Tháng $_month/$_year). Biểu mẫu nhập liệu sẽ sớm được cập nhật.',
-        ),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+    switch (option.categoryKey) {
+      case EmissionCategory.electricity:
+        context.push('/emission/input/electricity', extra: {
+          'year': _year,
+          'month': _month,
+        });
+        break;
+      case EmissionCategory.transportation:
+        context.push('/emission/input/transportation', extra: {
+          'year': _year,
+          'month': _month,
+        });
+        break;
+      case EmissionCategory.gas:
+        context.push('/emission/input/gas', extra: {
+          'year': _year,
+          'month': _month,
+        });
+        break;
+      default:
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Biểu mẫu nhập liệu ${option.title} sẽ sớm được cập nhật.',
+            ),
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+        break;
+    }
   }
 
   @override
