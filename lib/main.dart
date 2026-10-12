@@ -10,6 +10,7 @@ import 'src/presentation/blocs/household/household_cubit.dart';
 import 'src/presentation/blocs/emission/emission_cubit.dart';
 import 'src/presentation/blocs/incident/incident_cubit.dart';
 import 'src/presentation/blocs/chat/chat_cubit.dart';
+import 'src/presentation/blocs/reward/reward_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ChatCubit>(
           create: (context) => getIt<ChatCubit>(),
+          lazy: false,
+        ),
+        BlocProvider<RewardCubit>(
+          create: (context) => getIt<RewardCubit>()..loadRewardData(),
           lazy: false,
         ),
       ],

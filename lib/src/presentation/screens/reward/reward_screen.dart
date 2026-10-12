@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../src/core/constants/app_colors.dart';
+import '../../blocs/reward/reward_cubit.dart';
+import '../../blocs/reward/reward_state.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/primary_button.dart';
 
@@ -20,73 +23,84 @@ class RewardScreen extends StatelessWidget {
               showBackButton: false,
             ),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildBalanceCard(context),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        _buildFilterChip('Người bạn của cây', AppColors.successBg, AppColors.primary),
-                        const SizedBox(width: 8),
-                        _buildFilterChip('Gia đình tái chế', AppColors.blueBg, AppColors.bluePrimary),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'Nhiệm vụ cùng con',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.darkText),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTaskItem(
-                      iconPath: 'assets/icons/ic_bulb.png',
-                      fallbackIcon: Icons.lightbulb_outline,
-                      title: '7 ngày tắt thiết bị',
-                      subtitle: 'Cùng con kiểm tra đèn, quạt khi rời phòng.',
-                      statusText: '4/7 ngày • Chưa nhận',
-                      pointText: '+50 điểm',
-                      pointBgColor: AppColors.successBg,
-                      pointTextColor: AppColors.primary,
-                      description: 'Hoàn thành đủ 7 ngày để nhận điểm.',
-                      progress: 4 / 7,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildTaskItem(
-                      iconPath: 'assets/icons/feature_plant.png',
-                      fallbackIcon: Icons.eco_outlined,
-                      title: 'Cùng con chăm cây',
-                      subtitle: 'Tưới vừa đủ và quan sát một chiếc lá mới.',
-                      statusText: '1/1 hoạt động • Có thể nhận',
-                      pointText: '+80 điểm',
-                      pointBgColor: const Color(0xFFFFF3E0),
-                      pointTextColor: const Color(0xFFE65100),
-                      showClaimButton: true,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildTaskItem(
-                      iconPath: 'assets/icons/ic_recycle.png',
-                      fallbackIcon: Icons.recycling,
-                      title: 'Phân loại rác tại nhà',
-                      subtitle: 'Bé chọn thùng cho giấy và chai sạch.',
-                      statusText: 'Hoàn thành • 07/10',
-                      pointText: 'Đã nhận +100',
-                      pointBgColor: AppColors.successBg,
-                      pointTextColor: AppColors.primary,
-                      description: '100 điểm đã cộng vào số dư ngày 07/10.',
-                    ),
-                    const SizedBox(height: 24),
-                    _buildInfoFooter(),
-                    const SizedBox(height: 24),
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(fontSize: 10, color: AppColors.greyText),
+              child: RefreshIndicator(
+                color: AppColors.primary,
+                onRefresh: () async {
+                  await context.read<RewardCubit>().loadRewardData(silent: true);
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildBalanceCard(context),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          _buildFilterChip('Người bạn của cây', AppColors.successBg, AppColors.primary),
+                          const SizedBox(width: 8),
+                          _buildFilterChip('Gia đình tái chế', AppColors.blueBg, AppColors.bluePrimary),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                  ],
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Nhiệm vụ cùng con',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkText,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _buildTaskItem(
+                        iconPath: 'assets/icons/ic_bulb.png',
+                        fallbackIcon: Icons.lightbulb_outline,
+                        title: '7 ngày tắt thiết bị',
+                        subtitle: 'Cùng con kiểm tra đèn, quạt khi rời phòng.',
+                        statusText: '4/7 ngày • Chưa nhận',
+                        pointText: '+50 điểm',
+                        pointBgColor: AppColors.successBg,
+                        pointTextColor: AppColors.primary,
+                        description: 'Hoàn thành đủ 7 ngày để nhận điểm.',
+                        progress: 4 / 7,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildTaskItem(
+                        iconPath: 'assets/icons/feature_plant.png',
+                        fallbackIcon: Icons.eco_outlined,
+                        title: 'Cùng con chăm cây',
+                        subtitle: 'Tưới vừa đủ và quan sát một chiếc lá mới.',
+                        statusText: '1/1 hoạt động • Có thể nhận',
+                        pointText: '+80 điểm',
+                        pointBgColor: const Color(0xFFFFF3E0),
+                        pointTextColor: const Color(0xFFE65100),
+                        showClaimButton: true,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildTaskItem(
+                        iconPath: 'assets/icons/ic_recycle.png',
+                        fallbackIcon: Icons.recycling,
+                        title: 'Phân loại rác tại nhà',
+                        subtitle: 'Bé chọn thùng cho giấy và chai sạch.',
+                        statusText: 'Hoàn thành • 07/10',
+                        pointText: 'Đã nhận +100',
+                        pointBgColor: AppColors.successBg,
+                        pointTextColor: AppColors.primary,
+                        description: '100 điểm đã cộng vào số dư ngày 07/10.',
+                      ),
+                      const SizedBox(height: 24),
+                      _buildInfoFooter(),
+                      const SizedBox(height: 24),
+                      const Center(
+                        child: Text(
+                          'Bản mẫu giao diện • Dữ liệu minh họa',
+                          style: TextStyle(fontSize: 10, color: AppColors.greyText),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -97,95 +111,116 @@ class RewardScreen extends StatelessWidget {
   }
 
   Widget _buildBalanceCard(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<RewardCubit, RewardState>(
+      builder: (context, state) {
+        final formattedPoints = state.formattedBalance;
+
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Số dư của gia đình Lan & An',
-                    style: TextStyle(fontSize: 12, color: Colors.white70),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        '1.250',
-                        style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, color: Colors.white, height: 1.1),
+                        'Số dư của bạn',
+                        style: TextStyle(fontSize: 12, color: Colors.white70),
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'điểm',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white.withValues(alpha: 0.9)),
+                      const SizedBox(height: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            formattedPoints,
+                            style: const TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              height: 1.1,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'điểm',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white.withValues(alpha: 0.9),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              Container(
-                width: 64,
-                height: 64,
-                decoration: const BoxDecoration(
-                  color: AppColors.successBg,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Image.asset(
-                    'assets/icons/ic_sprout_smile.png',
+                  Container(
                     width: 64,
                     height: 64,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.eco, color: AppColors.primary, size: 32),
+                    decoration: const BoxDecoration(
+                      color: AppColors.successBg,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/icons/ic_sprout_smile.png',
+                        width: 64,
+                        height: 64,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.eco, color: AppColors.primary, size: 32),
+                      ),
+                    ),
                   ),
-                ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Đổi điểm để nhận phần quà xanh',
+                    style: TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/reward-store');
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Đổi quà',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Image.asset(
+                          'assets/icons/ic_arrow_right.png',
+                          width: 16,
+                          height: 16,
+                          color: Colors.white,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Đủ đổi bộ trồng cây 800 điểm',
-                style: TextStyle(fontSize: 12, color: Colors.white70),
-              ),
-              GestureDetector(
-                onTap: () {
-                  context.push('/reward-store');
-                },
-                child: Row(
-                  children: [
-                    const Text(
-                      'Đổi quà',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                    SizedBox(width: 4),
-                    Image.asset(
-                      'assets/icons/ic_arrow_right.png',
-                      width: 16,
-                      height: 16,
-                      color: Colors.white,
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.arrow_forward, color: Colors.white, size: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -242,7 +277,8 @@ class RewardScreen extends StatelessWidget {
                     width: 20,
                     height: 20,
                     color: AppColors.primary,
-                    errorBuilder: (context, error, stackTrace) => Icon(fallbackIcon, color: AppColors.primary, size: 20),
+                    errorBuilder: (context, error, stackTrace) =>
+                        Icon(fallbackIcon, color: AppColors.primary, size: 20),
                   ),
                 ),
               ),
@@ -253,12 +289,20 @@ class RewardScreen extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.darkText),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.darkText,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(fontSize: 11, color: AppColors.subText, height: 1.4),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppColors.subText,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -293,7 +337,11 @@ class RewardScreen extends StatelessWidget {
                 ),
                 child: Text(
                   pointText,
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: pointTextColor),
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: pointTextColor,
+                  ),
                 ),
               ),
             ],
@@ -332,7 +380,8 @@ class RewardScreen extends StatelessWidget {
             width: 16,
             height: 16,
             color: AppColors.subText,
-            errorBuilder: (context, error, stackTrace) => const Icon(Icons.info_outline, size: 16, color: AppColors.subText),
+            errorBuilder: (context, error, stackTrace) =>
+                const Icon(Icons.info_outline, size: 16, color: AppColors.subText),
           ),
           const SizedBox(width: 12),
           const Expanded(

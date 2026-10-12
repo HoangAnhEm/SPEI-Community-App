@@ -31,6 +31,7 @@ import '../../presentation/screens/emission/quick_calc/quick_calc_refrigerant_sc
 import '../../presentation/screens/emission/quick_calc/quick_calc_waste_screen.dart';
 import '../../presentation/screens/emission/quick_calc/quick_calc_gas_screen.dart';
 import '../../domain/entities/household_emission.dart';
+import '../../domain/entities/reward.dart';
 import '../../presentation/screens/reward/reward_screen.dart';
 import '../../domain/entities/incident.dart';
 import '../../presentation/screens/incident/incident_list_screen.dart';
@@ -502,7 +503,10 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/reward-detail',
-      builder: (context, state) => const RewardDetailScreen(),
+      builder: (context, state) {
+        final reward = state.extra as RewardItem?;
+        return RewardDetailScreen(reward: reward);
+      },
     ),
     GoRoute(
       path: '/onboarding',
