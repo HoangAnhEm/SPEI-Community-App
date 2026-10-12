@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/services/location_service.dart';
-import '../../../core/services/media_service.dart';
 import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
+import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
 /// Màn hình Chi tiết 1 Incident (Ảnh 2)
@@ -448,102 +448,29 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
               onPageChanged: (i) => setState(() => _currentEvidenceIndex = i),
               itemBuilder: (context, index) {
                 final ev = evidences[index];
+                if (ev.isVideo) {
+                  return AppVideoPlayer(
+                    networkUrl: ev.fileUrl,
+                    badgeLabel: 'Video',
+                  );
+                }
                 return Stack(
                   fit: StackFit.expand,
                   children: [
-                    if (ev.isVideo)
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () async {
-                            final success =
-                                await MediaService.openVideo(ev.fileUrl);
-                            if (!success && context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'Không thể mở video hoặc thiết bị chưa có trình phát phù hợp.'),
-                                  backgroundColor: Color(0xFFC53030),
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
-                            }
-                          },
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Color(0xFF223726), Color(0xFF132016)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Positioned(
-                                  right: -25,
-                                  bottom: -25,
-                                  child: Icon(
-                                    Icons.videocam_rounded,
-                                    size: 160,
-                                    color: Colors.white.withValues(alpha: 0.05),
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      width: 58,
-                                      height: 58,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF2E7D32),
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: const Color(0xFF2E7D32)
-                                                .withValues(alpha: 0.45),
-                                            blurRadius: 18,
-                                            offset: const Offset(0, 4),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Icon(
-                                        Icons.play_arrow_rounded,
-                                        size: 38,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Nhấn để phát video minh chứng',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13.5,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    else
-                      Image.network(
-                        ev.fileUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: const Color(0xFFE5EAE4),
-                          child: Center(
-                            child: Icon(
-                              Icons.broken_image,
-                              size: 48,
-                              color: Colors.grey.shade400,
-                            ),
+                    Image.network(
+                      ev.fileUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: const Color(0xFFE5EAE4),
+                        child: Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 48,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                       ),
+                    ),
                     Positioned(
                       top: 10,
                       right: 10,

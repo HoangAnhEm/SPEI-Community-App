@@ -7,11 +7,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/services/location_service.dart';
-import '../../../core/services/media_service.dart';
 import '../../../data/models/incident_model.dart';
 import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
+import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
 /// Item lưu trữ minh chứng (có thể là tệp mới chọn từ máy hoặc URL đã lưu trước đó)
@@ -885,13 +885,20 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                       setState(() => _currentPreviewIndex = i),
                   itemBuilder: (context, index) {
                     final item = _evidences[index];
+                    if (item.isVideo) {
+                      return AppVideoPlayer(
+                        localPath: item.localPath,
+                        networkUrl: item.networkUrl,
+                        badgeLabel: item.isExisting ? 'Đã lưu' : 'Video',
+                        onRemove: !item.isExisting
+                            ? () => _removeEvidence(index)
+                            : null,
+                      );
+                    }
                     return Stack(
                       fit: StackFit.expand,
                       children: [
-                        // Nếu là video thì hiển thị giao diện video phát được khi bấm
-                        if (item.isVideo)
-                          _buildVideoItem(item)
-                        else if (item.isLocal)
+                        if (item.isLocal)
                           Image.file(
                             File(item.localPath!),
                             fit: BoxFit.cover,
@@ -924,7 +931,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                             ),
                           ),
 
-                        // Badge loại tệp góc trái trên: [Ảnh] hoặc [Video] hoặc [Đã lưu]
+                        // Badge loại tệp góc trái trên
                         Positioned(
                           top: 10,
                           left: 10,
@@ -940,18 +947,14 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  item.isVideo
-                                      ? Icons.videocam
-                                      : Icons.image_outlined,
+                                const Icon(
+                                  Icons.image_outlined,
                                   size: 13,
                                   color: Colors.white,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  item.isExisting
-                                      ? 'Đã lưu'
-                                      : (item.isVideo ? 'Video' : 'Ảnh'),
+                                  item.isExisting ? 'Đã lưu' : 'Ảnh',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 11,
@@ -1089,115 +1092,4 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
     );
   }
 
-  Widget _buildVideoItem(EvidenceItem item) {
-    String? fileName;
-    String? fileSize;
-    if (item.isLocal && item.localPath != null) {
-      try {
-        final file = File(item.localPath!);
-        fileName = file.uri.pathSegments.last;
-        final bytes = file.lengthSync();
-        if (bytes < 1024 * 1024) {
-          fileSize = '${(bytes / 1024).toStringAsFixed(1)} KB';
-        } else {
-          fileSize = '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
-        }
-      } catch (_) {}
-    }
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () async {
-          final path = item.localPath ?? item.networkUrl;
-          if (path != null) {
-            final success = await MediaService.openVideo(path);
-            if (!success && mounted) {
-              _showWarningSnackBar(
-                  'Không thể mở video hoặc thiết bị chưa có trình phát video phù hợp.');
-            }
-          }
-        },
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF223726), Color(0xFF132016)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                right: -25,
-                bottom: -25,
-                child: Icon(
-                  Icons.videocam_rounded,
-                  size: 160,
-                  color: Colors.white.withValues(alpha: 0.05),
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 58,
-                    height: 58,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF2E7D32),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF2E7D32).withValues(alpha: 0.45),
-                          blurRadius: 18,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.play_arrow_rounded,
-                      size: 38,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Nhấn để phát video minh chứng',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13.5,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                  if (fileName != null || fileSize != null) ...[
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(
-                        [
-                          ?fileName,
-                          ?fileSize,
-                        ].join(' • '),
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 11.5,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
