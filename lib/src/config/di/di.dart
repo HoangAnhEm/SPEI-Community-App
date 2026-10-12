@@ -20,6 +20,9 @@ import '../../data/repositories_impl/incident_repository_impl.dart';
 import '../../domain/repositories/rag_repository.dart';
 import '../../data/datasources/remote/rag_remote_data_source.dart';
 import '../../data/repositories_impl/rag_repository_impl.dart';
+import '../../domain/repositories/reward_repository.dart';
+import '../../data/datasources/remote/reward_remote_data_source.dart';
+import '../../data/repositories_impl/reward_repository_impl.dart';
 import '../../presentation/blocs/login/login_cubit.dart';
 import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
@@ -61,6 +64,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<EmissionRemoteDataSource>(() => EmissionRemoteDataSource(getIt()));
   getIt.registerLazySingleton<IncidentRemoteDataSource>(() => IncidentRemoteDataSource(getIt()));
   getIt.registerLazySingleton<RagRemoteDataSource>(() => RagRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<RewardRemoteDataSource>(() => RewardRemoteDataSource(getIt()));
   
   // Repositories
   getIt.registerLazySingleton<AuthRepository>(
@@ -77,6 +81,9 @@ Future<void> setupDependencies() async {
   );
   getIt.registerLazySingleton<RagRepository>(
     () => RagRepositoryImpl(remoteDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<RewardRepository>(
+    () => RewardRepositoryImpl(remoteDataSource: getIt()),
   );
   
   // Use cases
