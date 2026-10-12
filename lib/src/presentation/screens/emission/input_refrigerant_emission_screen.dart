@@ -32,16 +32,12 @@ class _InputRefrigerantEmissionScreenState
       TextEditingController(text: 'Tủ lạnh phòng bếp');
   final TextEditingController _fridgeKgController =
       TextEditingController(text: '0,05');
-  final TextEditingController _fridgeBasisController =
-      TextEditingController(text: 'Phiếu bảo dưỡng • 18/09/2026');
 
   // Controllers cho Điều hòa
   final TextEditingController _acSourceController =
       TextEditingController(text: 'Điều hòa phòng ngủ');
   final TextEditingController _acKgController =
       TextEditingController(text: '0,02');
-  final TextEditingController _acBasisController =
-      TextEditingController(text: 'Phiếu bảo dưỡng • 22/09/2026');
 
   @override
   void initState() {
@@ -58,10 +54,8 @@ class _InputRefrigerantEmissionScreenState
   void dispose() {
     _fridgeSourceController.dispose();
     _fridgeKgController.dispose();
-    _fridgeBasisController.dispose();
     _acSourceController.dispose();
     _acKgController.dispose();
-    _acBasisController.dispose();
     super.dispose();
   }
 
@@ -610,42 +604,6 @@ class _InputRefrigerantEmissionScreenState
             'Chỉ ghi lượng có căn cứ trong kỳ, không ghi toàn bộ lượng nạp của thiết bị.',
             style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
           ),
-          const SizedBox(height: 18),
-
-          // Căn cứ ghi nhận
-          const Text(
-            'Căn cứ ghi nhận',
-            style: TextStyle(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
-            ),
-          ),
-          const SizedBox(height: 6),
-          TextField(
-            controller: _fridgeBasisController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
-            decoration: InputDecoration(
-              hintText: 'Phiếu bảo dưỡng • 18/09/2026',
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Không cộng hai lần nếu lượng bổ sung dùng để bù cùng một lượng rò rỉ.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
-          ),
         ],
       ),
     );
@@ -858,42 +816,6 @@ class _InputRefrigerantEmissionScreenState
           const SizedBox(height: 6),
           const Text(
             'Không dùng toàn bộ lượng nạp trên nhãn hoặc lượng dùng khi máy vận hành bình thường.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
-          ),
-          const SizedBox(height: 18),
-
-          // Căn cứ ghi nhận
-          const Text(
-            'Căn cứ ghi nhận',
-            style: TextStyle(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
-            ),
-          ),
-          const SizedBox(height: 6),
-          TextField(
-            controller: _acBasisController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
-            decoration: InputDecoration(
-              hintText: 'Phiếu bảo dưỡng • 22/09/2026',
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Lượng bổ sung bù rò rỉ chỉ ghi một lần, không cộng thêm cùng lượng rò rỉ.',
             style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
           ),
         ],

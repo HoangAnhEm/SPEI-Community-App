@@ -392,8 +392,9 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     ),
                   ),
                   const Icon(
-                    Icons.keyboard_arrow_down_rounded,
+                    Icons.chevron_right,
                     color: Color(0xFF2E7D32),
+                    size: 22,
                   ),
                 ],
               ),
