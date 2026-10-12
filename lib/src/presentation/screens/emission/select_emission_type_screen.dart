@@ -24,12 +24,14 @@ class SelectEmissionTypeScreen extends StatefulWidget {
   final int? year;
   final int? month;
   final String? initialCategory;
+  final bool isQuickCalc;
 
   const SelectEmissionTypeScreen({
     super.key,
     this.year,
     this.month,
     this.initialCategory,
+    this.isQuickCalc = false,
   });
 
   @override
@@ -82,6 +84,27 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
   }
 
   void _onSelectOption(EmissionTypeOption option) {
+    if (widget.isQuickCalc) {
+      switch (option.categoryKey) {
+        case EmissionCategory.electricity:
+          context.push('/emission/quick-calc/electricity');
+          break;
+        case EmissionCategory.transportation:
+          context.push('/emission/quick-calc/transportation');
+          break;
+        case EmissionCategory.gas:
+          context.push('/emission/quick-calc/gas');
+          break;
+        case EmissionCategory.refrigerant:
+          context.push('/emission/quick-calc/refrigerant');
+          break;
+        case EmissionCategory.waste:
+          context.push('/emission/quick-calc/waste');
+          break;
+      }
+      return;
+    }
+
     switch (option.categoryKey) {
       case EmissionCategory.electricity:
         context.push('/emission/input/electricity', extra: {
@@ -201,10 +224,10 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
           const SizedBox(width: 14),
 
           // Tiêu đề
-          const Expanded(
+          Expanded(
             child: Text(
-              'Chọn loại phát thải',
-              style: TextStyle(
+              widget.isQuickCalc ? 'Tính nhanh phát thải' : 'Chọn loại phát thải',
+              style: const TextStyle(
                 fontSize: 21,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF1B2E1E),
@@ -250,16 +273,18 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.info_outline,
                 size: 20,
                 color: Color(0xFF1B598E),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
-                'Bắt đầu từ hoạt động của bạn',
-                style: TextStyle(
+                widget.isQuickCalc
+                    ? 'Ước tính tức thì'
+                    : 'Bắt đầu từ hoạt động của bạn',
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF1B4E75),
@@ -268,9 +293,11 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Điện, di chuyển hay sinh hoạt đều có loại số liệu riêng. Chọn một nguồn bên dưới để mở biểu mẫu phù hợp.',
-            style: TextStyle(
+          Text(
+            widget.isQuickCalc
+                ? 'Tính thử lượng phát thải carbon tương ứng từ hoạt động của bạn mà không ghi nhận vào lịch sử tháng.'
+                : 'Điện, di chuyển hay sinh hoạt đều có loại số liệu riêng. Chọn một nguồn bên dưới để mở biểu mẫu phù hợp.',
+            style: const TextStyle(
               fontSize: 13.5,
               color: Color(0xFF2B5B84),
               height: 1.45,

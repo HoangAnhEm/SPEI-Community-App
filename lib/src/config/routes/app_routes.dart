@@ -25,6 +25,11 @@ import '../../presentation/screens/emission/emission_preview_screen.dart';
 import '../../domain/entities/emission_details.dart';
 import '../../presentation/screens/emission/emission_record_detail_screen.dart';
 import '../../presentation/screens/emission/emission_record_edit_screen.dart';
+import '../../presentation/screens/emission/quick_calc/quick_calc_electricity_screen.dart';
+import '../../presentation/screens/emission/quick_calc/quick_calc_transportation_screen.dart';
+import '../../presentation/screens/emission/quick_calc/quick_calc_refrigerant_screen.dart';
+import '../../presentation/screens/emission/quick_calc/quick_calc_waste_screen.dart';
+import '../../presentation/screens/emission/quick_calc/quick_calc_gas_screen.dart';
 import '../../domain/entities/household_emission.dart';
 import '../../presentation/screens/reward/reward_screen.dart';
 import '../../presentation/screens/reward/reward_store_screen.dart';
@@ -342,6 +347,34 @@ final GoRouter appRouter = GoRouter(
           initialCategory: extra?['category'] as String?,
         );
       },
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/select-type',
+      builder: (context, state) {
+        return const SelectEmissionTypeScreen(
+          isQuickCalc: true,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/electricity',
+      builder: (context, state) => const QuickCalcElectricityScreen(),
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/transportation',
+      builder: (context, state) => const QuickCalcTransportationScreen(),
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/refrigerant',
+      builder: (context, state) => const QuickCalcRefrigerantScreen(),
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/waste',
+      builder: (context, state) => const QuickCalcWasteScreen(),
+    ),
+    GoRoute(
+      path: '/emission/quick-calc/gas',
+      builder: (context, state) => const QuickCalcGasScreen(),
     ),
     GoRoute(
       path: '/emission/input/electricity',

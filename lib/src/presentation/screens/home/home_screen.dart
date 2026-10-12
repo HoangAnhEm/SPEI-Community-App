@@ -315,10 +315,10 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/icons/feature_electric.png',
           AppColors.primary,
           AppColors.successBg,
-          'Tính phát thải',
-          'Từ điện sử dụng',
+          'Tính nhanh phát thải',
+          'Ước tính tức thì',
           onTap: () {
-            context.push('/emission/history');
+            context.push('/emission/quick-calc/select-type');
           },
         ),
         _buildGridItem(
