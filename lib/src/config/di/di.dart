@@ -14,6 +14,9 @@ import '../../data/repositories_impl/household_repository_impl.dart';
 import '../../domain/repositories/emission_repository.dart';
 import '../../data/datasources/remote/emission_remote_data_source.dart';
 import '../../data/repositories_impl/emission_repository_impl.dart';
+import '../../domain/repositories/incident_repository.dart';
+import '../../data/datasources/remote/incident_remote_data_source.dart';
+import '../../data/repositories_impl/incident_repository_impl.dart';
 import '../../presentation/blocs/login/login_cubit.dart';
 import '../../presentation/blocs/register/register_cubit.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
@@ -51,6 +54,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSource(getIt()));
   getIt.registerLazySingleton<HouseholdRemoteDataSource>(() => HouseholdRemoteDataSource(getIt()));
   getIt.registerLazySingleton<EmissionRemoteDataSource>(() => EmissionRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<IncidentRemoteDataSource>(() => IncidentRemoteDataSource(getIt()));
   
   // Repositories
   getIt.registerLazySingleton<AuthRepository>(
@@ -61,6 +65,9 @@ Future<void> setupDependencies() async {
   );
   getIt.registerLazySingleton<EmissionRepository>(
     () => EmissionRepositoryImpl(remoteDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<IncidentRepository>(
+    () => IncidentRepositoryImpl(remoteDataSource: getIt()),
   );
   
   // Use cases
