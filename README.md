@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 <img src="assets/icons/circle_center_logo.png" width="110" alt="SPEI Community logo" />
 
@@ -51,25 +51,23 @@
 
 ## 📱 Ảnh màn hình
 
-> 💡 Đặt ảnh vào thư mục `docs/screenshots/` rồi thay tên file bên dưới cho phù hợp.
-
 ### Onboarding & Xác thực
 
 | Splash | Onboarding | Đăng nhập | Đăng ký |
 |:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/splash.png" width="200" /> | <img src="docs/screenshots/onboarding.png" width="200" /> | <img src="docs/screenshots/login.png" width="200" /> | <img src="docs/screenshots/register.png" width="200" /> |
+| <img src="docs/screenshots/splash.jpg" width="200" /> | <img src="docs/screenshots/onboarding.jpg" width="200" /> | <img src="docs/screenshots/login.jpg" width="200" /> | <img src="docs/screenshots/register.jpg" width="200" /> |
 
 ### Màn hình chính
 
 | Trang chủ | Phát thải | Điểm xanh | Bạn Mầm |
 |:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/home.png" width="200" /> | <img src="docs/screenshots/emission.png" width="200" /> | <img src="docs/screenshots/reward.png" width="200" /> | <img src="docs/screenshots/mam_ai.png" width="200" /> |
+| <img src="docs/screenshots/home.jpg" width="200" /> | <img src="docs/screenshots/emission.jpg" width="200" /> | <img src="docs/screenshots/reward.jpg" width="200" /> | <img src="docs/screenshots/mam_ai.jpg" width="200" /> |
 
 ### Phản ánh & Hộ gia đình
 
 | Gửi phản ánh | Chi tiết phản ánh | Hộ gia đình | Hồ sơ / QR |
 |:---:|:---:|:---:|:---:|
-| <img src="docs/screenshots/create_incident.png" width="200" /> | <img src="docs/screenshots/incident_detail.png" width="200" /> | <img src="docs/screenshots/family.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
+| <img src="docs/screenshots/create_incident.jpg" width="200" /> | <img src="docs/screenshots/incident_detail.jpg" width="200" /> | <img src="docs/screenshots/family.jpg" width="200" /> | <img src="docs/screenshots/profile.jpg" width="200" /> |
 
 <!-- Thêm hàng mới bằng cách copy một bảng ở trên -->
 
