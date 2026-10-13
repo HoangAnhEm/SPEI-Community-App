@@ -381,16 +381,6 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
             ),
 
             // 5. Chú thích chân trang
-            const Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Text(
-                'Bản mẫu giao diện • Dữ liệu minh họa',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF9CA3AF),
-                ),
-              ),
-            ),
           ],
         ),
       ),

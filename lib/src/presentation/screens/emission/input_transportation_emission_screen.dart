@@ -293,15 +293,6 @@ class _InputTransportationEmissionScreenState
                     const SizedBox(height: 32),
 
                     // Footer
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(
-                          fontSize: 11.5,
-                          color: Color(0xFF9CA3AF),
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 16),
                   ],
                 ),

@@ -181,7 +181,7 @@ class RecoverySuccessScreen extends StatelessWidget {
                 // Footer
                 const Center(
                   child: Text(
-                    'Bảo mật tài khoản là ưu tiên hàng đầu của SPEI Community.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                    'Bảo mật tài khoản là ưu tiên hàng đầu của SPEI Community.',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                   ),

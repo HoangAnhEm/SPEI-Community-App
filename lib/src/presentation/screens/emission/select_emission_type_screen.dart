@@ -167,17 +167,6 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
 
                     const SizedBox(height: 48),
 
-                    // Footer ghi chú: "Bản mẫu giao diện • Dữ liệu minh họa"
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF9CA3AF),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 20),
                   ],
                 ),

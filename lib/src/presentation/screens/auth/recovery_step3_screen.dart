@@ -329,12 +329,6 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
                 style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
               ),
               const SizedBox(height: 16),
-              const Center(
-                child: Text(
-                  'Bản mẫu giao diện • Dữ liệu minh họa',
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                ),
-              ),
             ],
           ),
         ),

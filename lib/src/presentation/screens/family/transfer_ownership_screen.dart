@@ -303,12 +303,6 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                     const SizedBox(height: 24),
 
                     // Footer
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                      ),
-                    ),
                     const SizedBox(height: 16),
                   ],
                 ),

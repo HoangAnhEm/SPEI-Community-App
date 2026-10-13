@@ -92,12 +92,6 @@ class RewardScreen extends StatelessWidget {
                       const SizedBox(height: 24),
                       _buildInfoFooter(),
                       const SizedBox(height: 24),
-                      const Center(
-                        child: Text(
-                          'Bản mẫu giao diện • Dữ liệu minh họa',
-                          style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                        ),
-                      ),
                       const SizedBox(height: 24),
                     ],
                   ),

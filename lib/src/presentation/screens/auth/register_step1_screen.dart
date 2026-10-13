@@ -386,7 +386,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
               // Footer
               const Center(
                 child: Text(
-                  'Bản mẫu không gửi SMS hoặc tạo tài khoản thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                  'Bản mẫu không gửi SMS hoặc tạo tài khoản thực tế.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),

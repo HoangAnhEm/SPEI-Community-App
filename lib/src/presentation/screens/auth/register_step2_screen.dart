@@ -334,7 +334,7 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
               // Footer
               const Center(
                 child: Text(
-                  'Trạng thái sau gửi OTP là minh họa; chưa gửi Email thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                  'Trạng thái sau gửi OTP là minh họa; chưa gửi Email thực tế.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),

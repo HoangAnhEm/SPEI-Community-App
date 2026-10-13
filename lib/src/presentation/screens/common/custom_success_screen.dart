@@ -236,7 +236,7 @@ class CustomSuccessScreen extends StatelessWidget {
                       const SizedBox(height: 24),
                       Center(
                         child: Text(
-                          footerNote ?? 'Bản mẫu giao diện • Dữ liệu minh họa',
+                          footerNote ?? '',
                           style: const TextStyle(fontSize: 10, color: AppColors.greyText),
                         ),
                       ),

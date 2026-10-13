@@ -279,12 +279,6 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
                 style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
               ),
               const SizedBox(height: 16),
-              const Center(
-                child: Text(
-                  'Bản mẫu giao diện • Dữ liệu minh họa',
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                ),
-              ),
             ],
           ),
         ),

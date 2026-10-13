@@ -296,7 +296,7 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
               // Footer
               const Center(
                 child: Text(
-                  'Thao tác đăng nhập trong bản mẫu chưa hoạt động thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                  'Thao tác đăng nhập trong bản mẫu chưa hoạt động thực tế.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 10,

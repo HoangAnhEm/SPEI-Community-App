@@ -571,15 +571,6 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                     const SizedBox(height: 16),
 
                     // Dòng chú thích minh họa ở cuối trang (Ảnh 2)
-                    const Center(
-                      child: Text(
-                        'Bản mẫu giao diện • Dữ liệu minh họa',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF9CA3AF),
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 24),
                   ],
                 ),

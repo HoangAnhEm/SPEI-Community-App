@@ -156,7 +156,7 @@ class RegisterStep3Screen extends StatelessWidget {
               // Footer
               const Center(
                 child: Text(
-                  'Đây là trạng thái hoàn tất minh họa, chưa tạo tài khoản hay xác thực số điện thoại thực tế.\n\nBản mẫu giao diện • Dữ liệu minh họa',
+                  'Đây là trạng thái hoàn tất minh họa, chưa tạo tài khoản hay xác thực số điện thoại thực tế.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
                 ),

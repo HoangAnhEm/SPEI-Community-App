@@ -103,12 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 12),
               _buildTaskCard(),
               const SizedBox(height: 18),
-              const Center(
-                child: Text(
-                  'Bản mẫu giao diện • Dữ liệu minh họa',
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText),
-                ),
-              ),
               const SizedBox(height: 16),
             ],
           ),
