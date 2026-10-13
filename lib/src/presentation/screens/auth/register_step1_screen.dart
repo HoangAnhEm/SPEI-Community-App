@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -172,6 +172,11 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const Text(
+                'Nhận mã OTP qua Email để xác thực.',
+                style: TextStyle(fontSize: 12, color: subTextColor),
+              ),
               const SizedBox(height: 16),
               
               // Phone
@@ -191,11 +196,6 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                     errorBuilder: (context, error, stackTrace) => const SizedBox(),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Nhận mã OTP qua SMS để xác thực số điện thoại.',
-                style: TextStyle(fontSize: 12, color: subTextColor),
               ),
               const SizedBox(height: 16),
               
