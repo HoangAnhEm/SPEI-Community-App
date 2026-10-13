@@ -58,7 +58,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLogoutRequested(
-      AuthLogoutRequested event, Emitter<AuthState> emit) async {
+      AuthLogoutRequested event,
+      Emitter<AuthState> emit,
+      ) async {
+    if (state is AuthFirstTime) return;
+
     await _authRepository.logout();
     _resetAllCubits();
     emit(AuthUnauthenticated());

@@ -68,6 +68,7 @@ import '../../presentation/screens/family/remove_members_screen.dart';
 import '../../presentation/screens/common/custom_success_screen.dart';
 import '../../domain/entities/household.dart';
 import '../../core/constants/app_colors.dart';
+import '../../presentation/screens/splash/splash_screen.dart';
 import '../di/di.dart';
 import '../../presentation/blocs/auth/auth_bloc.dart';
 import '../../presentation/blocs/auth/auth_state.dart';
@@ -77,7 +78,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/splash',
   refreshListenable: GoRouterRefreshStream(getIt<AuthBloc>().stream),
   redirect: (context, state) {
     final authState = getIt<AuthBloc>().state;
@@ -85,10 +86,10 @@ final GoRouter appRouter = GoRouter(
                         state.matchedLocation.startsWith('/register') ||
                         state.matchedLocation.startsWith('/recovery');
     final isOnboardingRoute = state.matchedLocation == '/onboarding';
+    final isSplashRoute = state.matchedLocation == '/splash';
 
     if (authState is AuthInitial) {
-      // Đang chờ check trạng thái (Splash)
-      return null;
+      return isSplashRoute ? null : '/splash';
     }
 
     if (authState is AuthFirstTime) {
@@ -109,6 +110,10 @@ final GoRouter appRouter = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const AuthSplashScreen(),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => const MainLayoutScreen(),
