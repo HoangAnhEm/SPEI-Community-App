@@ -5,6 +5,7 @@ import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
 
 /// Màn hình nhập dữ liệu phát thải Môi chất làm lạnh (gồm 2 chế độ: Tủ lạnh & Điều hòa)
 class InputRefrigerantEmissionScreen extends StatefulWidget {
@@ -208,7 +209,7 @@ class _InputRefrigerantEmissionScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -266,7 +267,7 @@ class _InputRefrigerantEmissionScreenState
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ),
@@ -315,7 +316,7 @@ class _InputRefrigerantEmissionScreenState
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -332,7 +333,7 @@ class _InputRefrigerantEmissionScreenState
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -341,7 +342,7 @@ class _InputRefrigerantEmissionScreenState
                   subtitle,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -379,7 +380,7 @@ class _InputRefrigerantEmissionScreenState
         height: 46,
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          color: const Color(0xFFEFF2EC),
+          color: AppColors.surfaceMuted,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Row(
@@ -396,7 +397,7 @@ class _InputRefrigerantEmissionScreenState
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: _selectedTabIndex == 0
-                        ? const Color(0xFF2E7D32)
+                        ? AppColors.greenPrimary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -409,7 +410,7 @@ class _InputRefrigerantEmissionScreenState
                           : FontWeight.w500,
                       color: _selectedTabIndex == 0
                           ? Colors.white
-                          : const Color(0xFF4B5563),
+                          : AppColors.gray600,
                     ),
                   ),
                 ),
@@ -427,7 +428,7 @@ class _InputRefrigerantEmissionScreenState
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: _selectedTabIndex == 1
-                        ? const Color(0xFF2E7D32)
+                        ? AppColors.greenPrimary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -440,7 +441,7 @@ class _InputRefrigerantEmissionScreenState
                           : FontWeight.w500,
                       color: _selectedTabIndex == 1
                           ? Colors.white
-                          : const Color(0xFF4B5563),
+                          : AppColors.gray600,
                     ),
                   ),
                 ),
@@ -458,9 +459,9 @@ class _InputRefrigerantEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEF6E8),
+        color: AppColors.amberSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFED7AA)),
+        border: Border.all(color: AppColors.orange200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,7 +471,7 @@ class _InputRefrigerantEmissionScreenState
               Icon(
                 Icons.warning_amber_rounded,
                 size: 20,
-                color: Color(0xFFD97706),
+                color: AppColors.amber600,
               ),
               SizedBox(width: 8),
               Expanded(
@@ -479,7 +480,7 @@ class _InputRefrigerantEmissionScreenState
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFB45309),
+                    color: AppColors.amber700,
                   ),
                 ),
               ),
@@ -490,7 +491,7 @@ class _InputRefrigerantEmissionScreenState
             'R32 là giả định của cách tính trong sản phẩm này. Bạn chỉ cần nhập lượng rò rỉ/bổ sung có căn cứ; không cần chọn môi chất.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF92400E),
+              color: AppColors.amber800,
               height: 1.45,
             ),
           ),
@@ -505,9 +506,9 @@ class _InputRefrigerantEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEF6E8),
+        color: AppColors.amberSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFED7AA)),
+        border: Border.all(color: AppColors.orange200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -517,7 +518,7 @@ class _InputRefrigerantEmissionScreenState
               Icon(
                 Icons.warning_amber_rounded,
                 size: 20,
-                color: Color(0xFFD97706),
+                color: AppColors.amber600,
               ),
               SizedBox(width: 8),
               Expanded(
@@ -526,7 +527,7 @@ class _InputRefrigerantEmissionScreenState
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFB45309),
+                    color: AppColors.amber700,
                   ),
                 ),
               ),
@@ -537,7 +538,7 @@ class _InputRefrigerantEmissionScreenState
             'Cách tính này sử dụng R600a. Nhập khối lượng rò rỉ/bổ sung có căn cứ; không cần chọn môi chất.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF92400E),
+              color: AppColors.amber800,
               height: 1.45,
             ),
           ),
@@ -553,7 +554,7 @@ class _InputRefrigerantEmissionScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,7 +564,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -574,7 +575,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -586,7 +587,7 @@ class _InputRefrigerantEmissionScreenState
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -596,12 +597,12 @@ class _InputRefrigerantEmissionScreenState
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -615,13 +616,13 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _fridgeSourceController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: 'Ví dụ: Tủ lạnh phòng bếp',
               contentPadding: const EdgeInsets.symmetric(
@@ -630,18 +631,18 @@ class _InputRefrigerantEmissionScreenState
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -651,7 +652,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 8),
@@ -660,10 +661,10 @@ class _InputRefrigerantEmissionScreenState
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: const Color(0xFFF9FAFB),
+              color: AppColors.gray50,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: const Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
                 width: 1.5,
               ),
             ),
@@ -677,7 +678,7 @@ class _InputRefrigerantEmissionScreenState
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -690,7 +691,7 @@ class _InputRefrigerantEmissionScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.gray600,
                   ),
                 ),
               ],
@@ -699,7 +700,7 @@ class _InputRefrigerantEmissionScreenState
           const SizedBox(height: 6),
           const Text(
             'Chỉ ghi lượng có căn cứ trong kỳ, không ghi toàn bộ lượng nạp của thiết bị.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
         ],
       ),
@@ -712,9 +713,9 @@ class _InputRefrigerantEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -724,7 +725,7 @@ class _InputRefrigerantEmissionScreenState
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -732,7 +733,7 @@ class _InputRefrigerantEmissionScreenState
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -742,7 +743,7 @@ class _InputRefrigerantEmissionScreenState
             'Tìm lượng rò rỉ/bổ sung trên phiếu sửa chữa. Ví dụ 50 g ÷ 1.000 = 0,05 kg.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -751,7 +752,7 @@ class _InputRefrigerantEmissionScreenState
             'Sử dụng bình thường không đồng nghĩa với tiêu thụ môi chất. Không có rò rỉ/bổ sung đã xác nhận? Ghi 0; chưa biết thì không ước đoán.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -767,7 +768,7 @@ class _InputRefrigerantEmissionScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -777,7 +778,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -788,7 +789,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -800,7 +801,7 @@ class _InputRefrigerantEmissionScreenState
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -810,12 +811,12 @@ class _InputRefrigerantEmissionScreenState
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -829,13 +830,13 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _acSourceController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: 'Ví dụ: Điều hòa phòng ngủ',
               contentPadding: const EdgeInsets.symmetric(
@@ -844,18 +845,18 @@ class _InputRefrigerantEmissionScreenState
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -865,7 +866,7 @@ class _InputRefrigerantEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 8),
@@ -874,10 +875,10 @@ class _InputRefrigerantEmissionScreenState
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: const Color(0xFFF9FAFB),
+              color: AppColors.gray50,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: const Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
                 width: 1.5,
               ),
             ),
@@ -891,7 +892,7 @@ class _InputRefrigerantEmissionScreenState
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -904,7 +905,7 @@ class _InputRefrigerantEmissionScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.gray600,
                   ),
                 ),
               ],
@@ -913,7 +914,7 @@ class _InputRefrigerantEmissionScreenState
           const SizedBox(height: 6),
           const Text(
             'Không dùng toàn bộ lượng nạp trên nhãn hoặc lượng dùng khi máy vận hành bình thường.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
         ],
       ),
@@ -926,9 +927,9 @@ class _InputRefrigerantEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -938,7 +939,7 @@ class _InputRefrigerantEmissionScreenState
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -946,7 +947,7 @@ class _InputRefrigerantEmissionScreenState
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -956,7 +957,7 @@ class _InputRefrigerantEmissionScreenState
             'Nhờ kỹ thuật viên xác nhận số gram môi chất bổ sung trong kỳ. Ví dụ 20 g ÷ 1.000 = 0,02 kg.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -965,7 +966,7 @@ class _InputRefrigerantEmissionScreenState
             'Không có lượng rò rỉ/bổ sung thì ghi 0; không suy lượng môi chất từ thời gian dùng máy.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -982,7 +983,7 @@ class _InputRefrigerantEmissionScreenState
       child: ElevatedButton(
         onPressed: _handleContinue,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(

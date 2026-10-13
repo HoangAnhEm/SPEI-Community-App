@@ -8,6 +8,10 @@ import '../../blocs/household_lookup/household_lookup_cubit.dart';
 import '../../blocs/household_lookup/household_lookup_state.dart';
 import '../../widgets/custom_app_bar.dart';
 
+// Màu riêng của màn này
+const Color _kGreenD2E4CA = Color(0xFFD2E4CA);
+const Color _kOrangeLightF8E7CD = Color(0xFFF8E7CD);
+
 class HouseholdLookupResultScreen extends StatefulWidget {
   final String householdId;
 
@@ -102,7 +106,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
                             const SizedBox(height: 12),
                             TextButton(
                               onPressed: () => context.pop(),
-                              child: const Text('Quét hộ khác', style: TextStyle(color: Color(0xFF2D4F3C))),
+                              child: const Text('Quét hộ khác', style: TextStyle(color: AppColors.textGreenMedium)),
                             ),
                           ],
                         ),
@@ -139,21 +143,21 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
                               width: double.infinity,
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFEEFEF),
+                                color: AppColors.errorBg,
                                 borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: const Color(0xFFF5C6CB)),
+                                border: Border.all(color: AppColors.redBorder),
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(Icons.error_outline, size: 18, color: Color(0xFFC94A4A)),
+                                  const Icon(Icons.error_outline, size: 18, color: AppColors.error),
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: Text(
                                       state.joinError!,
                                       style: const TextStyle(
                                         fontSize: 13,
-                                        color: Color(0xFFC94A4A),
+                                        color: AppColors.error,
                                         height: 1.4,
                                       ),
                                     ),
@@ -227,7 +231,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: const Color(0xFFE2E8DE)),
+                                border: Border.all(color: AppColors.border),
                               ),
                               child: const Center(
                                 child: Text(
@@ -235,7 +239,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2D4F3C),
+                                    color: AppColors.textGreenMedium,
                                   ),
                                 ),
                               ),
@@ -267,7 +271,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFEAF3E4),
+        color: AppColors.successBg,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -308,7 +312,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFFD2E4CA)),
+                  border: Border.all(color: _kGreenD2E4CA),
                 ),
                 child: Center(
                   child: Text(
@@ -359,7 +363,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8DE)),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -396,21 +400,21 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFFFEEFEF),
+          color: AppColors.errorBg,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFF5C6CB)),
+          border: Border.all(color: AppColors.redBorder),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.info_outline, color: Color(0xFFC94A4A), size: 20),
+            const Icon(Icons.info_outline, color: AppColors.error, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 result.reason!,
                 style: const TextStyle(
                   fontSize: 12.5,
-                  color: Color(0xFFC94A4A),
+                  color: AppColors.error,
                   height: 1.45,
                 ),
               ),
@@ -426,21 +430,21 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFFFEF6E8),
+          color: AppColors.amberSurface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFF8E7CD)),
+          border: Border.all(color: _kOrangeLightF8E7CD),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.info_outline, color: Color(0xFF8A6D3B), size: 20),
+            const Icon(Icons.info_outline, color: AppColors.brownText, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 'Bạn đang ở $currentHouseholdName. Bạn vẫn có thể gửi yêu cầu đến ${result.name}, nhưng phải rời hộ hiện tại trước khi tham gia.',
                 style: const TextStyle(
                   fontSize: 12.5,
-                  color: Color(0xFF6B5826),
+                  color: AppColors.oliveText,
                   height: 1.45,
                 ),
               ),
@@ -455,7 +459,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEAF3E4),
+        color: AppColors.successBg,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -468,7 +472,7 @@ class _HouseholdLookupResultScreenState extends State<HouseholdLookupResultScree
               'Yêu cầu sẽ được gửi đến chủ hộ ${result.ownerName}. Bạn chỉ trở thành thành viên sau khi được chấp nhận.',
               style: const TextStyle(
                 fontSize: 12.5,
-                color: Color(0xFF2D4F3C),
+                color: AppColors.textGreenMedium,
                 height: 1.45,
               ),
             ),

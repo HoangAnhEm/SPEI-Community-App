@@ -54,7 +54,7 @@ class CustomConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       insetPadding: const EdgeInsets.symmetric(horizontal: 24),
       child: Padding(
@@ -92,7 +92,7 @@ class CustomConfirmDialog extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: const Color(0xFFE2E8DE)),
+                  border: Border.all(color: AppColors.border),
                 ),
                 child: Center(
                   child: Text(
@@ -116,7 +116,7 @@ class CustomConfirmDialog extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: isDestructive ? const Color(0xFFFDE8E8) : AppColors.primary,
+                  color: isDestructive ? AppColors.redSurface : AppColors.primary,
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
@@ -125,7 +125,7 @@ class CustomConfirmDialog extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: isDestructive ? const Color(0xFFC94A4A) : Colors.white,
+                      color: isDestructive ? AppColors.error : Colors.white,
                     ),
                   ),
                 ),

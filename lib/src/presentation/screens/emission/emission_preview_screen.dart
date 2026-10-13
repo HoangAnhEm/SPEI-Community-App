@@ -8,6 +8,12 @@ import '../../../domain/repositories/emission_repository.dart';
 import '../../blocs/emission/emission_cubit.dart';
 import '../common/custom_success_screen.dart';
 import 'widgets/emission_calculation_method_card.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kGreenDark1B5E20 = Color(0xFF1B5E20);
+const Color _kGreenLightD3ECD7 = Color(0xFFD3ECD7);
+const Color _kGreenLightEBF6EE = Color(0xFFEBF6EE);
 
 /// Dữ liệu đầu vào truyền sang màn hình kiểm tra trước khi lưu
 class EmissionPreviewArgs {
@@ -215,7 +221,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(errorMsg),
-          backgroundColor: const Color(0xFFDC2626),
+          backgroundColor: AppColors.red600,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
@@ -230,7 +236,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
         '${widget.args.categoryTitle} • Tháng $monthStr/${widget.args.year}';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -278,7 +284,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ),
@@ -323,7 +329,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -340,7 +346,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                   style: TextStyle(
                     fontSize: 19.5,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -349,7 +355,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                   subtitle,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -390,14 +396,14 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
               Icon(
                 Icons.check_circle_outline,
                 size: 16,
-                color: Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
               ),
               SizedBox(width: 6),
               Text(
                 'Nhập dữ liệu',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Color(0xFF4B5563),
+                  color: AppColors.gray600,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -408,14 +414,14 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
             child: Icon(
               Icons.chevron_right,
               size: 16,
-              color: Color(0xFF9CA3AF),
+              color: AppColors.gray400,
             ),
           ),
           const Text(
             'Kiểm tra & lưu',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -434,7 +440,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
@@ -451,7 +457,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 16),
@@ -468,7 +474,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
           // Đường phân cách nhẹ
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
-            child: Divider(height: 1, thickness: 1, color: Color(0xFFF3F4F6)),
+            child: Divider(height: 1, thickness: 1, color: AppColors.gray100),
           ),
 
           // Các trường chi tiết theo loại
@@ -495,7 +501,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                   Icon(
                     Icons.arrow_back,
                     size: 15,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                   SizedBox(width: 6),
                   Text(
@@ -503,7 +509,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                     style: TextStyle(
                       fontSize: 13.5,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF2E7D32),
+                      color: AppColors.greenPrimary,
                     ),
                   ),
                 ],
@@ -525,7 +531,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
           label,
           style: const TextStyle(
             fontSize: 13.5,
-            color: Color(0xFF6B7280),
+            color: AppColors.gray500,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -536,7 +542,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
             textAlign: TextAlign.right,
             style: const TextStyle(
               fontSize: 14,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -551,9 +557,9 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEBF6EE),
+        color: _kGreenLightEBF6EE,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFD3ECD7)),
+        border: Border.all(color: _kGreenLightD3ECD7),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,7 +569,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
             style: TextStyle(
               fontSize: 14.5,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF1E5128),
+              color: AppColors.greenDark,
             ),
           ),
           const SizedBox(height: 8),
@@ -578,7 +584,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                     height: 20,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
-                      color: Color(0xFF2E7D32),
+                      color: AppColors.greenPrimary,
                     ),
                   ),
                   SizedBox(width: 10),
@@ -586,7 +592,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                     'Đang tính toán phát thải...',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF2E7D32),
+                      color: AppColors.greenPrimary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -599,7 +605,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B5E20),
+                color: _kGreenDark1B5E20,
                 letterSpacing: -0.2,
               ),
             ),
@@ -613,7 +619,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                     '(Ước tính sơ bộ - $_calcErrorMessage)',
                     style: const TextStyle(
                       fontSize: 11.5,
-                      color: Color(0xFFB45309),
+                      color: AppColors.amber700,
                     ),
                   ),
                 ),
@@ -625,7 +631,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                       'Thử lại',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF2E7D32),
+                        color: AppColors.greenPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -667,9 +673,9 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,7 +685,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -687,7 +693,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
                 style: TextStyle(
                   fontSize: 14.5,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -697,7 +703,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
             'Kiểm tra tháng, loại, tên nguồn nếu có và lượng ghi nhận trước khi lưu. Mỗi lần thêm mới tạo một bản ghi riêng.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -714,7 +720,7 @@ class _EmissionPreviewScreenState extends State<EmissionPreviewScreen> {
       child: ElevatedButton(
         onPressed: _isSaving ? null : _handleSave,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(

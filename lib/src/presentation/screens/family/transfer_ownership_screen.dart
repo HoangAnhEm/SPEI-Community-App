@@ -56,7 +56,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
           scaffoldMessenger.showSnackBar(
             SnackBar(
               content: Text(householdCubit.state.errorMessage ?? 'Không thể chuyển quyền chủ hộ'),
-              backgroundColor: const Color(0xFFC94A4A),
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -74,7 +74,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
     final eligibleMembers = household?.members.where((m) => !m.isOwner).toList() ?? [];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -95,16 +95,16 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFEF6E8),
+                        color: AppColors.amberSurface,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFFFED7AA)),
+                        border: Border.all(color: AppColors.orange200),
                       ),
                       child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.verified_user_outlined,
-                            color: Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             size: 20,
                           ),
                           SizedBox(width: 10),
@@ -113,7 +113,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                               'Sau khi chuyển, bạn sẽ trở thành Thành viên. Người được chọn sẽ quản lý lời mời và duyệt yêu cầu vào hộ.',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF8A6D3B),
+                                color: AppColors.brownText,
                                 height: 1.45,
                               ),
                             ),
@@ -142,7 +142,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFE8ECE5)),
+                          border: Border.all(color: AppColors.borderLight),
                         ),
                         child: const Column(
                           children: [
@@ -175,7 +175,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: isSelected ? AppColors.primary : const Color(0xFFE8ECE5),
+                                  color: isSelected ? AppColors.primary : AppColors.borderLight,
                                   width: isSelected ? 1.5 : 1.0,
                                 ),
                               ),
@@ -186,7 +186,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                                     width: 44,
                                     height: 44,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFEFF5EE),
+                                      color: AppColors.greenSurfacePale,
                                       borderRadius: BorderRadius.circular(22),
                                     ),
                                     child: Center(
@@ -195,7 +195,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                                         style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF2D4F3C),
+                                          color: AppColors.textGreenMedium,
                                         ),
                                       ),
                                     ),
@@ -233,7 +233,7 @@ class _TransferOwnershipScreenState extends State<TransferOwnershipScreen> {
                                   if (isSelected)
                                     const Icon(
                                       Icons.check_circle_outline,
-                                      color: Color(0xFF2E7D32),
+                                      color: AppColors.greenPrimary,
                                       size: 22,
                                     ),
                                 ],

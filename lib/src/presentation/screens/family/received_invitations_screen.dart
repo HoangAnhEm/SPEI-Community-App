@@ -8,6 +8,9 @@ import '../../blocs/received_invitations/received_invitations_cubit.dart';
 import '../../blocs/received_invitations/received_invitations_state.dart';
 import '../../widgets/custom_app_bar.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightFBFDFB = Color(0xFFFBFDFB);
+
 class ReceivedInvitationsScreen extends StatefulWidget {
   const ReceivedInvitationsScreen({super.key});
 
@@ -38,33 +41,33 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
 
     switch (status.toLowerCase()) {
       case 'pending':
-        bgColor = const Color(0xFFFEF3C7);
-        textColor = const Color(0xFFB45309);
+        bgColor = AppColors.amber100;
+        textColor = AppColors.amber700;
         label = 'Lời mời đang chờ';
         break;
       case 'accepted':
-        bgColor = const Color(0xFFDEF7EC);
-        textColor = const Color(0xFF03543F);
+        bgColor = AppColors.emerald50;
+        textColor = AppColors.emerald900;
         label = 'Đã tham gia';
         break;
       case 'rejected':
-        bgColor = const Color(0xFFFDE8E8);
-        textColor = const Color(0xFF9B1C1C);
+        bgColor = AppColors.redSurface;
+        textColor = AppColors.red900;
         label = 'Đã từ chối';
         break;
       case 'expired':
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = 'Hết hạn';
         break;
       case 'revoked':
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = 'Đã hủy';
         break;
       default:
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = status;
     }
 
@@ -91,7 +94,7 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
     final currentHousehold = householdState.household;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: BlocConsumer<ReceivedInvitationsCubit, ReceivedInvitationsState>(
           listener: (context, state) {
@@ -142,7 +145,7 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 48, color: Color(0xFFC94A4A)),
+              const Icon(Icons.error_outline, size: 48, color: AppColors.error),
               const SizedBox(height: 12),
               Text(
                 state.error,
@@ -182,21 +185,21 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFEF6E8),
+                  color: AppColors.amberSurface,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFFED7AA)),
+                  border: Border.all(color: AppColors.orange200),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.info_outline, color: Color(0xFFD97706), size: 20),
+                    const Icon(Icons.info_outline, color: AppColors.amber600, size: 20),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
                         'Bạn đang ở $currentHouseholdName. Bạn có thể xem lời mời, nhưng cần rời hộ hiện tại trước khi chấp nhận.',
                         style: const TextStyle(
                           fontSize: 13,
-                          color: Color(0xFF8A6D3B),
+                          color: AppColors.brownText,
                           height: 1.45,
                         ),
                       ),
@@ -217,7 +220,7 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
                         width: 80,
                         height: 80,
                         decoration: const BoxDecoration(
-                          color: Color(0xFFF0F5F2),
+                          color: AppColors.greenSurfaceMuted,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -269,7 +272,7 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFFE8ECE5)),
+                      border: Border.all(color: AppColors.borderLight),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,9 +330,9 @@ class _ReceivedInvitationsScreenState extends State<ReceivedInvitationsScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFBFDFB),
+                              color: _kGreenLightFBFDFB,
                               borderRadius: BorderRadius.circular(14),
-                              border: Border.all(color: const Color(0xFFE2E8DE)),
+                              border: Border.all(color: AppColors.border),
                             ),
                             child: const Row(
                               children: [

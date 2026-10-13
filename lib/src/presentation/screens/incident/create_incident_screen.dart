@@ -14,6 +14,11 @@ import '../../blocs/incident/incident_state.dart';
 import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightF1F3ED = Color(0xFFF1F3ED);
+const Color _kGreenLightF7F8F5 = Color(0xFFF7F8F5);
+const Color _kGreyLightE0E5DF = Color(0xFFE0E5DF);
+
 /// Item lưu trữ minh chứng (có thể là tệp mới chọn từ máy hoặc URL đã lưu trước đó)
 class EvidenceItem {
   final String? localPath;
@@ -132,7 +137,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B2E1E),
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 14),
@@ -141,11 +146,11 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE8F5E9),
+                    color: AppColors.green50,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.photo_camera_outlined,
-                      color: Color(0xFF2E7D32)),
+                      color: AppColors.greenPrimary),
                 ),
                 title: Text(isCamera ? 'Chụp ảnh mới' : 'Chọn ảnh từ thư viện'),
                 subtitle: Text('Đã có: $_imageCount/2 ảnh tối đa'),
@@ -164,11 +169,11 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE8F5E9),
+                    color: AppColors.green50,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.videocam_outlined,
-                      color: Color(0xFF2E7D32)),
+                      color: AppColors.greenPrimary),
                 ),
                 title: Text(isCamera ? 'Quay video mới' : 'Chọn video từ thư viện'),
                 subtitle: Text('Đã có: $_videoCount/1 video tối đa'),
@@ -269,7 +274,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: const Color(0xFFC53030),
+        backgroundColor: AppColors.redDark,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -322,7 +327,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Bổ sung minh chứng thành công!'),
-            backgroundColor: Color(0xFF2E7D32),
+            backgroundColor: AppColors.greenPrimary,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -369,7 +374,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Gửi phản ánh vi phạm thành công!'),
-            backgroundColor: Color(0xFF2E7D32),
+            backgroundColor: AppColors.greenPrimary,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -388,7 +393,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
         final isSubmitting = state.isSubmitting;
 
         return Scaffold(
-          backgroundColor: const Color(0xFFF9FAF7),
+          backgroundColor: AppColors.surfaceLight,
           body: SafeArea(
             child: Column(
               children: [
@@ -417,7 +422,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                           ),
                           child: const Icon(
                             Icons.arrow_back,
-                            color: Color(0xFF1E5128),
+                            color: AppColors.greenDark,
                             size: 20,
                           ),
                         ),
@@ -434,7 +439,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF1B2E1E),
+                                color: AppColors.textPrimary,
                                 letterSpacing: -0.3,
                               ),
                             ),
@@ -445,7 +450,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                   : 'Cùng giữ khu phố xanh, sạch',
                               style: const TextStyle(
                                 fontSize: 12.5,
-                                color: Color(0xFF6B7280),
+                                color: AppColors.gray500,
                               ),
                             ),
                           ],
@@ -488,7 +493,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                               : 'Ghi nhận vấn đề bạn quan sát được. Ban quản trị cộng đồng sẽ xem xét phản ánh của bạn.',
                           style: const TextStyle(
                             fontSize: 13,
-                            color: Color(0xFF4B5563),
+                            color: AppColors.gray600,
                             height: 1.4,
                           ),
                         ),
@@ -509,7 +514,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF1B2E1E),
+                                  color: AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -525,14 +530,14 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                   enabled: !_isAddingEvidence,
                                   style: const TextStyle(
                                     fontSize: 14.5,
-                                    color: Color(0xFF1B2E1E),
+                                    color: AppColors.textPrimary,
                                     fontWeight: FontWeight.w500,
                                   ),
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
                                       Icons.description_outlined,
-                                      color: Color(0xFF2E7D32),
+                                      color: AppColors.greenPrimary,
                                       size: 20,
                                     ),
                                     contentPadding:
@@ -556,7 +561,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF1B2E1E),
+                                  color: AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -576,7 +581,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                     children: [
                                       const Icon(
                                         Icons.location_on_outlined,
-                                        color: Color(0xFF2E7D32),
+                                        color: AppColors.greenPrimary,
                                         size: 22,
                                       ),
                                       const SizedBox(width: 10),
@@ -586,7 +591,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
-                                            color: Color(0xFF1B2E1E),
+                                            color: AppColors.textPrimary,
                                           ),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
@@ -628,7 +633,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF1B2E1E),
+                                  color: AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -648,7 +653,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                   minLines: 3,
                                   style: const TextStyle(
                                     fontSize: 14,
-                                    color: Color(0xFF1B2E1E),
+                                    color: AppColors.textPrimary,
                                     height: 1.4,
                                   ),
                                   decoration: const InputDecoration(
@@ -711,7 +716,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF1F3ED),
+                            color: _kGreenLightF1F3ED,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -793,14 +798,14 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B2E1E),
+                  color: AppColors.textPrimary,
                 ),
               ),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF1F5F0),
+                  color: AppColors.surfaceSage,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -808,7 +813,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                   style: const TextStyle(
                     fontSize: 11.5,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ),
               ),
@@ -822,7 +827,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
               height: 180,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xFFF7F8F5),
+                color: _kGreenLightF7F8F5,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: Colors.grey.shade300, width: 1),
               ),
@@ -834,13 +839,13 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                       width: 52,
                       height: 52,
                       decoration: const BoxDecoration(
-                        color: Color(0xFFE8F5E9),
+                        color: AppColors.green50,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
                         Icons.add_a_photo_outlined,
                         size: 26,
-                        color: Color(0xFF2E7D32),
+                        color: AppColors.greenPrimary,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -849,7 +854,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                       style: TextStyle(
                         fontSize: 13.5,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -895,7 +900,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 Container(
-                              color: const Color(0xFFE0E5DF),
+                              color: _kGreyLightE0E5DF,
                               child: const Center(
                                 child: Icon(
                                   Icons.broken_image,
@@ -911,7 +916,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 Container(
-                              color: const Color(0xFFE0E5DF),
+                              color: _kGreyLightE0E5DF,
                               child: const Center(
                                 child: Icon(
                                   Icons.broken_image,
@@ -931,7 +936,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                                 horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
                               color: item.isExisting
-                                  ? const Color(0xFF2E7D32).withValues(alpha: 0.9)
+                                  ? AppColors.greenPrimary.withValues(alpha: 0.9)
                                   : Colors.black.withValues(alpha: 0.65),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -1055,8 +1060,8 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE8F5E9),
-                      foregroundColor: const Color(0xFF1E5128),
+                      backgroundColor: AppColors.green50,
+                      foregroundColor: AppColors.greenDark,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

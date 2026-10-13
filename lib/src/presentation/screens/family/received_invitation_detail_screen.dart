@@ -61,7 +61,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
       scaffoldMessenger.showSnackBar(
         const SnackBar(
           content: Text('Không thể chấp nhận lời mời. Vui lòng thử lại.'),
-          backgroundColor: Color(0xFFC94A4A),
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -86,7 +86,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
       scaffoldMessenger.showSnackBar(
         const SnackBar(
           content: Text('Không thể từ chối lời mời. Vui lòng thử lại.'),
-          backgroundColor: Color(0xFFC94A4A),
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -114,7 +114,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
           scaffoldMessenger.showSnackBar(
             SnackBar(
               content: Text(householdCubit.state.errorMessage ?? 'Không thể rời hộ gia đình'),
-              backgroundColor: const Color(0xFFC94A4A),
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -132,7 +132,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
     final initials = _getInitials(inviterDisplayName);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -153,7 +153,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                       width: double.infinity,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEFF5EE),
+                        color: AppColors.greenSurfacePale,
                         borderRadius: BorderRadius.circular(24),
                       ),
                       child: Column(
@@ -162,7 +162,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFEF3C7),
+                              color: AppColors.amber100,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Text(
@@ -170,7 +170,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFFB45309),
+                                color: AppColors.amber700,
                               ),
                             ),
                           ),
@@ -192,7 +192,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                                 width: 44,
                                 height: 44,
                                 decoration: const BoxDecoration(
-                                  color: Color(0xFFE8F2EC),
+                                  color: AppColors.greenSurfaceSoft,
                                   shape: BoxShape.circle,
                                 ),
                                 child: Center(
@@ -201,7 +201,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                                     style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xFF2D4F3C),
+                                      color: AppColors.textGreenMedium,
                                     ),
                                   ),
                                 ),
@@ -260,9 +260,9 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                         width: double.infinity,
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFEAF3E4),
+                          color: AppColors.successBg,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFD1E7DD)),
+                          border: Border.all(color: AppColors.greenBorderSoft),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,7 +274,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                                 'Bạn chưa có hộ nên có thể chấp nhận lời mời ngay. Sau khi chấp nhận, bạn sẽ là thành viên ${inv.householdName}.',
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Color(0xFF2D4F3C),
+                                  color: AppColors.textGreenMedium,
                                   height: 1.45,
                                 ),
                               ),
@@ -335,7 +335,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFE2E8DE)),
+                            border: Border.all(color: AppColors.border),
                           ),
                           child: const Center(
                             child: Text(
@@ -343,7 +343,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2D4F3C),
+                                color: AppColors.textGreenMedium,
                               ),
                             ),
                           ),
@@ -355,21 +355,21 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                         width: double.infinity,
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFEF6E8),
+                          color: AppColors.amberSurface,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFFED7AA)),
+                          border: Border.all(color: AppColors.orange200),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.info_outline, color: Color(0xFFD97706), size: 20),
+                            const Icon(Icons.info_outline, color: AppColors.amber600, size: 20),
                             const SizedBox(width: 10),
                             Expanded(
                               child: Text(
                                 'Bạn đang là thành viên ${currentHousehold.name}. Chưa thể chấp nhận lời mời này. Hãy chủ động rời hộ hiện tại trước; ứng dụng không tự rời hộ cho bạn.',
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Color(0xFF8A6D3B),
+                                  color: AppColors.brownText,
                                   height: 1.45,
                                 ),
                               ),
@@ -384,21 +384,21 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                         width: double.infinity,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE8ECE5),
+                          color: AppColors.borderLight,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: const Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.check, color: Color(0xFF8E9A92), size: 20),
+                              Icon(Icons.check, color: AppColors.textMuted, size: 20),
                               SizedBox(width: 8),
                               Text(
                                 'Chấp nhận lời mời',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF8E9A92),
+                                  color: AppColors.textMuted,
                                 ),
                               ),
                             ],
@@ -417,7 +417,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFE2E8DE)),
+                            border: Border.all(color: AppColors.border),
                           ),
                           child: const Center(
                             child: Text(
@@ -425,7 +425,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2D4F3C),
+                                color: AppColors.textGreenMedium,
                               ),
                             ),
                           ),
@@ -443,7 +443,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFE2E8DE)),
+                            border: Border.all(color: AppColors.border),
                           ),
                           child: const Center(
                             child: Text(
@@ -451,7 +451,7 @@ class _ReceivedInvitationDetailScreenState extends State<ReceivedInvitationDetai
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2D4F3C),
+                                color: AppColors.textGreenMedium,
                               ),
                             ),
                           ),

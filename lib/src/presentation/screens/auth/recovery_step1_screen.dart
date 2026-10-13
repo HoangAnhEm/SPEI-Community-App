@@ -9,6 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/di/di.dart';
 import '../../blocs/recovery/recovery_cubit.dart';
 
+// Màu riêng của màn này
+const Color _kGreyLightE5E9E7 = Color(0xFFE5E9E7);
+
 class RecoveryStep1Screen extends StatelessWidget {
   const RecoveryStep1Screen({super.key});
 
@@ -155,7 +158,7 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEAF3F8),
+                  color: AppColors.blueBg,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -165,14 +168,14 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
                       'assets/icons/ic_info.png',
                       width: 18,
                       height: 18,
-                      color: const Color(0xFF2A6C91),
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.info_outline, color: Color(0xFF2A6C91), size: 18),
+                      color: AppColors.bluePrimary,
+                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.info_outline, color: AppColors.bluePrimary, size: 18),
                     ),
                     const SizedBox(width: 12),
                     const Expanded(
                       child: Text(
                         'Mã OTP chỉ được gửi đến email đã đăng ký. Kiểm tra hộp thư đến và thư rác nếu chưa nhận được mã.',
-                        style: TextStyle(fontSize: 12, color: Color(0xFF2A6C91), height: 1.4),
+                        style: TextStyle(fontSize: 12, color: AppColors.bluePrimary, height: 1.4),
                       ),
                     ),
                   ],
@@ -194,7 +197,7 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFEEFEF),
+                            color: AppColors.errorBg,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -204,14 +207,14 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
                                 'assets/icons/ic_info.png',
                                 width: 18,
                                 height: 18,
-                                color: const Color(0xFFC94A4A),
+                                color: AppColors.error,
                                 errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   state.error,
-                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                  style: const TextStyle(fontSize: 12, color: AppColors.error, height: 1.4),
                                 ),
                               ),
                             ],
@@ -241,7 +244,7 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE5E9E7)),
+                  border: Border.all(color: _kGreyLightE5E9E7),
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

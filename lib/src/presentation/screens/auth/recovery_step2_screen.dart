@@ -237,7 +237,7 @@ class _RecoveryStep2ScreenState extends State<RecoveryStep2Screen> {
                                 hasResendSuccess ? 'assets/icons/ic_check_circle.png' : 'assets/icons/ic_info.png',
                                 width: 18,
                                 height: 18,
-                                color: hasResendSuccess ? AppColors.primary : const Color(0xFFC94A4A),
+                                color: hasResendSuccess ? AppColors.primary : AppColors.error,
                                 errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                               const SizedBox(width: 12),
@@ -250,7 +250,7 @@ class _RecoveryStep2ScreenState extends State<RecoveryStep2Screen> {
                                           : (state as RecoveryFailure).error,
                                   style: TextStyle(
                                     fontSize: 12, 
-                                    color: hasResendSuccess ? AppColors.primary : const Color(0xFFC94A4A), 
+                                    color: hasResendSuccess ? AppColors.primary : AppColors.error, 
                                     height: 1.4
                                   ),
                                 ),

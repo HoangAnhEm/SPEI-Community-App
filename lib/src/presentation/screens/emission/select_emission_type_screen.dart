@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/emission_details.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kGreenLightDBEEDB = Color(0xFFDBEEDB);
+const Color _kGreenLightEDF6EE = Color(0xFFEDF6EE);
 
 /// Item model cho danh sách loại phát thải
 class EmissionTypeOption {
@@ -142,7 +147,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -205,7 +210,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -219,7 +224,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
               style: const TextStyle(
                 fontSize: 21,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B2E1E),
+                color: AppColors.textPrimary,
                 letterSpacing: -0.3,
               ),
             ),
@@ -254,9 +259,9 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +271,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
               const Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               const SizedBox(width: 8),
               Text(
@@ -276,7 +281,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -288,7 +293,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                 : 'Điện, di chuyển hay sinh hoạt đều có loại số liệu riêng. Chọn một nguồn bên dưới để mở biểu mẫu phù hợp.',
             style: const TextStyle(
               fontSize: 13.5,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -304,7 +309,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
@@ -327,14 +332,14 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                   width: 46,
                   height: 46,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEDF6EE),
+                    color: _kGreenLightEDF6EE,
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0xFFDBEEDB)),
+                    border: Border.all(color: _kGreenLightDBEEDB),
                   ),
                   child: Center(
                     child: Icon(
                       option.icon,
-                      color: const Color(0xFF2E7D32),
+                      color: AppColors.greenPrimary,
                       size: 24,
                     ),
                   ),
@@ -351,7 +356,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                         style: const TextStyle(
                           fontSize: 15.5,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1F2937),
+                          color: AppColors.gray800,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -359,7 +364,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                         option.subtitle,
                         style: const TextStyle(
                           fontSize: 12.5,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ],
@@ -372,7 +377,7 @@ class _SelectEmissionTypeScreenState extends State<SelectEmissionTypeScreen> {
                 const Icon(
                   Icons.chevron_right,
                   size: 22,
-                  color: Color(0xFF6B7280),
+                  color: AppColors.gray500,
                 ),
               ],
             ),

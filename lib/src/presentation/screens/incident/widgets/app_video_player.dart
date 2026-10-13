@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import 'fullscreen_video_viewer.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
 
 /// Widget phát video trong ứng dụng với đầy đủ điều khiển (Play, Pause, Tua, Toàn màn hình)
 class AppVideoPlayer extends StatefulWidget {
@@ -165,7 +166,7 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
   Widget build(BuildContext context) {
     if (_hasError) {
       return Container(
-        color: const Color(0xFF1E2822),
+        color: AppColors.textNearBlack,
         child: const Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -184,14 +185,14 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
 
     if (!_isInitialized || _controller == null) {
       return Container(
-        color: const Color(0xFF1B2E1E),
+        color: AppColors.textPrimary,
         child: const Center(
           child: SizedBox(
             width: 32,
             height: 32,
             child: CircularProgressIndicator(
               strokeWidth: 2.5,
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenPrimary),
             ),
           ),
         ),
@@ -236,11 +237,11 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
                           width: 58,
                           height: 58,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF2E7D32)
+                                color: AppColors.greenPrimary
                                     .withValues(alpha: 0.45),
                                 blurRadius: 16,
                                 offset: const Offset(0, 4),
@@ -274,7 +275,7 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
                                   enabledThumbRadius: 6),
                               overlayShape: const RoundSliderOverlayShape(
                                   overlayRadius: 12),
-                              activeTrackColor: const Color(0xFF2E7D32),
+                              activeTrackColor: AppColors.greenPrimary,
                               inactiveTrackColor: Colors.white30,
                               thumbColor: Colors.white,
                             ),

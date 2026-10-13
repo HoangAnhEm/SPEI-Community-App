@@ -7,6 +7,10 @@ import '../../blocs/reward/reward_state.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/primary_button.dart';
 
+// Màu riêng của màn này
+const Color _kOrangeE65100 = Color(0xFFE65100);
+const Color _kOrangeLightFFF3E0 = Color(0xFFFFF3E0);
+
 class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});
 
@@ -73,8 +77,8 @@ class RewardScreen extends StatelessWidget {
                         subtitle: 'Tưới vừa đủ và quan sát một chiếc lá mới.',
                         statusText: '1/1 hoạt động • Có thể nhận',
                         pointText: '+80 điểm',
-                        pointBgColor: const Color(0xFFFFF3E0),
-                        pointTextColor: const Color(0xFFE65100),
+                        pointBgColor: _kOrangeLightFFF3E0,
+                        pointTextColor: _kOrangeE65100,
                         showClaimButton: true,
                       ),
                       const SizedBox(height: 12),
@@ -363,7 +367,7 @@ class RewardScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F9F9),
+        color: AppColors.neutral25,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

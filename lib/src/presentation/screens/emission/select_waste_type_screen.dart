@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/emission_details.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kGreenLightF1F8F2 = Color(0xFFF1F8F2);
 
 /// Màn hình chọn loại chất thải (gồm 10 loại chia làm 3 nhóm: Chất thải rắn, Nguy hại, Nước thải)
 class SelectWasteTypeScreen extends StatefulWidget {
@@ -59,7 +63,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -74,15 +78,15 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: const Color(0xFFE5E7EB)),
+                  border: Border.all(color: AppColors.gray200),
                 ),
                 child: TextField(
                   controller: _searchController,
-                  style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+                  style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
                   decoration: const InputDecoration(
                     hintText: 'Tìm tên hoặc mã chất thải',
-                    hintStyle: TextStyle(fontSize: 14, color: Color(0xFF9CA3AF)),
-                    prefixIcon: Icon(Icons.search, color: Color(0xFF6B7280), size: 20),
+                    hintStyle: TextStyle(fontSize: 14, color: AppColors.gray400),
+                    prefixIcon: Icon(Icons.search, color: AppColors.gray500, size: 20),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(vertical: 12),
                   ),
@@ -136,7 +140,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 11.5,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                           height: 1.4,
                         ),
                       ),
@@ -168,7 +172,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                     context.pop(_selectedItem);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E7D32),
+                    backgroundColor: AppColors.greenPrimary,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -219,7 +223,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -236,7 +240,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -245,7 +249,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                   '10 loại • Theo bảng 2.6 đính kèm',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -281,16 +285,16 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: const [
-              Icon(Icons.info_outline, size: 20, color: Color(0xFF1B598E)),
+              Icon(Icons.info_outline, size: 20, color: AppColors.blueMedium),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -298,7 +302,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1B4E75),
+                    color: AppColors.blueDeep,
                   ),
                 ),
               ),
@@ -309,7 +313,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
             'Hệ số chỉ dùng với đúng loại và cách xử lý trong bảng. Loại nguy hại không dùng thay cho rác sinh hoạt.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -328,14 +332,14 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1F2937),
+            color: AppColors.gray800,
           ),
         ),
         Text(
           countText,
           style: const TextStyle(
             fontSize: 12.5,
-            color: Color(0xFF6B7280),
+            color: AppColors.gray500,
           ),
         ),
       ],
@@ -356,10 +360,10 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFF1F8F2) : Colors.white,
+        color: isSelected ? _kGreenLightF1F8F2 : Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isSelected ? const Color(0xFF2E7D32) : const Color(0xFFE5E7EB),
+          color: isSelected ? AppColors.greenPrimary : AppColors.gray200,
           width: isSelected ? 1.5 : 1.0,
         ),
         boxShadow: [
@@ -393,7 +397,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                         style: const TextStyle(
                           fontSize: 14.5,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1F2937),
+                          color: AppColors.gray800,
                           height: 1.35,
                         ),
                       ),
@@ -402,7 +406,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                         '$codeString • ${item.treatmentMethod}',
                         style: const TextStyle(
                           fontSize: 12.5,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -410,7 +414,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                         '$factorString ${item.emissionFactorUnit} • Nhập ${item.defaultUnit}',
                         style: const TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF4B5563),
+                          color: AppColors.gray600,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -423,7 +427,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                   child: isSelected
                       ? const Icon(
                           Icons.check_circle,
-                          color: Color(0xFF2E7D32),
+                          color: AppColors.greenPrimary,
                           size: 22,
                         )
                       : Container(
@@ -431,7 +435,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                           height: 22,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: const Color(0xFFD1D5DB), width: 1.5),
+                            border: Border.all(color: AppColors.gray300, width: 1.5),
                           ),
                         ),
                 ),
@@ -449,16 +453,16 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEF6E8),
+        color: AppColors.amberSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFED7AA)),
+        border: Border.all(color: AppColors.orange200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: const [
-              Icon(Icons.warning_amber_rounded, size: 20, color: Color(0xFFD97706)),
+              Icon(Icons.warning_amber_rounded, size: 20, color: AppColors.amber600),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -466,7 +470,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFB45309),
+                    color: AppColors.amber700,
                   ),
                 ),
               ),
@@ -477,7 +481,7 @@ class _SelectWasteTypeScreenState extends State<SelectWasteTypeScreen> {
             '0,18574 kg CO2e/m³ chỉ thuộc hệ thống xử lý nước thải KCN trong ảnh, không áp chung cho nước thải gia đình.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF92400E),
+              color: AppColors.amber800,
               height: 1.45,
             ),
           ),

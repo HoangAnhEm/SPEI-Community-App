@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
 
 /// Màn hình xem video toàn màn hình (Fullscreen) phong cách Facebook / Reels
 /// Hỗ trợ: Play/Pause, Tua ±10s, Thanh tiến trình, Phóng to 2 ngón tay (Pinch to zoom), Vuốt xuống để đóng
@@ -174,7 +175,7 @@ class _FullscreenVideoViewerState extends State<FullscreenVideoViewer> {
         backgroundColor: Colors.black,
         body: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenPrimary),
           ),
         ),
       );
@@ -293,11 +294,11 @@ class _FullscreenVideoViewerState extends State<FullscreenVideoViewer> {
                                   width: 72,
                                   height: 72,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF2E7D32),
+                                    color: AppColors.greenPrimary,
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: const Color(0xFF2E7D32)
+                                        color: AppColors.greenPrimary
                                             .withValues(alpha: 0.5),
                                         blurRadius: 20,
                                         offset: const Offset(0, 4),
@@ -340,7 +341,7 @@ class _FullscreenVideoViewerState extends State<FullscreenVideoViewer> {
                                         const RoundSliderOverlayShape(
                                             overlayRadius: 14),
                                     activeTrackColor:
-                                        const Color(0xFF2E7D32),
+                                        AppColors.greenPrimary,
                                     inactiveTrackColor: Colors.white38,
                                     thumbColor: Colors.white,
                                   ),

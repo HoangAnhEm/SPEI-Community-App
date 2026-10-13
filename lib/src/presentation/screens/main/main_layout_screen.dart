@@ -81,7 +81,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
             });
           },
           backgroundColor: Colors.white,
-          indicatorColor: const Color(0xFFEAF3E4),
+          indicatorColor: AppColors.successBg,
           surfaceTintColor: Colors.transparent,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           destinations: [

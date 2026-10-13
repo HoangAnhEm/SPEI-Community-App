@@ -14,6 +14,10 @@ import '../../blocs/invite_user/invite_user_cubit.dart';
 import '../../blocs/invite_user/invite_user_state.dart';
 import '../../widgets/custom_app_bar.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightEBF2EA = Color(0xFFEBF2EA);
+const Color _kGrey5E6F65 = Color(0xFF5E6F65);
+
 class InviteUserScreen extends StatefulWidget {
   const InviteUserScreen({super.key});
 
@@ -143,7 +147,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Không tìm thấy mã QR trong ảnh đã chọn. Vui lòng thử ảnh khác hoặc nhập ID.'),
-            backgroundColor: Color(0xFFC94A4A),
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -152,7 +156,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Lỗi khi đọc ảnh: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: const Color(0xFFC94A4A),
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -238,7 +242,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
     final householdName = household?.name ?? 'Nhà Mầm xanh';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: BlocConsumer<InviteUserCubit, InviteUserState>(
           listener: (context, state) {
@@ -253,14 +257,14 @@ class _InviteUserScreenState extends State<InviteUserScreen>
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.inviteMessage!),
-                  backgroundColor: const Color(0xFFC94A4A),
+                  backgroundColor: AppColors.error,
                 ),
               );
             } else if (state.searchStatus == UserSearchStatus.failure && state.searchError != null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.searchError!),
-                  backgroundColor: const Color(0xFFC94A4A),
+                  backgroundColor: AppColors.error,
                 ),
               );
             }
@@ -318,9 +322,9 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                               width: double.infinity,
                               padding: const EdgeInsets.all(14),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFEBF5EE),
+                                color: AppColors.greenSurface,
                                 borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: const Color(0xFFD1E7DD)),
+                                border: Border.all(color: AppColors.greenBorderSoft),
                               ),
                               child: const Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,7 +336,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                                       'Bạn có thể quét QR của người dùng thay vì nhập số điện thoại hoặc email.',
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: Color(0xFF2D4F3C),
+                                        color: AppColors.textGreenMedium,
                                         height: 1.4,
                                       ),
                                     ),
@@ -363,7 +367,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
       width: double.infinity,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFFEBF2EA),
+        color: _kGreenLightEBF2EA,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -409,7 +413,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                color: isSelected ? const Color(0xFF2D4F3C) : const Color(0xFF5E6F65),
+                color: isSelected ? AppColors.textGreenMedium : _kGrey5E6F65,
               ),
             ),
           ),
@@ -442,11 +446,11 @@ class _InviteUserScreenState extends State<InviteUserScreen>
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+              borderSide: const BorderSide(color: AppColors.border),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+              borderSide: const BorderSide(color: AppColors.border),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
@@ -485,11 +489,11 @@ class _InviteUserScreenState extends State<InviteUserScreen>
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+              borderSide: const BorderSide(color: AppColors.border),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+              borderSide: const BorderSide(color: AppColors.border),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
@@ -587,7 +591,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                     return Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: const Color(0xFF1E2822),
+                      color: AppColors.textNearBlack,
                       padding: const EdgeInsets.all(24),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -595,7 +599,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                           const Icon(
                             Icons.videocam_off_outlined,
                             size: 48,
-                            color: Color(0xFFF39C12),
+                            color: AppColors.orangeAccent,
                           ),
                           const SizedBox(height: 12),
                           const Text(
@@ -612,7 +616,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                             'Cấp quyền máy ảnh hoặc nhập ID / chọn ảnh bên dưới.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xFFB0C4B8),
+                              color: AppColors.textGreenGreyMuted,
                               fontSize: 12,
                             ),
                           ),
@@ -669,11 +673,11 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                             child: Container(
                               height: 3,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF66BB6A),
+                                color: AppColors.green400,
                                 borderRadius: BorderRadius.circular(2),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: const Color(0xFF66BB6A).withValues(alpha: 0.8),
+                                    color: AppColors.green400.withValues(alpha: 0.8),
                                     blurRadius: 8,
                                     spreadRadius: 2,
                                   ),
@@ -693,7 +697,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1B3828).withValues(alpha: 0.85),
+                      color: AppColors.greenNight.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
                     ),
@@ -718,7 +722,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
           width: double.infinity,
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: const Color(0xFFEAF3E4),
+            color: AppColors.successBg,
             borderRadius: BorderRadius.circular(16),
           ),
           child: const Row(
@@ -731,7 +735,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                   'Chỉ quét QR người dùng từ mục "QR của tôi".',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Color(0xFF2D4F3C),
+                    color: AppColors.textGreenMedium,
                     height: 1.4,
                   ),
                 ),
@@ -748,7 +752,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: const Color(0xFFE2E8DE)),
+            border: Border.all(color: AppColors.border),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -793,7 +797,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                   hintText: 'Ví dụ: b65d2031-7e92-4a08-9c16-5f2e8d43a701',
                   hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 13),
                   filled: true,
-                  fillColor: const Color(0xFFF7F9F6),
+                  fillColor: AppColors.surfacePale,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -847,7 +851,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0xFFE2E8DE)),
+              border: Border.all(color: AppColors.border),
             ),
             child: Center(
               child: _isAnalyzingImage
@@ -869,7 +873,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2D4F3C),
+                            color: AppColors.textGreenMedium,
                           ),
                         ),
                       ],
@@ -907,7 +911,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFFE8ECE5)),
+            border: Border.all(color: AppColors.borderLight),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -919,7 +923,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                     width: 44,
                     height: 44,
                     decoration: const BoxDecoration(
-                      color: Color(0xFFE8F2EC),
+                      color: AppColors.greenSurfaceSoft,
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -928,7 +932,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2D4F3C),
+                          color: AppColors.textGreenMedium,
                         ),
                       ),
                     ),
@@ -975,14 +979,14 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.info_outline, size: 16, color: Color(0xFFC94A4A)),
+                    const Icon(Icons.info_outline, size: 16, color: AppColors.error),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
                         user.reason ?? 'Không thể mời người dùng này vào hộ gia đình.',
                         style: const TextStyle(
                           fontSize: 13,
-                          color: Color(0xFFC94A4A),
+                          color: AppColors.error,
                           height: 1.4,
                         ),
                       ),
@@ -1003,7 +1007,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                     width: double.infinity,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: user.canInvite ? AppColors.primary : const Color(0xFFE2E8DE),
+                      color: user.canInvite ? AppColors.primary : AppColors.border,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Center(
@@ -1021,7 +1025,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                               children: [
                                 Icon(
                                   Icons.send_outlined,
-                                  color: user.canInvite ? Colors.white : const Color(0xFF8E9A92),
+                                  color: user.canInvite ? Colors.white : AppColors.textMuted,
                                   size: 18,
                                 ),
                                 const SizedBox(width: 8),
@@ -1030,7 +1034,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: user.canInvite ? Colors.white : const Color(0xFF8E9A92),
+                                    color: user.canInvite ? Colors.white : AppColors.textMuted,
                                   ),
                                 ),
                               ],
@@ -1044,21 +1048,21 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                   width: double.infinity,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE8ECE5),
+                    color: AppColors.borderLight,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: const Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check, color: Color(0xFF2D4F3C), size: 18),
+                        Icon(Icons.check, color: AppColors.textGreenMedium, size: 18),
                         SizedBox(width: 8),
                         Text(
                           'Đã gửi lời mời',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2D4F3C),
+                            color: AppColors.textGreenMedium,
                           ),
                         ),
                       ],
@@ -1077,7 +1081,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFE2E8DE)),
+                      border: Border.all(color: AppColors.border),
                     ),
                     child: const Center(
                       child: Text(
@@ -1085,7 +1089,7 @@ class _InviteUserScreenState extends State<InviteUserScreen>
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2D4F3C),
+                          color: AppColors.textGreenMedium,
                         ),
                       ),
                     ),

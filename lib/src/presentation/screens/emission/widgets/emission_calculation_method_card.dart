@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kBlue4B7293 = Color(0xFF4B7293);
 
 /// Loại phương thức ước tính phát thải tương ứng với 6 biến thể trong Ảnh 2
 enum EmissionCalculationMethodType {
@@ -111,9 +115,9 @@ class EmissionCalculationMethodCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +128,7 @@ class EmissionCalculationMethodCard extends StatelessWidget {
               const Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               const SizedBox(width: 8),
               Text(
@@ -132,7 +136,7 @@ class EmissionCalculationMethodCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14.5,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -145,7 +149,7 @@ class EmissionCalculationMethodCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF1B4E75),
+              color: AppColors.blueDeep,
               height: 1.45,
             ),
           ),
@@ -156,7 +160,7 @@ class EmissionCalculationMethodCard extends StatelessWidget {
             body,
             style: const TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -167,7 +171,7 @@ class EmissionCalculationMethodCard extends StatelessWidget {
             footer,
             style: const TextStyle(
               fontSize: 12,
-              color: Color(0xFF4B7293),
+              color: _kBlue4B7293,
               height: 1.4,
             ),
           ),

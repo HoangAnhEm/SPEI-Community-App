@@ -10,6 +10,11 @@ import '../../blocs/emission/emission_cubit.dart';
 import '../common/custom_success_screen.dart';
 import 'widgets/emission_calculation_method_card.dart';
 
+// Màu riêng của màn này
+const Color _kGreyLightEEEEEE = Color(0xFFEEEEEE);
+const Color _kRedFCA5A5 = Color(0xFFFCA5A5);
+const Color _kRedLightFEF2F2 = Color(0xFFFEF2F2);
+
 /// Màn hình Chi tiết bản ghi phát thải đã lưu (M36 / Ảnh 2)
 class EmissionRecordDetailScreen extends StatefulWidget {
   final HouseholdEmission? record;
@@ -64,22 +69,22 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
           'Xác nhận xóa bản ghi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1B2E1E),
+            color: AppColors.textPrimary,
           ),
         ),
         content: Text(
           'Bạn có chắc chắn muốn xóa bản ghi phát thải ${item.categoryLabel} này? Thao tác này không thể hoàn tác.',
-          style: const TextStyle(fontSize: 14, color: Color(0xFF4B5563)),
+          style: const TextStyle(fontSize: 14, color: AppColors.gray600),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Hủy', style: TextStyle(color: Color(0xFF6B7280))),
+            child: const Text('Hủy', style: TextStyle(color: AppColors.gray500)),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFDC2626),
+              backgroundColor: AppColors.red600,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -137,7 +142,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
       messenger.showSnackBar(
         SnackBar(
           content: Text(errorMsg),
-          backgroundColor: const Color(0xFFDC2626),
+          backgroundColor: AppColors.red600,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
@@ -256,7 +261,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
         : item.categoryLabel;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFBFBF8),
+      backgroundColor: AppColors.surfaceOffWhite,
       body: SafeArea(
         child: Column(
           children: [
@@ -294,7 +299,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                       ),
                       child: const Icon(
                         Icons.arrow_back,
-                        color: Color(0xFF1E5128),
+                        color: AppColors.greenDark,
                         size: 20,
                       ),
                     ),
@@ -309,7 +314,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                           style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                             letterSpacing: -0.2,
                           ),
                         ),
@@ -318,7 +323,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                           '${item.categoryLabel} • Tháng $monthStr/${item.periodYear}',
                           style: const TextStyle(
                             fontSize: 12.5,
-                            color: Color(0xFF6B7280),
+                            color: AppColors.gray500,
                             height: 1.25,
                           ),
                         ),
@@ -361,21 +366,21 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE8F5E9),
+                        color: AppColors.green50,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.check,
-                              size: 14, color: Color(0xFF2E7D32)),
+                              size: 14, color: AppColors.greenPrimary),
                           SizedBox(width: 4),
                           Text(
                             'Đã ghi nhận',
                             style: TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF2E7D32),
+                              color: AppColors.greenPrimary,
                             ),
                           ),
                         ],
@@ -389,9 +394,9 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 18, vertical: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEBF5EE),
+                        color: AppColors.greenSurface,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFFD6EADB)),
+                        border: Border.all(color: AppColors.greenBorder),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,13 +409,13 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF1E3A24),
+                                  color: AppColors.greenDarker,
                                 ),
                               ),
                               Icon(
                                 Icons.eco_outlined,
                                 size: 22,
-                                color: Color(0xFF2E7D32),
+                                color: AppColors.greenPrimary,
                               ),
                             ],
                           ),
@@ -424,7 +429,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                                 style: const TextStyle(
                                   fontSize: 34,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF143E26),
+                                  color: AppColors.greenDeep,
                                   letterSpacing: -0.5,
                                 ),
                               ),
@@ -434,7 +439,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF143E26),
+                                  color: AppColors.greenDeep,
                                 ),
                               ),
                             ],
@@ -468,7 +473,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF1B2E1E),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -481,7 +486,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                           const SizedBox(height: 14),
                           _buildInfoRow('Ngày nhập', createdDateOnlyStr),
                           const SizedBox(height: 14),
-                          const Divider(height: 1, color: Color(0xFFEEEEEE)),
+                          const Divider(height: 1, color: _kGreyLightEEEEEE),
                           const SizedBox(height: 14),
                           _buildInfoRow(
                               'Phương thức', _getMethodLabel(item)),
@@ -541,9 +546,9 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                       child: OutlinedButton(
                         onPressed: _isDeleting ? null : () => _handleDelete(item),
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFEF2F2),
-                          foregroundColor: const Color(0xFFDC2626),
-                          side: const BorderSide(color: Color(0xFFFCA5A5)),
+                          backgroundColor: _kRedLightFEF2F2,
+                          foregroundColor: AppColors.red600,
+                          side: const BorderSide(color: _kRedFCA5A5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -555,7 +560,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xFFDC2626)),
+                                      AppColors.red600),
                                 ),
                               )
                             : const Text(
@@ -563,7 +568,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFFDC2626),
+                                  color: AppColors.red600,
                                 ),
                               ),
                       ),
@@ -600,7 +605,7 @@ class _EmissionRecordDetailScreenState extends State<EmissionRecordDetailScreen>
             style: const TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF1B2E1E),
+              color: AppColors.textPrimary,
             ),
           ),
         ),

@@ -47,28 +47,28 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
 
     switch (status.toLowerCase()) {
       case 'pending':
-        bgColor = const Color(0xFFFEF3C7);
-        textColor = const Color(0xFFB45309);
+        bgColor = AppColors.amber100;
+        textColor = AppColors.amber700;
         label = 'Chờ duyệt';
         break;
       case 'approved':
-        bgColor = const Color(0xFFDEF7EC);
-        textColor = const Color(0xFF03543F);
+        bgColor = AppColors.emerald50;
+        textColor = AppColors.emerald900;
         label = 'Đã chấp nhận';
         break;
       case 'rejected':
-        bgColor = const Color(0xFFFDE8E8);
-        textColor = const Color(0xFF9B1C1C);
+        bgColor = AppColors.redSurface;
+        textColor = AppColors.red900;
         label = 'Đã từ chối';
         break;
       case 'cancelled':
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = 'Đã hủy';
         break;
       default:
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = status;
     }
 
@@ -141,7 +141,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
     final memberCount = household?.memberCount ?? 1;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: BlocConsumer<HouseholdJoinRequestsCubit, HouseholdJoinRequestsState>(
           listener: (context, state) {
@@ -197,7 +197,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 48, color: Color(0xFFC94A4A)),
+              const Icon(Icons.error_outline, size: 48, color: AppColors.error),
               const SizedBox(height: 12),
               Text(
                 state.error,
@@ -241,7 +241,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                         width: 80,
                         height: 80,
                         decoration: const BoxDecoration(
-                          color: Color(0xFFF0F5F2),
+                          color: AppColors.greenSurfaceMuted,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -291,7 +291,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFFE8ECE5)),
+                      border: Border.all(color: AppColors.borderLight),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +302,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                               width: 44,
                               height: 44,
                               decoration: const BoxDecoration(
-                                color: Color(0xFFE8F2EC),
+                                color: AppColors.greenSurfaceSoft,
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
@@ -311,7 +311,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2D4F3C),
+                                    color: AppColors.textGreenMedium,
                                   ),
                                 ),
                               ),
@@ -371,7 +371,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: const Color(0xFFE2E8DE)),
+                                      border: Border.all(color: AppColors.border),
                                     ),
                                     child: const Center(
                                       child: Text(
@@ -379,7 +379,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF2D4F3C),
+                                          color: AppColors.textGreenMedium,
                                         ),
                                       ),
                                     ),
@@ -429,9 +429,9 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: const Color(0xFFEBF5EE),
+                color: AppColors.greenSurface,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: const Color(0xFFD1E7DD)),
+                border: Border.all(color: AppColors.greenBorderSoft),
               ),
               child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -443,7 +443,7 @@ class _HouseholdJoinRequestsScreenState extends State<HouseholdJoinRequestsScree
                       'Chỉ chủ hộ có thể chấp nhận hoặc từ chối yêu cầu vào hộ.',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF2D4F3C),
+                        color: AppColors.textGreenMedium,
                         height: 1.4,
                       ),
                     ),

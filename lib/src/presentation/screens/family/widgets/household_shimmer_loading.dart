@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/custom_app_bar.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightE8EFE5 = Color(0xFFE8EFE5);
+
 class HouseholdShimmerLoading extends StatelessWidget {
   const HouseholdShimmerLoading({super.key});
 
@@ -13,7 +16,7 @@ class HouseholdShimmerLoading extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: const Color(0xFFE8EFE5),
+        color: _kGreenLightE8EFE5,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
     );

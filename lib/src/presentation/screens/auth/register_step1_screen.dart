@@ -289,7 +289,7 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFEEFEF),
+                            color: AppColors.errorBg,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -299,14 +299,14 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                                 'assets/icons/ic_info.png',
                                 width: 18,
                                 height: 18,
-                                color: const Color(0xFFC94A4A),
+                                color: AppColors.error,
                                 errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   state.error,
-                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                  style: const TextStyle(fontSize: 12, color: AppColors.error, height: 1.4),
                                 ),
                               ),
                             ],

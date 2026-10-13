@@ -5,6 +5,10 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/services/location_service.dart';
 import 'interactive_map_view.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightE2EBE0 = Color(0xFFE2EBE0);
+const Color _kGreenLightF6F8F5 = Color(0xFFF6F8F5);
+
 /// Bottom Sheet tương tác chọn vị trí trên bản đồ và đảo ngược địa chỉ
 class LocationPickerSheet extends StatefulWidget {
   final double initialLat;
@@ -160,7 +164,7 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: 2),
@@ -168,7 +172,7 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
                       'Kéo & chạm bản đồ để chỉ định vị trí vi phạm',
                       style: TextStyle(
                         fontSize: 12.5,
-                        color: Color(0xFF6B7280),
+                        color: AppColors.gray500,
                       ),
                     ),
                   ],
@@ -186,9 +190,9 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFFF6F8F5),
+              color: _kGreenLightF6F8F5,
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: const Color(0xFFE2EBE0)),
+              border: Border.all(color: _kGreenLightE2EBE0),
             ),
             child: Row(
               children: [
@@ -196,12 +200,12 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
                   width: 36,
                   height: 36,
                   decoration: const BoxDecoration(
-                    color: Color(0xFFE8F5E9),
+                    color: AppColors.green50,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.location_on,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                     size: 20,
                   ),
                 ),
@@ -217,7 +221,7 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF1B2E1E),
+                          color: AppColors.textPrimary,
                           height: 1.3,
                         ),
                         maxLines: 2,
@@ -285,17 +289,17 @@ class _LocationPickerSheetState extends State<LocationPickerSheet> {
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
                           : const Icon(Icons.my_location,
-                              size: 18, color: Color(0xFF2E7D32)),
+                              size: 18, color: AppColors.greenPrimary),
                       label: const Text(
                         'Lấy vị trí hiện tại của tôi',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF2E7D32),
+                          color: AppColors.greenPrimary,
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Color(0xFF2E7D32)),
+                        side: const BorderSide(color: AppColors.greenPrimary),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -445,7 +449,7 @@ class _LocationViewerSheetState extends State<LocationViewerSheet> {
                   style: TextStyle(
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 IconButton(
@@ -461,13 +465,13 @@ class _LocationViewerSheetState extends State<LocationViewerSheet> {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFFF6F8F5),
+              color: _kGreenLightF6F8F5,
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: const Color(0xFFE2EBE0)),
+              border: Border.all(color: _kGreenLightE2EBE0),
             ),
             child: Row(
               children: [
-                const Icon(Icons.location_on, color: Color(0xFF2E7D32), size: 22),
+                const Icon(Icons.location_on, color: AppColors.greenPrimary, size: 22),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
@@ -478,7 +482,7 @@ class _LocationViewerSheetState extends State<LocationViewerSheet> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF1B2E1E),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -536,14 +540,14 @@ class _LocationViewerSheetState extends State<LocationViewerSheet> {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.near_me, size: 16, color: Color(0xFF2E7D32)),
+                          Icon(Icons.near_me, size: 16, color: AppColors.greenPrimary),
                           SizedBox(width: 4),
                           Text(
                             'Về vị trí phản ánh',
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF1B2E1E),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ],

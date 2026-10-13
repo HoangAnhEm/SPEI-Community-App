@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../src/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
+// Màu riêng của màn này
+const Color _kGreyLightF1F3F1 = Color(0xFFF1F3F1);
+
 class AuthHeader extends StatelessWidget {
   final bool showBackButton;
   final String? stepText;
@@ -90,7 +93,7 @@ class AuthHeader extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF1F3F1),
+                    color: _kGreyLightF1F3F1,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Text(

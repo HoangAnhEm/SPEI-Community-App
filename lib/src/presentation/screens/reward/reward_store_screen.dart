@@ -178,7 +178,7 @@ class RewardStoreScreen extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.successBg : const Color(0xFFF0F0F0),
+          color: isSelected ? AppColors.successBg : AppColors.neutral100,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected ? AppColors.primary.withValues(alpha: 0.3) : Colors.transparent,
@@ -262,8 +262,8 @@ class RewardStoreScreen extends StatelessWidget {
 
     if (isOutOfStock) {
       statusBadgeText = 'Hết hàng';
-      statusBgColor = const Color(0xFFFEECEB);
-      statusTextColor = const Color(0xFFD32F2F);
+      statusBgColor = AppColors.redSurfaceLight;
+      statusTextColor = AppColors.red700;
     } else if (isEnoughPoints) {
       statusBadgeText = 'Đủ điểm • Xem quà';
       statusBgColor = AppColors.successBg;
@@ -274,7 +274,7 @@ class RewardStoreScreen extends StatelessWidget {
             (Match m) => '${m[1]}.',
           );
       statusBadgeText = 'Thiếu $shortFormatted điểm';
-      statusBgColor = const Color(0xFFF0F0F0);
+      statusBgColor = AppColors.neutral100;
       statusTextColor = AppColors.subText;
     }
 
@@ -306,7 +306,7 @@ class RewardStoreScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: isOutOfStock
-                          ? const Color(0xFFD32F2F).withValues(alpha: 0.9)
+                          ? AppColors.red700.withValues(alpha: 0.9)
                           : Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -432,7 +432,7 @@ class RewardStoreScreen extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => Container(
         height: height,
         width: double.infinity,
-        color: const Color(0xFFF5F5F5),
+        color: AppColors.neutral50,
         child: const Icon(Icons.eco, size: 40, color: AppColors.subText),
       ),
     );
@@ -448,7 +448,7 @@ class RewardStoreScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
-                color: Color(0xFFF5F5F5),
+                color: AppColors.neutral50,
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.inventory_2_outlined, size: 40, color: AppColors.subText),

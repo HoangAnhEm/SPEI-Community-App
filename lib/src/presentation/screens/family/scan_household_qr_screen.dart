@@ -124,7 +124,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Không tìm thấy mã QR trong ảnh đã chọn. Vui lòng chọn ảnh khác hoặc nhập ID.'),
-            backgroundColor: Color(0xFFC94A4A),
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -133,7 +133,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Lỗi khi đọc ảnh: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: const Color(0xFFC94A4A),
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -237,7 +237,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                                 return Container(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  color: const Color(0xFF1E2822),
+                                  color: AppColors.textNearBlack,
                                   padding: const EdgeInsets.all(24),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -245,7 +245,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                                       const Icon(
                                         Icons.videocam_off_outlined,
                                         size: 52,
-                                        color: Color(0xFFF39C12),
+                                        color: AppColors.orangeAccent,
                                       ),
                                       const SizedBox(height: 14),
                                       const Text(
@@ -262,7 +262,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                                         'Vui lòng cấp quyền máy ảnh để quét mã QR hoặc dùng nút "Mở thư viện ảnh" hay nhập ID bên dưới.',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Color(0xFFB0C4B8),
+                                          color: AppColors.textGreenGreyMuted,
                                           fontSize: 12,
                                           height: 1.4,
                                         ),
@@ -351,11 +351,11 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                                         child: Container(
                                           height: 3,
                                           decoration: BoxDecoration(
-                                            color: const Color(0xFF66BB6A),
+                                            color: AppColors.green400,
                                             borderRadius: BorderRadius.circular(2),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: const Color(0xFF66BB6A).withValues(alpha: 0.8),
+                                                color: AppColors.green400.withValues(alpha: 0.8),
                                                 blurRadius: 8,
                                                 spreadRadius: 2,
                                               ),
@@ -375,7 +375,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF1B3828).withValues(alpha: 0.85),
+                                  color: AppColors.greenNight.withValues(alpha: 0.85),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
                                 ),
@@ -400,7 +400,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEAF3E4),
+                        color: AppColors.successBg,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: const Row(
@@ -413,7 +413,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                               'Chỉ quét QR từ mục "QR hộ gia đình". Quét mã chưa gửi yêu cầu tham gia.',
                               style: TextStyle(
                                 fontSize: 13,
-                                color: Color(0xFF2D4F3C),
+                                color: AppColors.textGreenMedium,
                                 height: 1.45,
                               ),
                             ),
@@ -430,7 +430,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: const Color(0xFFE2E8DE)),
+                        border: Border.all(color: AppColors.border),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,7 +475,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                               hintText: 'Ví dụ: b65d2031-7e92-4a08-9c16-5f2e8d43a701',
                               hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 13),
                               filled: true,
-                              fillColor: const Color(0xFFF7F9F6),
+                              fillColor: AppColors.surfacePale,
                               contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -538,7 +538,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFE2E8DE)),
+                          border: Border.all(color: AppColors.border),
                         ),
                         child: Center(
                           child: _isAnalyzingImage
@@ -560,7 +560,7 @@ class _ScanHouseholdQrScreenState extends State<ScanHouseholdQrScreen>
                                       style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
-                                        color: Color(0xFF2D4F3C),
+                                        color: AppColors.textGreenMedium,
                                       ),
                                     ),
                                   ],

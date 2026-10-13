@@ -161,7 +161,7 @@ final GoRouter appRouter = GoRouter(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE8ECE5)),
+                  border: Border.all(color: AppColors.borderLight),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,7 +198,7 @@ final GoRouter appRouter = GoRouter(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Trạng thái:', style: TextStyle(fontSize: 13, color: AppColors.subText)),
-                        Text('Đang hoạt động', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF2D4F3C))),
+                        Text('Đang hoạt động', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textGreenMedium)),
                       ],
                     ),
                   ],

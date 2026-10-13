@@ -7,6 +7,7 @@ import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import '../../../domain/repositories/emission_repository.dart';
 import '../../blocs/emission/emission_cubit.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
 
 /// Màn hình Chỉnh sửa bản ghi phát thải
 class EmissionRecordEditScreen extends StatefulWidget {
@@ -79,7 +80,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Đã cập nhật bản ghi phát thải thành công!'),
-          backgroundColor: Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
         ),
       );
 
@@ -106,7 +107,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
     final item = widget.record;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFBFBF8),
+      backgroundColor: AppColors.surfaceOffWhite,
       body: SafeArea(
         child: Column(
           children: [
@@ -128,7 +129,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                       ),
                       child: const Icon(
                         Icons.arrow_back,
-                        color: Color(0xFF1E5128),
+                        color: AppColors.greenDark,
                         size: 20,
                       ),
                     ),
@@ -139,7 +140,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                 ],
@@ -157,15 +158,15 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F8F3),
+                        color: AppColors.greenSurfaceLight,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFFE2EFE5)),
+                        border: Border.all(color: AppColors.greenBorderPale),
                       ),
                       child: Row(
                         children: [
                           const Icon(
                             Icons.info_outline,
-                            color: Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             size: 20,
                           ),
                           const SizedBox(width: 10),
@@ -175,7 +176,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                               style: const TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF143E26),
+                                color: AppColors.greenDeep,
                               ),
                             ),
                           ),
@@ -190,7 +191,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -218,7 +219,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -249,7 +250,7 @@ class _EmissionRecordEditScreenState extends State<EmissionRecordEditScreen> {
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _handleSave,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E7D32),
+                          backgroundColor: AppColors.greenPrimary,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),

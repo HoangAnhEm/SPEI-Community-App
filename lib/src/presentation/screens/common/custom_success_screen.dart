@@ -154,7 +154,7 @@ class CustomSuccessScreen extends StatelessWidget {
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFEAF3E4),
+                          color: AppColors.successBg,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Column(

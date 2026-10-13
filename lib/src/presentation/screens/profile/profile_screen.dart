@@ -72,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                             width: 52,
                             height: 52,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD6E8CD),
+                              color: AppColors.greenBorderLight,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
@@ -205,9 +205,9 @@ class ProfileScreen extends StatelessWidget {
 
                     // Action: Đăng xuất
                     _buildActionCard(
-                      icon: const Icon(Icons.logout, color: Color(0xFFC94A4A), size: 22),
+                      icon: const Icon(Icons.logout, color: AppColors.error, size: 22),
                       title: 'Đăng xuất',
-                      titleColor: const Color(0xFFC94A4A),
+                      titleColor: AppColors.error,
                       onTap: () {
                         _showLogoutDialog(context, fullName);
                       },
@@ -275,8 +275,8 @@ class ProfileScreen extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: titleColor == const Color(0xFFC94A4A)
-                      ? const Color(0xFFFEEFEF)
+                  color: titleColor == AppColors.error
+                      ? AppColors.errorBg
                       : AppColors.successBg,
                   borderRadius: BorderRadius.circular(10),
                 ),

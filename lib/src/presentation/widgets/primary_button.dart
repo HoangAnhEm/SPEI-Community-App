@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../src/core/constants/app_colors.dart';
 
+// Màu riêng của màn này
+const Color _kGreenA5C3B1 = Color(0xFFA5C3B1);
+
 class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -22,7 +25,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const buttonColor = AppColors.primary;
-    const disabledColor = Color(0xFFA5C3B1);
+    const disabledColor = _kGreenA5C3B1;
 
     return SizedBox(
       width: double.infinity,

@@ -6,6 +6,9 @@ import '../../blocs/household/household_cubit.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_confirm_dialog.dart';
 
+// Màu riêng của màn này
+const Color _kRed9E4738 = Color(0xFF9E4738);
+
 class RemoveMembersScreen extends StatefulWidget {
   const RemoveMembersScreen({super.key});
 
@@ -54,7 +57,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
           scaffoldMessenger.showSnackBar(
             SnackBar(
               content: Text(householdCubit.state.errorMessage ?? 'Không thể xóa thành viên'),
-              backgroundColor: const Color(0xFFC94A4A),
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -75,7 +78,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
     final remainingCount = (household?.memberCount ?? 1) - _selectedMemberIds.length;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -96,16 +99,16 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFEF6E8),
+                        color: AppColors.amberSurface,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFFFED7AA)),
+                        border: Border.all(color: AppColors.orange200),
                       ),
                       child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.info_outline,
-                            color: Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             size: 20,
                           ),
                           SizedBox(width: 10),
@@ -114,7 +117,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                               'Sau khi xoá những thành viên khỏi hộ, những thành viên mới có thể tham gia các hộ gia đình khác',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF8A6D3B),
+                                color: AppColors.brownText,
                                 height: 1.45,
                               ),
                             ),
@@ -143,7 +146,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFFE8ECE5)),
+                          border: Border.all(color: AppColors.borderLight),
                         ),
                         child: const Column(
                           children: [
@@ -180,7 +183,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: isSelected ? const Color(0xFFC94A4A) : const Color(0xFFE8ECE5),
+                                  color: isSelected ? AppColors.error : AppColors.borderLight,
                                   width: isSelected ? 1.5 : 1.0,
                                 ),
                               ),
@@ -191,7 +194,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                                     width: 44,
                                     height: 44,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFEFF5EE),
+                                      color: AppColors.greenSurfacePale,
                                       borderRadius: BorderRadius.circular(22),
                                     ),
                                     child: Center(
@@ -200,7 +203,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                                         style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF2D4F3C),
+                                          color: AppColors.textGreenMedium,
                                         ),
                                       ),
                                     ),
@@ -238,7 +241,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                                   if (isSelected)
                                     const Icon(
                                       Icons.check_circle_outline,
-                                      color: Color(0xFF9E4738),
+                                      color: _kRed9E4738,
                                       size: 22,
                                     ),
                                 ],
@@ -277,7 +280,7 @@ class _RemoveMembersScreenState extends State<RemoveMembersScreen> {
                         height: 50,
                         decoration: BoxDecoration(
                           color: _selectedMemberIds.isNotEmpty
-                              ? const Color(0xFF9E4738)
+                              ? _kRed9E4738
                               : Colors.grey.shade300,
                           borderRadius: BorderRadius.circular(14),
                         ),

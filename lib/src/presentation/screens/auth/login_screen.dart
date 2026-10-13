@@ -204,14 +204,14 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                                 'assets/icons/ic_info.png',
                                 width: 18,
                                 height: 18,
-                                color: const Color(0xFFC94A4A),
+                                color: AppColors.error,
                                 errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   state.error,
-                                  style: const TextStyle(fontSize: 12, color: Color(0xFFC94A4A), height: 1.4),
+                                  style: const TextStyle(fontSize: 12, color: AppColors.error, height: 1.4),
                                 ),
                               ),
                             ],

@@ -15,6 +15,10 @@ import '../../blocs/reward/reward_cubit.dart';
 import '../../blocs/reward/reward_state.dart';
 import '../main/main_layout_screen.dart';
 
+// Màu riêng của màn này
+const Color _kGreen5A7B45 = Color(0xFF5A7B45);
+const Color _kOrangeLightFFF3D9 = Color(0xFFFFF3D9);
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -262,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF3D9),
+        color: _kOrangeLightFFF3D9,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -273,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 28,
             color: AppColors.primary,
             errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.eco_outlined, color: Color(0xFF5A7B45)),
+                const Icon(Icons.eco_outlined, color: _kGreen5A7B45),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -478,7 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 height: 6,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE2E8DC),
+                  color: AppColors.divider,
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),

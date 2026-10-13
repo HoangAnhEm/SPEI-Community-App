@@ -8,6 +8,9 @@ import '../../blocs/reward/reward_state.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/primary_button.dart';
 
+// Màu riêng của màn này
+const Color _kRedEF9A9A = Color(0xFFEF9A9A);
+
 class RewardDetailScreen extends StatelessWidget {
   final RewardItem? reward;
 
@@ -119,10 +122,10 @@ class RewardDetailScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
-                            color: isOutOfStock ? const Color(0xFFFEECEB) : const Color(0xFFF9F9F9),
+                            color: isOutOfStock ? AppColors.redSurfaceLight : AppColors.neutral25,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: isOutOfStock ? const Color(0xFFEF9A9A) : AppColors.divider,
+                              color: isOutOfStock ? _kRedEF9A9A : AppColors.divider,
                             ),
                           ),
                           child: Row(
@@ -130,7 +133,7 @@ class RewardDetailScreen extends StatelessWidget {
                               Icon(
                                 isOutOfStock ? Icons.info_outline : Icons.inventory_2_outlined,
                                 size: 16,
-                                color: isOutOfStock ? const Color(0xFFD32F2F) : AppColors.subText,
+                                color: isOutOfStock ? AppColors.red700 : AppColors.subText,
                               ),
                               const SizedBox(width: 8),
                               Text(
@@ -140,7 +143,7 @@ class RewardDetailScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
-                                  color: isOutOfStock ? const Color(0xFFD32F2F) : AppColors.darkText,
+                                  color: isOutOfStock ? AppColors.red700 : AppColors.darkText,
                                 ),
                               ),
                             ],
@@ -419,7 +422,7 @@ class RewardDetailScreen extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => Container(
         height: height,
         width: double.infinity,
-        color: const Color(0xFFF5F5F5),
+        color: AppColors.neutral50,
         child: const Icon(Icons.local_florist, size: 64, color: AppColors.subText),
       ),
     );

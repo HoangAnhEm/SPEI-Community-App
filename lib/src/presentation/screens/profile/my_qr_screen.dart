@@ -77,7 +77,7 @@ class _MyQrScreenState extends State<MyQrScreen> {
                             width: 46,
                             height: 46,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD6E8CD),
+                              color: AppColors.greenBorderLight,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -204,7 +204,7 @@ class _MyQrScreenState extends State<MyQrScreen> {
                         decoration: BoxDecoration(
                           color: AppColors.successBg,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFC2DFC0)),
+                          border: Border.all(color: AppColors.greenSoft),
                         ),
                         child: const Row(
                           children: [

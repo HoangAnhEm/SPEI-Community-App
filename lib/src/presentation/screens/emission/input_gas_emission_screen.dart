@@ -5,6 +5,7 @@ import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
 
 /// Màn hình nhập dữ liệu phát thải Gas nhà mình (gồm 2 cách: Từ bình & phần dùng, Nhập kg thực tế)
 class InputGasEmissionScreen extends StatefulWidget {
@@ -173,7 +174,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -214,7 +215,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ),
@@ -259,7 +260,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -276,7 +277,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -285,7 +286,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                   'Ghi lượng gas thực tế đã tiêu thụ',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -321,9 +322,9 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,7 +334,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Expanded(
@@ -342,7 +343,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1B4E75),
+                    color: AppColors.blueDeep,
                   ),
                 ),
               ),
@@ -353,7 +354,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             'Bình 12 kg không có nghĩa đã tiêu thụ 12 kg. Chỉ ghi lượng gas thực tế dùng, không gồm vỏ bình.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -369,7 +370,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,7 +380,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -390,7 +391,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -402,7 +403,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -412,12 +413,12 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -431,13 +432,13 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _sourceNameController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: 'Ví dụ: Bếp gia đình',
               contentPadding: const EdgeInsets.symmetric(
@@ -446,18 +447,18 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -466,7 +467,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             height: 44,
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: const Color(0xFFEFF2EC),
+              color: AppColors.surfaceMuted,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -483,7 +484,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: _gasInputMode == 0
-                            ? const Color(0xFF2E7D32)
+                            ? AppColors.greenPrimary
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -496,7 +497,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                               : FontWeight.w500,
                           color: _gasInputMode == 0
                               ? Colors.white
-                              : const Color(0xFF4B5563),
+                              : AppColors.gray600,
                         ),
                       ),
                     ),
@@ -514,7 +515,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: _gasInputMode == 1
-                            ? const Color(0xFF2E7D32)
+                            ? AppColors.greenPrimary
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -527,7 +528,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                               : FontWeight.w500,
                           color: _gasInputMode == 1
                               ? Colors.white
-                              : const Color(0xFF4B5563),
+                              : AppColors.gray600,
                         ),
                       ),
                     ),
@@ -545,7 +546,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF374151),
+                color: AppColors.gray700,
               ),
             ),
             const SizedBox(height: 6),
@@ -556,7 +557,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: AppColors.gray800,
               ),
               decoration: InputDecoration(
                 hintText: '12',
@@ -564,7 +565,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                 suffixStyle: const TextStyle(
                   fontSize: 13.5,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF4B5563),
+                  color: AppColors.gray600,
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 14,
@@ -572,18 +573,18 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                  borderSide: const BorderSide(color: AppColors.gray200),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                  borderSide: const BorderSide(color: AppColors.gray200),
                 ),
               ),
             ),
             const SizedBox(height: 4),
             const Text(
               'Khối lượng gas tịnh, không phải trọng lượng cả bình.',
-              style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
             const SizedBox(height: 16),
 
@@ -593,7 +594,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF374151),
+                color: AppColors.gray700,
               ),
             ),
             const SizedBox(height: 6),
@@ -604,7 +605,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: AppColors.gray800,
               ),
               decoration: InputDecoration(
                 hintText: '25',
@@ -612,7 +613,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                 suffixStyle: const TextStyle(
                   fontSize: 13.5,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF4B5563),
+                  color: AppColors.gray600,
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 14,
@@ -620,18 +621,18 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                  borderSide: const BorderSide(color: AppColors.gray200),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                  borderSide: const BorderSide(color: AppColors.gray200),
                 ),
               ),
             ),
             const SizedBox(height: 4),
             const Text(
               'Phần tiêu thụ trong kỳ, không phải tổng phần đã dùng từ ngày mua.',
-              style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
             const SizedBox(height: 18),
 
@@ -641,7 +642,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF374151),
+                color: AppColors.gray700,
               ),
             ),
             const SizedBox(height: 8),
@@ -650,9 +651,9 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
-                color: const Color(0xFFF9FAFB),
+                color: AppColors.gray50,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: const Color(0xFF2E7D32), width: 1.5),
+                border: Border.all(color: AppColors.greenPrimary, width: 1.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -662,7 +663,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const Text(
@@ -670,7 +671,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF4B5563),
+                      color: AppColors.gray600,
                     ),
                   ),
                 ],
@@ -679,7 +680,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             const SizedBox(height: 6),
             Text(
               '${_cylinderWeightController.text} kg × ${_percentUsedController.text}% = $_calculatedGasKgString kg • Ước tính từ phần bình đã dùng.',
-              style: const TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: const TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
           ] else ...[
             // Chế độ Nhập kg trực tiếp
@@ -688,7 +689,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF374151),
+                color: AppColors.gray700,
               ),
             ),
             const SizedBox(height: 8),
@@ -696,9 +697,9 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFFF9FAFB),
+                color: AppColors.gray50,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 children: [
@@ -710,7 +711,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                       style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -723,7 +724,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF4B5563),
+                      color: AppColors.gray600,
                     ),
                   ),
                 ],
@@ -732,7 +733,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             const SizedBox(height: 6),
             const Text(
               'Nhập số kg gas tiêu thụ thực tế trong tháng.',
-              style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
           ],
         ],
@@ -746,9 +747,9 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -758,7 +759,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -766,7 +767,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -776,7 +777,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             'Đối chiếu phiếu giao gas hoặc cân lượng gas còn đầu và cuối kỳ. Lượng tiêu thụ = tồn đầu kỳ + gas mua – tồn cuối kỳ.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -785,7 +786,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
             'Nếu có số kg thực tế, chọn “Nhập kg thực tế”. Chỉ dùng tỷ lệ khi có căn cứ; mua bình mới không đồng nghĩa dùng hết.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -802,7 +803,7 @@ class _InputGasEmissionScreenState extends State<InputGasEmissionScreen> {
       child: ElevatedButton(
         onPressed: _handleContinue,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(

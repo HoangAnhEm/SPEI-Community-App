@@ -9,6 +9,14 @@ import '../../blocs/incident/incident_state.dart';
 import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
+// Màu riêng của màn này
+const Color _kGreenDark2D4B32 = Color(0xFF2D4B32);
+const Color _kGreenLightE5EAE4 = Color(0xFFE5EAE4);
+const Color _kGreenLightF3F7F2 = Color(0xFFF3F7F2);
+const Color _kGreenLightF5F7F3 = Color(0xFFF5F7F3);
+const Color _kGrey7A8C7D = Color(0xFF7A8C7D);
+const Color _kGreyA5B8A8 = Color(0xFFA5B8A8);
+
 /// Màn hình Chi tiết 1 Incident (Ảnh 2)
 class IncidentDetailScreen extends StatefulWidget {
   final String incidentId;
@@ -83,7 +91,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
         incident ??= state.selectedIncident;
 
         return Scaffold(
-          backgroundColor: const Color(0xFFF9FAF7),
+          backgroundColor: AppColors.surfaceLight,
           body: SafeArea(
             child: Column(
               children: [
@@ -112,7 +120,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                           ),
                           child: const Icon(
                             Icons.arrow_back,
-                            color: Color(0xFF1E5128),
+                            color: AppColors.greenDark,
                             size: 20,
                           ),
                         ),
@@ -127,7 +135,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF1B2E1E),
+                                color: AppColors.textPrimary,
                                 letterSpacing: -0.3,
                               ),
                             ),
@@ -136,7 +144,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                               'Chi tiết và trạng thái phản ánh',
                               style: TextStyle(
                                 fontSize: 12.5,
-                                color: Color(0xFF6B7280),
+                                color: AppColors.gray500,
                               ),
                             ),
                           ],
@@ -257,7 +265,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                 style: const TextStyle(
                   fontSize: 12.5,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF6B7280),
+                  color: AppColors.gray500,
                   letterSpacing: 0.3,
                 ),
               ),
@@ -287,7 +295,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1B2E1E),
+              color: AppColors.textPrimary,
               height: 1.3,
             ),
           ),
@@ -318,7 +326,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                     child: Icon(
                       Icons.location_on_outlined,
                       size: 20,
-                      color: Color(0xFF2E7D32),
+                      color: AppColors.greenPrimary,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -333,7 +341,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                           style: const TextStyle(
                             fontSize: 13.5,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                             height: 1.35,
                           ),
                         ),
@@ -342,7 +350,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                           'Chạm để xem vị trí trên bản đồ',
                           style: TextStyle(
                             fontSize: 11.5,
-                            color: Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -352,7 +360,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                   const Icon(
                     Icons.map_outlined,
                     size: 18,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -365,12 +373,12 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
             incident.description,
             style: const TextStyle(
               fontSize: 14,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
               height: 1.45,
             ),
           ),
           const SizedBox(height: 18),
-          const Divider(height: 1, color: Color(0xFFF0F0F0)),
+          const Divider(height: 1, color: AppColors.neutral100),
           const SizedBox(height: 18),
 
           // Tiến trình phản ánh
@@ -379,7 +387,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1B2E1E),
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 16),
@@ -398,18 +406,18 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
       return Container(
         height: 160,
         decoration: BoxDecoration(
-          color: const Color(0xFFF5F7F3),
+          color: _kGreenLightF5F7F3,
           borderRadius: BorderRadius.circular(16),
         ),
         child: const Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.photo_outlined, size: 40, color: Color(0xFFA5B8A8)),
+              Icon(Icons.photo_outlined, size: 40, color: _kGreyA5B8A8),
               SizedBox(height: 6),
               Text(
                 'Chưa có ảnh hoặc video đính kèm',
-                style: TextStyle(fontSize: 13, color: Color(0xFF7A8C7D)),
+                style: TextStyle(fontSize: 13, color: _kGrey7A8C7D),
               ),
             ],
           ),
@@ -444,7 +452,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                       ev.fileUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
-                        color: const Color(0xFFE5EAE4),
+                        color: _kGreenLightE5EAE4,
                         child: Center(
                           child: Icon(
                             Icons.broken_image,
@@ -608,19 +616,19 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
 
     switch (state) {
       case TimelineState.completed:
-        dotColor = const Color(0xFF2E7D32);
-        lineColor = const Color(0xFF2E7D32);
+        dotColor = AppColors.greenPrimary;
+        lineColor = AppColors.greenPrimary;
         break;
       case TimelineState.inProgress:
-        dotColor = const Color(0xFFB45309);
+        dotColor = AppColors.amber700;
         lineColor = Colors.grey.shade300;
         break;
       case TimelineState.rejected:
-        dotColor = const Color(0xFFC53030);
-        lineColor = const Color(0xFFC53030);
+        dotColor = AppColors.redDark;
+        lineColor = AppColors.redDark;
         break;
       case TimelineState.future:
-        dotColor = const Color(0xFFD1D5DB);
+        dotColor = AppColors.gray300;
         lineColor = Colors.grey.shade300;
         break;
     }
@@ -679,8 +687,8 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: state == TimelineState.future
-                          ? const Color(0xFF9CA3AF)
-                          : const Color(0xFF1B2E1E),
+                          ? AppColors.gray400
+                          : AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -720,10 +728,10 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: hasNotes ? const Color(0xFFF3F7F2) : const Color(0xFFFAFAFA),
+        color: hasNotes ? _kGreenLightF3F7F2 : AppColors.neutral10,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: hasNotes ? const Color(0xFFD6EADB) : Colors.grey.shade200,
+          color: hasNotes ? AppColors.greenBorder : Colors.grey.shade200,
         ),
       ),
       child: Row(
@@ -732,7 +740,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
           Icon(
             hasNotes ? Icons.rate_review_outlined : Icons.info_outline,
             size: 20,
-            color: hasNotes ? const Color(0xFF2E7D32) : const Color(0xFF6B7280),
+            color: hasNotes ? AppColors.greenPrimary : AppColors.gray500,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -747,8 +755,8 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                     fontSize: 13.5,
                     fontWeight: FontWeight.bold,
                     color: hasNotes
-                        ? const Color(0xFF1E5128)
-                        : const Color(0xFF374151),
+                        ? AppColors.greenDark
+                        : AppColors.gray700,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -759,7 +767,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                   style: TextStyle(
                     fontSize: 12.5,
                     color: hasNotes
-                        ? const Color(0xFF2D4B32)
+                        ? _kGreenDark2D4B32
                         : Colors.grey.shade600,
                     height: 1.4,
                   ),
@@ -776,38 +784,38 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
     switch (status) {
       case IncidentStatus.submitted:
         return (
-          bg: const Color(0xFFE8F1FD),
-          text: const Color(0xFF1E60AA),
+          bg: AppColors.blueSurfaceLight,
+          text: AppColors.blueStatus,
         );
       case IncidentStatus.underReview:
         return (
-          bg: const Color(0xFFFEF3E2),
-          text: const Color(0xFFB45309),
+          bg: AppColors.orangeSurface,
+          text: AppColors.amber700,
         );
       case IncidentStatus.forwarded:
         return (
-          bg: const Color(0xFFF3E8FF),
-          text: const Color(0xFF7E22CE),
+          bg: AppColors.purple100,
+          text: AppColors.purple700,
         );
       case IncidentStatus.inProgress:
         return (
-          bg: const Color(0xFFE0F2FE),
-          text: const Color(0xFF0369A1),
+          bg: AppColors.sky100,
+          text: AppColors.sky700,
         );
       case IncidentStatus.resolved:
         return (
-          bg: const Color(0xFFEBF5EE),
-          text: const Color(0xFF2E7D32),
+          bg: AppColors.greenSurface,
+          text: AppColors.greenPrimary,
         );
       case IncidentStatus.closed:
         return (
-          bg: const Color(0xFFF1F5F9),
-          text: const Color(0xFF475569),
+          bg: AppColors.slate100,
+          text: AppColors.slate600,
         );
       case IncidentStatus.rejected:
         return (
-          bg: const Color(0xFFFDE8E8),
-          text: const Color(0xFFC53030),
+          bg: AppColors.redSurface,
+          text: AppColors.redDark,
         );
     }
   }

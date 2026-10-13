@@ -128,7 +128,7 @@ class _QuickCalcElectricityScreenState
         isKwh ? 'Ước tính từ lượng điện sử dụng' : 'Ước tính từ tiền điện';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -157,7 +157,7 @@ class _QuickCalcElectricityScreenState
                       ),
                       child: const Icon(
                         Icons.arrow_back,
-                        color: Color(0xFF1E5128),
+                        color: AppColors.greenDark,
                         size: 20,
                       ),
                     ),
@@ -172,7 +172,7 @@ class _QuickCalcElectricityScreenState
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                             letterSpacing: -0.3,
                           ),
                         ),
@@ -181,7 +181,7 @@ class _QuickCalcElectricityScreenState
                           subtitle,
                           style: const TextStyle(
                             fontSize: 12.5,
-                            color: Color(0xFF6B7280),
+                            color: AppColors.gray500,
                             height: 1.25,
                           ),
                         ),
@@ -216,7 +216,7 @@ class _QuickCalcElectricityScreenState
               child: Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF1F3EE),
+                  color: AppColors.surfaceGrey,
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Row(
@@ -266,12 +266,12 @@ class _QuickCalcElectricityScreenState
                           width: 32,
                           height: 32,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFE8F5E9),
+                            color: AppColors.green50,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Icon(
                             Icons.bolt,
-                            color: Color(0xFF2E7D32),
+                            color: AppColors.greenPrimary,
                             size: 20,
                           ),
                         ),
@@ -281,7 +281,7 @@ class _QuickCalcElectricityScreenState
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                           ),
                         ),
                       ],
@@ -312,7 +312,7 @@ class _QuickCalcElectricityScreenState
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1B2E1E),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -323,7 +323,7 @@ class _QuickCalcElectricityScreenState
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(
-                                color: const Color(0xFF2E7D32),
+                                color: AppColors.greenPrimary,
                                 width: 1.5,
                               ),
                             ),
@@ -340,7 +340,7 @@ class _QuickCalcElectricityScreenState
                                     style: const TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xFF1B2E1E),
+                                      color: AppColors.textPrimary,
                                     ),
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
@@ -438,9 +438,9 @@ class _QuickCalcElectricityScreenState
                       padding: const EdgeInsets.symmetric(
                           horizontal: 18, vertical: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEBF5EE),
+                        color: AppColors.greenSurface,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFFD6EADB)),
+                        border: Border.all(color: AppColors.greenBorder),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -453,13 +453,13 @@ class _QuickCalcElectricityScreenState
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF1E3A24),
+                                  color: AppColors.greenDarker,
                                 ),
                               ),
                               Icon(
                                 Icons.eco_outlined,
                                 size: 22,
-                                color: Color(0xFF2E7D32),
+                                color: AppColors.greenPrimary,
                               ),
                             ],
                           ),
@@ -473,7 +473,7 @@ class _QuickCalcElectricityScreenState
                                 style: const TextStyle(
                                   fontSize: 34,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF143E26),
+                                  color: AppColors.greenDeep,
                                   letterSpacing: -0.5,
                                 ),
                               ),
@@ -483,7 +483,7 @@ class _QuickCalcElectricityScreenState
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF143E26),
+                                  color: AppColors.greenDeep,
                                 ),
                               ),
                             ],
@@ -497,7 +497,7 @@ class _QuickCalcElectricityScreenState
                         'Kết quả tính thử • Không lưu lịch sử',
                         style: TextStyle(
                           fontSize: 12.5,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ),
@@ -563,7 +563,7 @@ class _QuickCalcElectricityScreenState
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1E5128) : Colors.transparent,
+          color: isSelected ? AppColors.greenDark : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
@@ -572,7 +572,7 @@ class _QuickCalcElectricityScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : const Color(0xFF4B5563),
+              color: isSelected ? Colors.white : AppColors.gray600,
             ),
           ),
         ),

@@ -19,14 +19,14 @@ class HouseholdActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleColor = isDestructive ? const Color(0xFFC94A4A) : AppColors.darkText;
-    final iconColor = isDestructive ? const Color(0xFFC94A4A) : AppColors.primary;
+    final titleColor = isDestructive ? AppColors.error : AppColors.darkText;
+    final iconColor = isDestructive ? AppColors.error : AppColors.primary;
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8DE)),
+        border: Border.all(color: AppColors.border),
       ),
       child: Material(
         color: Colors.transparent,

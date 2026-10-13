@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../domain/entities/household.dart';
 
+// Màu riêng của màn này
+const Color _kGreenLightE5EDE1 = Color(0xFFE5EDE1);
+
 class HouseholdMemberListCard extends StatelessWidget {
   final List<HouseholdMember> members;
   final String? currentUserId;
@@ -41,7 +44,7 @@ class HouseholdMemberListCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFFE2E8DE)),
+            border: Border.all(color: AppColors.border),
           ),
           child: ListView.separated(
             shrinkWrap: true,
@@ -60,7 +63,7 @@ class HouseholdMemberListCard extends StatelessWidget {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE5EDE1),
+                      color: _kGreenLightE5EDE1,
                       borderRadius: BorderRadius.circular(22),
                     ),
                     child: Center(
@@ -69,7 +72,7 @@ class HouseholdMemberListCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2D4F3C),
+                          color: AppColors.textGreenMedium,
                         ),
                       ),
                     ),
@@ -105,7 +108,7 @@ class HouseholdMemberListCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE5EDE1),
+                      color: _kGreenLightE5EDE1,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -113,7 +116,7 @@ class HouseholdMemberListCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xFF2D4F3C),
+                        color: AppColors.textGreenMedium,
                       ),
                     ),
                   ),

@@ -8,14 +8,25 @@ import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import '../../blocs/emission/emission_cubit.dart';
 
+// Màu riêng của màn này
+const Color _kBlue42A5F5 = Color(0xFF42A5F5);
+const Color _kGreen8BC34A = Color(0xFF8BC34A);
+const Color _kGreenA5D6A7 = Color(0xFFA5D6A7);
+const Color _kGreenLightDDEEE1 = Color(0xFFDDEEE1);
+const Color _kGreenLightF7F9F7 = Color(0xFFF7F9F7);
+const Color _kGreyD6D6D6 = Color(0xFFD6D6D6);
+const Color _kGreyLightF9FAF9 = Color(0xFFF9FAF9);
+const Color _kOrangeB06F28 = Color(0xFFB06F28);
+const Color _kRedC62828 = Color(0xFFC62828);
+
 /// Màu sắc nhận diện từng phân loại phát thải theo thiết kế chuẩn
 class EmissionCategoryTheme {
-  static const Color electricity = Color(0xFF2E7D32); // Xanh lá đậm
-  static const Color gas = Color(0xFF8BC34A); // Xanh nõn chuối
-  static const Color waste = Color(0xFFA5D6A7); // Xanh pastel
-  static const Color refrigerant = Color(0xFFB06F28); // Nâu hổ phách
-  static const Color transportation = Color(0xFF42A5F5); // Xanh dương
-  static const Color unrecorded = Color(0xFFD6D6D6); // Xám chưa nhập
+  static const Color electricity = AppColors.greenPrimary; // Xanh lá đậm
+  static const Color gas = _kGreen8BC34A; // Xanh nõn chuối
+  static const Color waste = _kGreenA5D6A7; // Xanh pastel
+  static const Color refrigerant = _kOrangeB06F28; // Nâu hổ phách
+  static const Color transportation = _kBlue42A5F5; // Xanh dương
+  static const Color unrecorded = _kGreyD6D6D6; // Xám chưa nhập
 
   static Color getColor(String category) {
     switch (category) {
@@ -175,7 +186,7 @@ class _FamilyEmissionHistoryScreenState
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFFBFBF8), // Nền kem thanh nhã theo thiết kế
+        backgroundColor: AppColors.surfaceOffWhite, // Nền kem thanh nhã theo thiết kế
       body: SafeArea(
         child: Column(
           children: [
@@ -186,15 +197,15 @@ class _FamilyEmissionHistoryScreenState
             if (emissionState.isLoading)
               const LinearProgressIndicator(
                 minHeight: 2.5,
-                backgroundColor: Color(0xFFE8F5E9),
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
+                backgroundColor: AppColors.green50,
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.greenPrimary),
               ),
 
             // 2. Nội dung cuộn chính có tính năng vuốt để làm mới (Pull-to-refresh)
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async => _loadData(),
-                color: const Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -298,7 +309,7 @@ class _FamilyEmissionHistoryScreenState
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -315,7 +326,7 @@ class _FamilyEmissionHistoryScreenState
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -324,7 +335,7 @@ class _FamilyEmissionHistoryScreenState
                   'Tổng hợp và nhập liệu phát thải theo tháng',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                     height: 1.25,
                   ),
                 ),
@@ -394,7 +405,7 @@ class _FamilyEmissionHistoryScreenState
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -483,9 +494,9 @@ class _FamilyEmissionHistoryScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F8F3), // Xanh pastel êm dịu
+        color: AppColors.greenSurfaceLight, // Xanh pastel êm dịu
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: const Color(0xFFE2EFE5)),
+        border: Border.all(color: AppColors.greenBorderPale),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -499,7 +510,7 @@ class _FamilyEmissionHistoryScreenState
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF2E7D32),
+                  color: AppColors.greenPrimary,
                 ),
               ),
               Container(
@@ -513,7 +524,7 @@ class _FamilyEmissionHistoryScreenState
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ),
               ),
@@ -531,7 +542,7 @@ class _FamilyEmissionHistoryScreenState
                 style: const TextStyle(
                   fontSize: 38,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF143E26),
+                  color: AppColors.greenDeep,
                   letterSpacing: -0.8,
                 ),
               ),
@@ -541,7 +552,7 @@ class _FamilyEmissionHistoryScreenState
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF143E26),
+                  color: AppColors.greenDeep,
                 ),
               ),
             ],
@@ -555,13 +566,13 @@ class _FamilyEmissionHistoryScreenState
               fontSize: 12.5,
               fontWeight: FontWeight.w500,
               color: isDecrease
-                  ? const Color(0xFF2E7D32)
-                  : const Color(0xFFC62828),
+                  ? AppColors.greenPrimary
+                  : _kRedC62828,
             ),
           ),
           const SizedBox(height: 12),
 
-          const Divider(color: Color(0xFFDDEEE1), height: 1),
+          const Divider(color: _kGreenLightDDEEE1, height: 1),
           const SizedBox(height: 10),
 
           // Ghi chú động theo các nhóm chưa nhập thực tế
@@ -631,7 +642,7 @@ class _FamilyEmissionHistoryScreenState
             style: const TextStyle(
               fontSize: 15.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1B2E1E),
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 20),
@@ -662,7 +673,7 @@ class _FamilyEmissionHistoryScreenState
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF143E26),
+                            color: AppColors.greenDeep,
                             height: 1.0,
                           ),
                         ),
@@ -717,7 +728,7 @@ class _FamilyEmissionHistoryScreenState
                                     fontSize: 12.5,
                                     fontWeight: FontWeight.w600,
                                     color: hasData
-                                        ? const Color(0xFF1B2E1E)
+                                        ? AppColors.textPrimary
                                         : Colors.grey.shade500,
                                   ),
                                   maxLines: 1,
@@ -739,7 +750,7 @@ class _FamilyEmissionHistoryScreenState
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: hasData
-                                  ? const Color(0xFF1B2E1E)
+                                  ? AppColors.textPrimary
                                   : Colors.grey.shade400,
                             ),
                           ),
@@ -758,7 +769,7 @@ class _FamilyEmissionHistoryScreenState
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFFF7F9F7),
+              color: _kGreenLightF7F9F7,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.grey.shade200),
             ),
@@ -803,7 +814,7 @@ class _FamilyEmissionHistoryScreenState
           style: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1B2E1E),
+            color: AppColors.textPrimary,
           ),
         ),
         Text(
@@ -848,13 +859,13 @@ class _FamilyEmissionHistoryScreenState
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: isSelected
-                      ? const Color(0xFF1E5128)
+                      ? AppColors.greenDark
                       : Colors.grey.shade300,
                 ),
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF1E5128).withValues(alpha: 0.2),
+                          color: AppColors.greenDark.withValues(alpha: 0.2),
                           blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
@@ -867,7 +878,7 @@ class _FamilyEmissionHistoryScreenState
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected ? Colors.white : const Color(0xFF374151),
+                    color: isSelected ? Colors.white : AppColors.gray700,
                   ),
                 ),
               ),
@@ -889,7 +900,7 @@ class _FamilyEmissionHistoryScreenState
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         decoration: BoxDecoration(
-          color: const Color(0xFFF7F8F7),
+          color: AppColors.surfaceNeutral,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey.shade200),
         ),
@@ -912,7 +923,7 @@ class _FamilyEmissionHistoryScreenState
                 _getCategoryDisplayLabel(activeCategory),
                 style: const TextStyle(
                   fontSize: 12,
-                  color: Color(0xFF374151),
+                  color: AppColors.gray700,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -937,7 +948,7 @@ class _FamilyEmissionHistoryScreenState
             //     });
             //   },
             //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: const Color(0xFF2E7D32),
+            //     backgroundColor: AppColors.greenPrimary,
             //     foregroundColor: Colors.white,
             //     shape: RoundedRectangleBorder(
             //       borderRadius: BorderRadius.circular(12),
@@ -1032,7 +1043,7 @@ class _FamilyEmissionHistoryScreenState
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -1067,7 +1078,7 @@ class _FamilyEmissionHistoryScreenState
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B2E1E),
+                  color: AppColors.textPrimary,
                 ),
               ),
               Text(
@@ -1081,7 +1092,7 @@ class _FamilyEmissionHistoryScreenState
             ],
           ),
           const SizedBox(height: 12),
-          const Divider(height: 1, color: Color(0xFFF0F0F0)),
+          const Divider(height: 1, color: AppColors.neutral100),
           const SizedBox(height: 8),
 
           // 3. Hai nút: Xem chi tiết & Chỉnh sửa (nav ra 2 màn khác)
@@ -1175,7 +1186,7 @@ class _FamilyEmissionHistoryScreenState
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1B2E1E),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 10),
@@ -1208,7 +1219,7 @@ class _FamilyEmissionHistoryScreenState
                       style: const TextStyle(
                         fontSize: 14.5,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -1231,7 +1242,7 @@ class _FamilyEmissionHistoryScreenState
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF143E26),
+                        color: AppColors.greenDeep,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -1276,7 +1287,7 @@ class _FamilyEmissionHistoryScreenState
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(
@@ -1336,7 +1347,7 @@ class _FamilyEmissionHistoryScreenState
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1B2E1E),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       IconButton(
@@ -1352,7 +1363,7 @@ class _FamilyEmissionHistoryScreenState
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF7F8F7),
+                      color: AppColors.surfaceNeutral,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Row(
@@ -1371,7 +1382,7 @@ class _FamilyEmissionHistoryScreenState
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         IconButton(
@@ -1414,12 +1425,12 @@ class _FamilyEmissionHistoryScreenState
                         child: Container(
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? const Color(0xFF2E7D32)
-                                : const Color(0xFFF9FAF9),
+                                ? AppColors.greenPrimary
+                                : _kGreyLightF9FAF9,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
                               color: isSelected
-                                  ? const Color(0xFF2E7D32)
+                                  ? AppColors.greenPrimary
                                   : Colors.grey.shade300,
                             ),
                           ),
@@ -1433,7 +1444,7 @@ class _FamilyEmissionHistoryScreenState
                                   : FontWeight.w500,
                               color: isSelected
                                   ? Colors.white
-                                  : const Color(0xFF374151),
+                                  : AppColors.gray700,
                             ),
                           ),
                         ),
@@ -1466,7 +1477,7 @@ class _FamilyEmissionHistoryScreenState
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: AppColors.gray700,
                             ),
                           ),
                         ),
@@ -1479,7 +1490,7 @@ class _FamilyEmissionHistoryScreenState
                             _selectMonthYear(pickerYear, pickerMonth);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E7D32),
+                            backgroundColor: AppColors.greenPrimary,
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
@@ -1622,7 +1633,7 @@ class _DonutChartPainter extends CustomPainter {
 
     if (total <= 0) {
       final paint = Paint()
-        ..color = const Color(0xFFE5E7EB)
+        ..color = AppColors.gray200
         ..style = PaintingStyle.stroke
         ..strokeWidth = strokeWidth;
       canvas.drawCircle(center, radius, paint);

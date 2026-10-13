@@ -6,6 +6,10 @@ import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
 
+// Màu riêng của màn này
+const Color _kGreen8BA58D = Color(0xFF8BA58D);
+const Color _kGreenLightF0F2ED = Color(0xFFF0F2ED);
+
 /// Màn hình Danh sách phản ánh của nhà (Ảnh 1)
 class IncidentListScreen extends StatefulWidget {
   final bool showBackButton;
@@ -41,7 +45,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -77,7 +81,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         ),
                         child: const Icon(
                           Icons.arrow_back,
-                          color: Color(0xFF1E5128),
+                          color: AppColors.greenDark,
                           size: 20,
                         ),
                       ),
@@ -93,7 +97,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B2E1E),
+                            color: AppColors.textPrimary,
                             letterSpacing: -0.3,
                           ),
                         ),
@@ -102,7 +106,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                           'Cập nhật từ ban quản trị cộng đồng',
                           style: TextStyle(
                             fontSize: 12.5,
-                            color: Color(0xFF6B7280),
+                            color: AppColors.gray500,
                           ),
                         ),
                       ],
@@ -144,8 +148,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         label: 'Tất cả (${state.countAll})',
                         filterKey: 'all',
                         isSelected: state.selectedFilter == 'all',
-                        activeColor: const Color(0xFFE8F5E9),
-                        textColor: const Color(0xFF2E7D32),
+                        activeColor: AppColors.green50,
+                        textColor: AppColors.greenPrimary,
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
@@ -154,8 +158,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         filterKey: IncidentStatus.submitted.value,
                         isSelected: state.selectedFilter ==
                             IncidentStatus.submitted.value,
-                        activeColor: const Color(0xFFE8F1FD),
-                        textColor: const Color(0xFF1E60AA),
+                        activeColor: AppColors.blueSurfaceLight,
+                        textColor: AppColors.blueStatus,
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
@@ -164,8 +168,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         filterKey: IncidentStatus.underReview.value,
                         isSelected: state.selectedFilter ==
                             IncidentStatus.underReview.value,
-                        activeColor: const Color(0xFFFEF3E2),
-                        textColor: const Color(0xFFB45309),
+                        activeColor: AppColors.orangeSurface,
+                        textColor: AppColors.amber700,
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
@@ -174,8 +178,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         filterKey: IncidentStatus.forwarded.value,
                         isSelected: state.selectedFilter ==
                             IncidentStatus.forwarded.value,
-                        activeColor: const Color(0xFFF3E8FF),
-                        textColor: const Color(0xFF7E22CE),
+                        activeColor: AppColors.purple100,
+                        textColor: AppColors.purple700,
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
@@ -184,8 +188,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         filterKey: IncidentStatus.inProgress.value,
                         isSelected: state.selectedFilter ==
                             IncidentStatus.inProgress.value,
-                        activeColor: const Color(0xFFE0F2FE),
-                        textColor: const Color(0xFF0369A1),
+                        activeColor: AppColors.sky100,
+                        textColor: AppColors.sky700,
                       ),
                       const SizedBox(width: 8),
                       _buildFilterPill(
@@ -194,8 +198,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                         filterKey: IncidentStatus.resolved.value,
                         isSelected: state.selectedFilter ==
                             IncidentStatus.resolved.value,
-                        activeColor: const Color(0xFFEBF5EE),
-                        textColor: const Color(0xFF2E7D32),
+                        activeColor: AppColors.greenSurface,
+                        textColor: AppColors.greenPrimary,
                       ),
                       if (state.countClosed > 0) ...[
                         const SizedBox(width: 8),
@@ -205,8 +209,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                           filterKey: IncidentStatus.closed.value,
                           isSelected: state.selectedFilter ==
                               IncidentStatus.closed.value,
-                          activeColor: const Color(0xFFF1F5F9),
-                          textColor: const Color(0xFF475569),
+                          activeColor: AppColors.slate100,
+                          textColor: AppColors.slate600,
                         ),
                       ],
                       if (state.countRejected > 0) ...[
@@ -217,8 +221,8 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                           filterKey: IncidentStatus.rejected.value,
                           isSelected: state.selectedFilter ==
                               IncidentStatus.rejected.value,
-                          activeColor: const Color(0xFFFDE8E8),
-                          textColor: const Color(0xFFC53030),
+                          activeColor: AppColors.redSurface,
+                          textColor: AppColors.redDark,
                         ),
                       ],
                     ],
@@ -255,7 +259,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                                   'Không thể tải danh sách phản ánh',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
-                                  color: Color(0xFF6B7280), fontSize: 14),
+                                  color: AppColors.gray500, fontSize: 14),
                             ),
                             const SizedBox(height: 16),
                             ElevatedButton(
@@ -293,13 +297,13 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                                   width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFF1F5F0),
+                                    color: AppColors.surfaceSage,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: const Icon(
                                     Icons.assignment_outlined,
                                     size: 40,
-                                    color: Color(0xFF8BA58D),
+                                    color: _kGreen8BA58D,
                                   ),
                                 ),
                                 const SizedBox(height: 16),
@@ -308,7 +312,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF1B2E1E),
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                                 const SizedBox(height: 6),
@@ -319,7 +323,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontSize: 13,
-                                    color: Color(0xFF6B7280),
+                                    color: AppColors.gray500,
                                   ),
                                 ),
                               ],
@@ -404,7 +408,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? activeColor : const Color(0xFFF0F2ED),
+          color: isSelected ? activeColor : _kGreenLightF0F2ED,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected ? textColor.withValues(alpha: 0.3) : Colors.transparent,
@@ -415,7 +419,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
           style: TextStyle(
             fontSize: 13,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            color: isSelected ? textColor : const Color(0xFF4B5563),
+            color: isSelected ? textColor : AppColors.gray600,
           ),
         ),
       ),
@@ -458,7 +462,7 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                     style: const TextStyle(
                       fontSize: 15.5,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                       height: 1.3,
                     ),
                   ),
@@ -492,14 +496,14 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                   style: const TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
                 const Text(
                   ' • ',
                   style: TextStyle(
                     fontSize: 12.5,
-                    color: Color(0xFF9CA3AF),
+                    color: AppColors.gray400,
                   ),
                 ),
                 Text(
@@ -507,14 +511,14 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
                   style: const TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
                 const Spacer(),
                 const Icon(
                   Icons.arrow_forward_ios,
                   size: 13,
-                  color: Color(0xFF9CA3AF),
+                  color: AppColors.gray400,
                 ),
               ],
             ),
@@ -528,38 +532,38 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
     switch (status) {
       case IncidentStatus.submitted:
         return (
-          bg: const Color(0xFFE8F1FD),
-          text: const Color(0xFF1E60AA),
+          bg: AppColors.blueSurfaceLight,
+          text: AppColors.blueStatus,
         );
       case IncidentStatus.underReview:
         return (
-          bg: const Color(0xFFFEF3E2),
-          text: const Color(0xFFB45309),
+          bg: AppColors.orangeSurface,
+          text: AppColors.amber700,
         );
       case IncidentStatus.forwarded:
         return (
-          bg: const Color(0xFFF3E8FF),
-          text: const Color(0xFF7E22CE),
+          bg: AppColors.purple100,
+          text: AppColors.purple700,
         );
       case IncidentStatus.inProgress:
         return (
-          bg: const Color(0xFFE0F2FE),
-          text: const Color(0xFF0369A1),
+          bg: AppColors.sky100,
+          text: AppColors.sky700,
         );
       case IncidentStatus.resolved:
         return (
-          bg: const Color(0xFFEBF5EE),
-          text: const Color(0xFF2E7D32),
+          bg: AppColors.greenSurface,
+          text: AppColors.greenPrimary,
         );
       case IncidentStatus.closed:
         return (
-          bg: const Color(0xFFF1F5F9),
-          text: const Color(0xFF475569),
+          bg: AppColors.slate100,
+          text: AppColors.slate600,
         );
       case IncidentStatus.rejected:
         return (
-          bg: const Color(0xFFFDE8E8),
-          text: const Color(0xFFC53030),
+          bg: AppColors.redSurface,
+          text: AppColors.redDark,
         );
     }
   }

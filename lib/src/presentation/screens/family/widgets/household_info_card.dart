@@ -21,7 +21,7 @@ class HouseholdInfoCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       decoration: BoxDecoration(
-        color: const Color(0xFFEAF3E4),
+        color: AppColors.successBg,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

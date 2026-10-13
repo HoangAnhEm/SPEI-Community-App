@@ -75,7 +75,7 @@ class _HouseholdQrScreenState extends State<HouseholdQrScreen> {
                             width: 46,
                             height: 46,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD6E8CD),
+                              color: AppColors.greenBorderLight,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
@@ -212,7 +212,7 @@ class _HouseholdQrScreenState extends State<HouseholdQrScreen> {
                         decoration: BoxDecoration(
                           color: AppColors.successBg,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFC2DFC0)),
+                          border: Border.all(color: AppColors.greenSoft),
                         ),
                         child: const Row(
                           children: [

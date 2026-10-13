@@ -24,7 +24,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return Dialog(
-              backgroundColor: const Color(0xFFF9FAF7),
+              backgroundColor: AppColors.surfaceLight,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               insetPadding: const EdgeInsets.symmetric(horizontal: 24),
               child: Padding(
@@ -48,20 +48,20 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFDE8E8),
+                        color: AppColors.redSurface,
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.warning_amber_rounded, color: Color(0xFFC94A4A), size: 20),
+                          const Icon(Icons.warning_amber_rounded, color: AppColors.error, size: 20),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Hộ sẽ bị xóa; bạn và ${memberCount > 1 ? '${memberCount - 1} thành viên khác' : 'các thành viên'} không còn thuộc hộ này. Hãy trao đổi với cả nhà trước khi tiếp tục.',
                               style: const TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF9B1C1C),
+                                color: AppColors.red900,
                                 height: 1.4,
                               ),
                             ),
@@ -90,11 +90,11 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+                          borderSide: const BorderSide(color: AppColors.border),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Color(0xFFE2E8DE)),
+                          borderSide: const BorderSide(color: AppColors.border),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -119,7 +119,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: const Color(0xFFE2E8DE)),
+                          border: Border.all(color: AppColors.border),
                         ),
                         child: const Center(
                           child: Text(
@@ -157,7 +157,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                                 scaffoldMessenger.showSnackBar(
                                   SnackBar(
                                     content: Text(householdCubit.state.errorMessage ?? 'Không thể xóa hộ gia đình'),
-                                    backgroundColor: const Color(0xFFC94A4A),
+                                    backgroundColor: AppColors.error,
                                   ),
                                 );
                               }
@@ -168,7 +168,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                         width: double.infinity,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: isMatch ? const Color(0xFFFDE8E8) : const Color(0xFFF5F5F5),
+                          color: isMatch ? AppColors.redSurface : AppColors.neutral50,
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: Center(
@@ -177,7 +177,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: isMatch ? const Color(0xFFC94A4A) : Colors.grey.shade400,
+                              color: isMatch ? AppColors.error : Colors.grey.shade400,
                             ),
                           ),
                         ),
@@ -203,7 +203,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
     final memberCount = household?.memberCount ?? 1;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -235,7 +235,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF03543F),
+                              color: AppColors.emerald900,
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -265,21 +265,21 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFEF6E8),
+                        color: AppColors.amberSurface,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFFFED7AA)),
+                        border: Border.all(color: AppColors.orange200),
                       ),
                       child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.shield_outlined, color: Color(0xFFD97706), size: 20),
+                          Icon(Icons.shield_outlined, color: AppColors.amber600, size: 20),
                           SizedBox(width: 10),
                           Expanded(
                             child: Text(
                               'Chủ hộ không thể rời hộ trực tiếp. Bạn cần chuyển quyền cho một thành viên hiện tại hoặc xóa hộ gia đình trước.',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Color(0xFF8A6D3B),
+                                color: AppColors.brownText,
                                 height: 1.45,
                               ),
                             ),
@@ -304,7 +304,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                     // 2. Xoá thành viên
                     _buildActionCard(
                       icon: Icons.person_remove_outlined,
-                      iconColor: const Color(0xFFC94A4A),
+                      iconColor: AppColors.error,
                       title: 'Xoá thành viên',
                       subtitle: 'Xoá thành viên khỏi hộ gia đình',
                       onTap: () {
@@ -320,7 +320,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFFE8ECE5)),
+                        border: Border.all(color: AppColors.borderLight),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,21 +349,21 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
                               width: double.infinity,
                               height: 48,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFDE8E8),
+                                color: AppColors.redSurface,
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.delete_outline, color: Color(0xFFC94A4A), size: 18),
+                                    const Icon(Icons.delete_outline, color: AppColors.error, size: 18),
                                     const SizedBox(width: 8),
                                     Text(
                                       'Xóa $householdName',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: Color(0xFFC94A4A),
+                                        color: AppColors.error,
                                       ),
                                     ),
                                   ],
@@ -404,7 +404,7 @@ class _OwnerPermissionsScreenState extends State<OwnerPermissionsScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFE8ECE5)),
+          border: Border.all(color: AppColors.borderLight),
         ),
         child: Row(
           children: [

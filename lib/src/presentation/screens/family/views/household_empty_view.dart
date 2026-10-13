@@ -31,7 +31,7 @@ class HouseholdEmptyView extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEAF3E4),
+                    color: AppColors.successBg,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Column(
@@ -113,7 +113,7 @@ class HouseholdEmptyView extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE2E8DE)),
+                      border: Border.all(color: AppColors.border),
                     ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +125,7 @@ class HouseholdEmptyView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2D4F3C),
+                            color: AppColors.textGreenMedium,
                           ),
                         ),
                       ],
@@ -172,7 +172,7 @@ class HouseholdEmptyView extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEAF3E4),
+                    color: AppColors.successBg,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Row(
@@ -185,7 +185,7 @@ class HouseholdEmptyView extends StatelessWidget {
                           'Mỗi người chỉ tham gia một hộ tại một thời điểm. Gửi yêu cầu chưa có nghĩa là bạn đã vào hộ.',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Color(0xFF2D4F3C),
+                            color: AppColors.textGreenMedium,
                             height: 1.45,
                           ),
                         ),

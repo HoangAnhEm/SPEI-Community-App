@@ -9,6 +9,10 @@ import '../../blocs/my_join_requests/my_join_requests_state.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_confirm_dialog.dart';
 
+// Màu riêng của màn này
+const Color _kOrangeC2410C = Color(0xFFC2410C);
+const Color _kOrangeLightFFF7ED = Color(0xFFFFF7ED);
+
 class MyJoinRequestsScreen extends StatefulWidget {
   const MyJoinRequestsScreen({super.key});
 
@@ -39,28 +43,28 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
 
     switch (status.toLowerCase()) {
       case 'pending':
-        bgColor = const Color(0xFFFEF3C7);
-        textColor = const Color(0xFFB45309);
+        bgColor = AppColors.amber100;
+        textColor = AppColors.amber700;
         label = 'Đang chờ duyệt';
         break;
       case 'approved':
-        bgColor = const Color(0xFFDEF7EC);
-        textColor = const Color(0xFF03543F);
+        bgColor = AppColors.emerald50;
+        textColor = AppColors.emerald900;
         label = 'Đã được chấp nhận';
         break;
       case 'rejected':
-        bgColor = const Color(0xFFFFF7ED);
-        textColor = const Color(0xFFC2410C);
+        bgColor = _kOrangeLightFFF7ED;
+        textColor = _kOrangeC2410C;
         label = 'Đã bị từ chối';
         break;
       case 'cancelled':
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = 'Đã hủy';
         break;
       default:
-        bgColor = const Color(0xFFF3F4F6);
-        textColor = const Color(0xFF6B7280);
+        bgColor = AppColors.gray100;
+        textColor = AppColors.gray500;
         label = status;
     }
 
@@ -114,7 +118,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
           scaffoldMessenger.showSnackBar(
             SnackBar(
               content: Text(householdCubit.state.errorMessage ?? 'Không thể rời hộ gia đình'),
-              backgroundColor: const Color(0xFFC94A4A),
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -128,7 +132,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
     final currentHousehold = householdState.household;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: BlocConsumer<MyJoinRequestsCubit, MyJoinRequestsState>(
           listener: (context, state) {
@@ -177,7 +181,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 48, color: Color(0xFFC94A4A)),
+              const Icon(Icons.error_outline, size: 48, color: AppColors.error),
               const SizedBox(height: 12),
               Text(
                 state.error,
@@ -221,7 +225,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                         width: 80,
                         height: 80,
                         decoration: const BoxDecoration(
-                          color: Color(0xFFF0F5F2),
+                          color: AppColors.greenSurfaceMuted,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -270,7 +274,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFFE8ECE5)),
+                      border: Border.all(color: AppColors.borderLight),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +312,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: const Color(0xFFE2E8DE)),
+                                border: Border.all(color: AppColors.border),
                               ),
                               child: const Center(
                                 child: Text(
@@ -316,7 +320,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2D4F3C),
+                                    color: AppColors.textGreenMedium,
                                   ),
                                 ),
                               ),
@@ -341,20 +345,20 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                               width: double.infinity,
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFEF6E8),
+                                color: AppColors.amberSurface,
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(Icons.info_outline, color: Color(0xFFD97706), size: 18),
+                                  const Icon(Icons.info_outline, color: AppColors.amber600, size: 18),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
                                       'Bạn vẫn ở $currentHouseholdName. Yêu cầu đã duyệt nhưng bạn chưa gia nhập $householdTitle. Cần rời hộ cũ trước.',
                                       style: const TextStyle(
                                         fontSize: 12,
-                                        color: Color(0xFF8A6D3B),
+                                        color: AppColors.brownText,
                                         height: 1.4,
                                       ),
                                     ),
@@ -372,7 +376,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(color: const Color(0xFFE2E8DE)),
+                                  border: Border.all(color: AppColors.border),
                                 ),
                                 child: const Center(
                                   child: Text(
@@ -380,7 +384,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xFF2D4F3C),
+                                      color: AppColors.textGreenMedium,
                                     ),
                                   ),
                                 ),
@@ -407,7 +411,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE2E8DE)),
+                  border: Border.all(color: AppColors.border),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -419,7 +423,7 @@ class _MyJoinRequestsScreenState extends State<MyJoinRequestsScreen> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2D4F3C),
+                        color: AppColors.textGreenMedium,
                       ),
                     ),
                   ],

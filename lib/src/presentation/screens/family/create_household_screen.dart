@@ -81,7 +81,7 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                           width: double.infinity,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFEAF3E4),
+                            color: AppColors.successBg,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
@@ -99,7 +99,7 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                                 'Bạn sẽ trở thành chủ hộ và có thể mời mọi người sau khi tạo.',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Color(0xFF2D4F3C),
+                                  color: AppColors.textGreenMedium,
                                   height: 1.45,
                                 ),
                               ),
@@ -129,20 +129,20 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                           width: double.infinity,
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFEAF3E4),
+                            color: AppColors.successBg,
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.info_outline, color: Color(0xFF2D4F3C), size: 18),
+                              Icon(Icons.info_outline, color: AppColors.textGreenMedium, size: 18),
                               SizedBox(width: 10),
                               Expanded(
                                 child: Text(
                                   'Chỉ cần tên hộ. Không yêu cầu địa chỉ hay thông tin thành viên ở bước này.',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFF2D4F3C),
+                                    color: AppColors.textGreenMedium,
                                     height: 1.4,
                                   ),
                                 ),
@@ -158,9 +158,9 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFEEFEF),
+                              color: AppColors.errorBg,
                               borderRadius: BorderRadius.circular(14),
-                              border: Border.all(color: const Color(0xFFF5C6CB)),
+                              border: Border.all(color: AppColors.redBorder),
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,9 +169,9 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                                   'assets/icons/ic_info.png',
                                   width: 18,
                                   height: 18,
-                                  color: const Color(0xFFC94A4A),
+                                  color: AppColors.error,
                                   errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(Icons.error_outline, size: 18, color: Color(0xFFC94A4A)),
+                                      const Icon(Icons.error_outline, size: 18, color: AppColors.error),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -179,7 +179,7 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                                     state.error,
                                     style: const TextStyle(
                                       fontSize: 13,
-                                      color: Color(0xFFC94A4A),
+                                      color: AppColors.error,
                                       height: 1.4,
                                     ),
                                   ),
@@ -241,7 +241,7 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: const Color(0xFFE2E8DE)),
+                              border: Border.all(color: AppColors.border),
                             ),
                             child: const Center(
                               child: Text(
@@ -249,7 +249,7 @@ class _CreateHouseholdScreenState extends State<CreateHouseholdScreen> {
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF2D4F3C),
+                                  color: AppColors.textGreenMedium,
                                 ),
                               ),
                             ),

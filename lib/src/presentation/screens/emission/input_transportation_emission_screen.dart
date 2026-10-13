@@ -5,6 +5,10 @@ import 'widgets/emission_month_picker_sheet.dart';
 import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kGreenC7D3C5 = Color(0xFFC7D3C5);
 
 /// Màn hình nhập dữ liệu phát thải Phương tiện (gồm 2 chế độ: Xe xăng & Xe điện)
 class InputTransportationEmissionScreen extends StatefulWidget {
@@ -213,7 +217,7 @@ class _InputTransportationEmissionScreenState
     final hasGasolineError = _selectedTabIndex == 0 && !_isGasolineValid;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -274,7 +278,7 @@ class _InputTransportationEmissionScreenState
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 12.5,
-                            color: Color(0xFFDC2626),
+                            color: AppColors.red600,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -286,7 +290,7 @@ class _InputTransportationEmissionScreenState
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Color(0xFF6B7280),
+                            color: AppColors.gray500,
                           ),
                         ),
                       ),
@@ -335,7 +339,7 @@ class _InputTransportationEmissionScreenState
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -352,7 +356,7 @@ class _InputTransportationEmissionScreenState
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -361,7 +365,7 @@ class _InputTransportationEmissionScreenState
                   subtitle,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -399,7 +403,7 @@ class _InputTransportationEmissionScreenState
         height: 46,
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          color: const Color(0xFFEFF2EC),
+          color: AppColors.surfaceMuted,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Row(
@@ -416,7 +420,7 @@ class _InputTransportationEmissionScreenState
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: _selectedTabIndex == 0
-                        ? const Color(0xFF2E7D32)
+                        ? AppColors.greenPrimary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -429,7 +433,7 @@ class _InputTransportationEmissionScreenState
                           : FontWeight.w500,
                       color: _selectedTabIndex == 0
                           ? Colors.white
-                          : const Color(0xFF4B5563),
+                          : AppColors.gray600,
                     ),
                   ),
                 ),
@@ -447,7 +451,7 @@ class _InputTransportationEmissionScreenState
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: _selectedTabIndex == 1
-                        ? const Color(0xFF2E7D32)
+                        ? AppColors.greenPrimary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -460,7 +464,7 @@ class _InputTransportationEmissionScreenState
                           : FontWeight.w500,
                       color: _selectedTabIndex == 1
                           ? Colors.white
-                          : const Color(0xFF4B5563),
+                          : AppColors.gray600,
                     ),
                   ),
                 ),
@@ -481,7 +485,7 @@ class _InputTransportationEmissionScreenState
           width: 44,
           height: 44,
           decoration: const BoxDecoration(
-            color: Color(0xFFE8F3E8),
+            color: AppColors.greenTint,
             shape: BoxShape.circle,
           ),
           child: Center(
@@ -491,7 +495,7 @@ class _InputTransportationEmissionScreenState
               height: 32,
               errorBuilder: (context, error, stackTrace) => const Icon(
                 Icons.eco_rounded,
-                color: Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
                 size: 26,
               ),
             ),
@@ -503,7 +507,7 @@ class _InputTransportationEmissionScreenState
             message,
             style: const TextStyle(
               fontSize: 13.5,
-              color: Color(0xFF2E4032),
+              color: AppColors.textGreenGrey,
               height: 1.4,
             ),
           ),
@@ -521,7 +525,7 @@ class _InputTransportationEmissionScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -531,7 +535,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -542,7 +546,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -554,7 +558,7 @@ class _InputTransportationEmissionScreenState
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -564,12 +568,12 @@ class _InputTransportationEmissionScreenState
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -583,13 +587,13 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _gasolineSourceController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: 'Ví dụ: Xe của bố',
               contentPadding: const EdgeInsets.symmetric(
@@ -598,18 +602,18 @@ class _InputTransportationEmissionScreenState
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -619,7 +623,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 8),
@@ -628,12 +632,12 @@ class _InputTransportationEmissionScreenState
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: const Color(0xFFF9FAFB),
+              color: AppColors.gray50,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: isError
-                    ? const Color(0xFFDC2626)
-                    : const Color(0xFFE5E7EB),
+                    ? AppColors.red600
+                    : AppColors.gray200,
                 width: isError ? 1.5 : 1.0,
               ),
             ),
@@ -648,8 +652,8 @@ class _InputTransportationEmissionScreenState
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: isError
-                          ? const Color(0xFFDC2626)
-                          : const Color(0xFF1B2E1E),
+                          ? AppColors.red600
+                          : AppColors.textPrimary,
                     ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -662,7 +666,7 @@ class _InputTransportationEmissionScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.gray600,
                   ),
                 ),
               ],
@@ -674,14 +678,14 @@ class _InputTransportationEmissionScreenState
               'Số lít không hợp lệ. Nhập số từ 0 trở lên, ví dụ 12,5; không nhập chữ hoặc số âm.',
               style: TextStyle(
                 fontSize: 11.5,
-                color: Color(0xFFDC2626),
+                color: AppColors.red600,
                 height: 1.3,
               ),
             )
           else
             const Text(
               'Có thể nhập phần thập phân bằng dấu phẩy.',
-              style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
         ],
       ),
@@ -694,9 +698,9 @@ class _InputTransportationEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -706,7 +710,7 @@ class _InputTransportationEmissionScreenState
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -714,7 +718,7 @@ class _InputTransportationEmissionScreenState
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -724,7 +728,7 @@ class _InputTransportationEmissionScreenState
             'Dựa vào hóa đơn đổ xăng và lượng còn trong bình: lượng đầu kỳ + lượng mua – lượng cuối kỳ. Lượng mua không luôn bằng lượng đã tiêu thụ.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -739,9 +743,9 @@ class _InputTransportationEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEF6E8),
+        color: AppColors.amberSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFED7AA)),
+        border: Border.all(color: AppColors.orange200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -751,7 +755,7 @@ class _InputTransportationEmissionScreenState
               Icon(
                 Icons.warning_amber_rounded,
                 size: 20,
-                color: Color(0xFFD97706),
+                color: AppColors.amber600,
               ),
               SizedBox(width: 8),
               Expanded(
@@ -760,7 +764,7 @@ class _InputTransportationEmissionScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFB45309),
+                    color: AppColors.amber700,
                   ),
                 ),
               ),
@@ -771,7 +775,7 @@ class _InputTransportationEmissionScreenState
             'Nếu điện sạc đã được tính trong Điện gia đình thì không cần nhập riêng xe điện. Chỉ nhập riêng khi điện sạc chưa được tính chung.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF92400E),
+              color: AppColors.amber800,
               height: 1.45,
             ),
           ),
@@ -787,7 +791,7 @@ class _InputTransportationEmissionScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -797,7 +801,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -808,7 +812,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -820,7 +824,7 @@ class _InputTransportationEmissionScreenState
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -830,12 +834,12 @@ class _InputTransportationEmissionScreenState
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -849,13 +853,13 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _evSourceController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: 'Ví dụ: Xe của con',
               contentPadding: const EdgeInsets.symmetric(
@@ -864,18 +868,18 @@ class _InputTransportationEmissionScreenState
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -885,7 +889,7 @@ class _InputTransportationEmissionScreenState
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 8),
@@ -894,10 +898,10 @@ class _InputTransportationEmissionScreenState
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: const Color(0xFFF9FAFB),
+              color: AppColors.gray50,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: const Color(0xFF2E7D32),
+                color: AppColors.greenPrimary,
                 width: 1.5,
               ),
             ),
@@ -911,7 +915,7 @@ class _InputTransportationEmissionScreenState
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -924,7 +928,7 @@ class _InputTransportationEmissionScreenState
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.gray600,
                   ),
                 ),
               ],
@@ -933,7 +937,7 @@ class _InputTransportationEmissionScreenState
           const SizedBox(height: 6),
           const Text(
             'Nhập điện lấy từ nguồn sạc, không nhập dung lượng pin.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
         ],
       ),
@@ -946,9 +950,9 @@ class _InputTransportationEmissionScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -958,7 +962,7 @@ class _InputTransportationEmissionScreenState
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Color(0xFF1B598E),
+                color: AppColors.blueMedium,
               ),
               SizedBox(width: 8),
               Text(
@@ -966,7 +970,7 @@ class _InputTransportationEmissionScreenState
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -976,7 +980,7 @@ class _InputTransportationEmissionScreenState
             'Xem đồng hồ riêng cho bộ sạc hoặc lịch sử kWh trong ứng dụng/trạm sạc. Cộng các lượt sạc của tháng ${_selectedMonth.toString().padLeft(2, '0')}/$_selectedYear.',
             style: const TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -985,7 +989,7 @@ class _InputTransportationEmissionScreenState
             'Nếu điện sạc đã được tính trong điện gia đình, bỏ qua ghi nhận riêng xe điện.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -1004,9 +1008,9 @@ class _InputTransportationEmissionScreenState
       child: ElevatedButton(
         onPressed: hasGasolineError ? null : _handleContinue,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
-          disabledBackgroundColor: const Color(0xFFC7D3C5),
+          disabledBackgroundColor: _kGreenC7D3C5,
           disabledForegroundColor: Colors.white70,
           elevation: 2,
           shape: RoundedRectangleBorder(

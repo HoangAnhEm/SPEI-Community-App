@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kGreenDark2C3E2D = Color(0xFF2C3E2D);
+const Color _kGreyLightF4F6F4 = Color(0xFFF4F6F4);
 
 /// Hiển thị bottom sheet chọn Tháng và Năm
 Future<DateTime?> showEmissionMonthPickerSheet({
@@ -45,7 +50,7 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     IconButton(
@@ -61,7 +66,7 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF7F8F7),
+                    color: AppColors.surfaceNeutral,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Row(
@@ -80,7 +85,7 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1B2E1E),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       IconButton(
@@ -122,12 +127,12 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? const Color(0xFF2E7D32)
-                              : const Color(0xFFF4F6F4),
+                              ? AppColors.greenPrimary
+                              : _kGreyLightF4F6F4,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isSelected
-                                ? const Color(0xFF2E7D32)
+                                ? AppColors.greenPrimary
                                 : Colors.transparent,
                           ),
                         ),
@@ -140,7 +145,7 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                                 : FontWeight.w500,
                             color: isSelected
                                 ? Colors.white
-                                : const Color(0xFF2C3E2D),
+                                : _kGreenDark2C3E2D,
                           ),
                         ),
                       ),
@@ -161,7 +166,7 @@ Future<DateTime?> showEmissionMonthPickerSheet({
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E7D32),
+                      backgroundColor: AppColors.greenPrimary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),

@@ -12,6 +12,9 @@ import 'src/presentation/blocs/incident/incident_cubit.dart';
 import 'src/presentation/blocs/chat/chat_cubit.dart';
 import 'src/presentation/blocs/reward/reward_cubit.dart';
 
+// Màu riêng của màn này
+const Color _kGreen3B7D53 = Color(0xFF3B7D53);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Spei Community',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3B7D53)),
+          colorScheme: ColorScheme.fromSeed(seedColor: _kGreen3B7D53),
           useMaterial3: true,
         ),
         routerConfig: appRouter,

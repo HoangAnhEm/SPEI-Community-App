@@ -1,5 +1,13 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kBlue1976D2 = Color(0xFF1976D2);
+const Color _kBlue2196F3 = Color(0xFF2196F3);
+const Color _kOrangeD4CEC3 = Color(0xFFD4CEC3);
+const Color _kOrangeLightF2EFE9 = Color(0xFFF2EFE9);
+const Color _kRedE53935 = Color(0xFFE53935);
 
 /// Tiện ích tính toán tọa độ Web Mercator (EPSG:3857)
 class MercatorProjection {
@@ -204,10 +212,10 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                     'https://a.basemaps.cartocdn.com/rastertiles/voyager/$_zoom/$wrappedTx/$ty.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(
-                      color: const Color(0xFFF2EFE9),
+                      color: _kOrangeLightF2EFE9,
                       child: const Center(
                         child: Icon(Icons.map_outlined,
-                            size: 24, color: Color(0xFFD4CEC3)),
+                            size: 24, color: _kOrangeD4CEC3),
                       ),
                     ),
                   ),
@@ -305,7 +313,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF1976D2),
+                            color: _kBlue1976D2,
                             borderRadius: BorderRadius.circular(6),
                             boxShadow: [
                               BoxShadow(
@@ -331,7 +339,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                               width: 26,
                               height: 26,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF2196F3)
+                                color: _kBlue2196F3
                                     .withValues(alpha: 0.25),
                                 shape: BoxShape.circle,
                               ),
@@ -340,7 +348,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                               width: 16,
                               height: 16,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF1976D2),
+                                color: _kBlue1976D2,
                                 shape: BoxShape.circle,
                                 border:
                                     Border.all(color: Colors.white, width: 2.5),
@@ -374,7 +382,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1B2E1E),
+                          color: AppColors.textPrimary,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
@@ -397,7 +405,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                       const Icon(
                         Icons.location_on,
                         size: 42,
-                        color: Color(0xFFE53935),
+                        color: _kRedE53935,
                         shadows: [
                           Shadow(
                             color: Colors.black38,
@@ -453,14 +461,14 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.touch_app_outlined,
-                              size: 14, color: Color(0xFF2E7D32)),
+                              size: 14, color: AppColors.greenPrimary),
                           SizedBox(width: 4),
                           Text(
                             'Chạm bản đồ để đặt vị trí',
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1B2E1E),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ],
@@ -496,7 +504,7 @@ class InteractiveMapViewState extends State<InteractiveMapView> {
             ),
           ],
         ),
-        child: Icon(icon, size: 22, color: const Color(0xFF1B2E1E)),
+        child: Icon(icon, size: 22, color: AppColors.textPrimary),
       ),
     );
   }

@@ -5,6 +5,11 @@ import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import 'widgets/emission_month_picker_sheet.dart';
 import 'emission_preview_screen.dart';
+import 'package:spei_community/src/core/constants/app_colors.dart';
+
+// Màu riêng của màn này
+const Color _kBlueLightD3E7FA = Color(0xFFD3E7FA);
+const Color _kBlueLightF0F7FD = Color(0xFFF0F7FD);
 
 /// Màn hình nhập dữ liệu phát thải Chất thải & nước thải (Ảnh 3)
 class InputWasteEmissionScreen extends StatefulWidget {
@@ -185,7 +190,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAF7),
+      backgroundColor: AppColors.surfaceLight,
       body: SafeArea(
         child: Column(
           children: [
@@ -232,7 +237,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF6B7280),
+                          color: AppColors.gray500,
                         ),
                       ),
                     ),
@@ -277,7 +282,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               ),
               child: const Icon(
                 Icons.arrow_back,
-                color: Color(0xFF1E5128),
+                color: AppColors.greenDark,
                 size: 20,
               ),
             ),
@@ -294,7 +299,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B2E1E),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -303,7 +308,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                   'Chọn đúng loại và cách xử lý',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: AppColors.gray500,
                   ),
                 ),
               ],
@@ -340,7 +345,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: AppColors.gray200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +355,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 16.5,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: AppColors.gray800,
             ),
           ),
           const SizedBox(height: 14),
@@ -361,7 +366,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -373,7 +378,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,12 +388,12 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     style: const TextStyle(
                       fontSize: 14.5,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                   ),
                 ],
               ),
@@ -402,13 +407,13 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _sourceNameController,
-            style: const TextStyle(fontSize: 14.5, color: Color(0xFF1F2937)),
+            style: const TextStyle(fontSize: 14.5, color: AppColors.gray800),
             decoration: InputDecoration(
               hintText: '',
               contentPadding: const EdgeInsets.symmetric(
@@ -417,18 +422,18 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+                borderSide: const BorderSide(color: AppColors.gray200),
               ),
             ),
           ),
           const SizedBox(height: 4),
           const Text(
             'Có thể bỏ trống. Đặt tên để phân biệt các bản ghi cùng loại trong tháng.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -438,7 +443,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -449,7 +454,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE5E7EB)),
+                border: Border.all(color: AppColors.gray200),
               ),
               child: Row(
                 children: [
@@ -459,13 +464,13 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xFF1F2937),
+                        color: AppColors.gray800,
                       ),
                     ),
                   ),
                   const Icon(
                     Icons.chevron_right,
-                    color: Color(0xFF2E7D32),
+                    color: AppColors.greenPrimary,
                     size: 22,
                   ),
                 ],
@@ -475,7 +480,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
           const SizedBox(height: 4),
           const Text(
             'Chọn loại khác -> Rắn / nguy hại / nước thải',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -485,7 +490,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -493,7 +498,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
+              border: Border.all(color: AppColors.gray200),
             ),
             child: Row(
               children: [
@@ -503,13 +508,13 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                 ),
                 const Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: Color(0xFF2E7D32),
+                  color: AppColors.greenPrimary,
                 ),
               ],
             ),
@@ -517,7 +522,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
           const SizedBox(height: 4),
           const Text(
             'Theo phương pháp tương ứng trong bảng đính kèm.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
           const SizedBox(height: 18),
 
@@ -528,7 +533,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               style: TextStyle(
                 fontSize: 13.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF374151),
+                color: AppColors.gray700,
               ),
             ),
             const SizedBox(height: 8),
@@ -537,10 +542,10 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFFF9FAFB),
+                color: AppColors.gray50,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                  color: const Color(0xFF2E7D32),
+                  color: AppColors.greenPrimary,
                   width: 1.5,
                 ),
               ),
@@ -555,7 +560,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                       style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B2E1E),
+                        color: AppColors.textPrimary,
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -568,7 +573,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF4B5563),
+                      color: AppColors.gray600,
                     ),
                   ),
                 ],
@@ -577,7 +582,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             const SizedBox(height: 6),
             const Text(
               'Cân chất thải đã phân loại hoặc dùng phiếu thu gom.',
-              style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+              style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
             ),
           ],
         ],
@@ -591,23 +596,23 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDF5FA),
+        color: AppColors.blueSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD8E8F3)),
+        border: Border.all(color: AppColors.blueBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: const [
-              Icon(Icons.info_outline, size: 20, color: Color(0xFF1B598E)),
+              Icon(Icons.info_outline, size: 20, color: AppColors.blueMedium),
               SizedBox(width: 8),
               Text(
                 'Tìm số liệu từ đâu?',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
             ],
@@ -617,7 +622,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             'Cân chất thải đã phân loại hoặc dùng phiếu thu gom. Chọn cách xử lý thực tế; nếu chưa biết, chưa áp hệ số.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF2B5B84),
+              color: AppColors.blueDark,
               height: 1.45,
             ),
           ),
@@ -632,9 +637,9 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEF6E8),
+        color: AppColors.amberSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFFED7AA)),
+        border: Border.all(color: AppColors.orange200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -644,7 +649,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
               Icon(
                 Icons.warning_amber_rounded,
                 size: 20,
-                color: Color(0xFFD97706),
+                color: AppColors.amber600,
               ),
               SizedBox(width: 8),
               Expanded(
@@ -653,7 +658,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                   style: TextStyle(
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFB45309),
+                    color: AppColors.amber700,
                   ),
                 ),
               ),
@@ -664,7 +669,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             'Pin, bóng đèn, dầu thải và các loại nguy hại phải ghi riêng đúng mã, phương pháp xử lý. Không dùng hệ số của chúng cho rác sinh hoạt.',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF92400E),
+              color: AppColors.amber800,
               height: 1.45,
             ),
           ),
@@ -678,9 +683,9 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0F7FD),
+        color: _kBlueLightF0F7FD,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFD3E7FA)),
+        border: Border.all(color: _kBlueLightD3E7FA),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -693,7 +698,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B4E75),
+                  color: AppColors.blueDeep,
                 ),
               ),
               Text(
@@ -701,7 +706,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF2B5B84),
+                  color: AppColors.blueDark,
                   letterSpacing: 0.3,
                 ),
               ),
@@ -715,7 +720,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -725,11 +730,11 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
+              border: Border.all(color: AppColors.gray200),
             ),
             child: Text(
               _selectedWasteType.name,
-              style: const TextStyle(fontSize: 13.5, color: Color(0xFF1F2937)),
+              style: const TextStyle(fontSize: 13.5, color: AppColors.gray800),
             ),
           ),
           const SizedBox(height: 14),
@@ -740,7 +745,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 6),
@@ -749,7 +754,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
+              border: Border.all(color: AppColors.gray200),
             ),
             child: Row(
               children: [
@@ -758,13 +763,13 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     _selectedWasteType.treatmentMethod,
                     style: const TextStyle(
                       fontSize: 13.5,
-                      color: Color(0xFF1F2937),
+                      color: AppColors.gray800,
                     ),
                   ),
                 ),
                 const Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: Color(0xFF2E7D32),
+                  color: AppColors.greenPrimary,
                 ),
               ],
             ),
@@ -777,7 +782,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: AppColors.gray700,
             ),
           ),
           const SizedBox(height: 8),
@@ -787,7 +792,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: const Color(0xFF2E7D32), width: 1.5),
+              border: Border.all(color: AppColors.greenPrimary, width: 1.5),
             ),
             child: Row(
               children: [
@@ -800,7 +805,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B2E1E),
+                      color: AppColors.textPrimary,
                     ),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -813,7 +818,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.gray600,
                   ),
                 ),
               ],
@@ -822,7 +827,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
           const SizedBox(height: 6),
           const Text(
             'Chỉ áp dụng khi xác nhận nước thải đi qua hệ thống KCN phù hợp với bảng. Không dùng cho mọi nước thải gia đình, không suy lượng thải từ hóa đơn nước.',
-            style: TextStyle(fontSize: 11.5, color: Color(0xFF6B7280)),
+            style: TextStyle(fontSize: 11.5, color: AppColors.gray500),
           ),
         ],
       ),
@@ -837,7 +842,7 @@ class _InputWasteEmissionScreenState extends State<InputWasteEmissionScreen> {
       child: ElevatedButton(
         onPressed: _handleContinue,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D32),
+          backgroundColor: AppColors.greenPrimary,
           foregroundColor: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(

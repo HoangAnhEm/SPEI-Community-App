@@ -111,20 +111,20 @@ class HouseholdMemberView extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFEF6E8),
+                    color: AppColors.amberSurface,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, color: Color(0xFF8A6D3B), size: 20),
+                      Icon(Icons.info_outline, color: AppColors.brownText, size: 20),
                       SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           'Bạn có thể nhận lời mời và gửi yêu cầu đến hộ khác. Cần rời hộ hiện tại trước khi tham gia hộ mới.',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Color(0xFF6B5826),
+                            color: AppColors.oliveText,
                             height: 1.45,
                           ),
                         ),
@@ -136,7 +136,7 @@ class HouseholdMemberView extends StatelessWidget {
 
                 // Nút Rời hộ gia đình
                 HouseholdActionTile(
-                  icon: const Icon(Icons.logout, color: Color(0xFFC94A4A), size: 22),
+                  icon: const Icon(Icons.logout, color: AppColors.error, size: 22),
                   title: 'Rời ${household.name}',
                   isDestructive: true,
                   onTap: () => _showLeaveHouseholdDialog(context, household.name, ownerName),
