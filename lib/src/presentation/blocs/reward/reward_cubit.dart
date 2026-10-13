@@ -100,4 +100,9 @@ class RewardCubit extends Cubit<RewardState> {
       return null;
     }
   }
+
+  /// Xóa toàn bộ dữ liệu khi người dùng đăng xuất
+  void reset() {
+    emit(const RewardState());
+  }
 }

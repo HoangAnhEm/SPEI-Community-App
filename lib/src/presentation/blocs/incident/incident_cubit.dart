@@ -109,4 +109,9 @@ class IncidentCubit extends Cubit<IncidentState> {
       return false;
     }
   }
+
+  /// Xóa toàn bộ dữ liệu khi người dùng đăng xuất
+  void reset() {
+    emit(const IncidentState());
+  }
 }

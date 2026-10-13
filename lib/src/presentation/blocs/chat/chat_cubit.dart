@@ -173,4 +173,7 @@ class ChatCubit extends Cubit<ChatState> {
     _streamSubscription?.cancel();
     emit(const ChatState());
   }
+
+  /// Alias dùng khi đăng xuất để đồng nhất với các cubit khác
+  void reset() => resetChat();
 }
