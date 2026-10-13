@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,7 @@ import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/fullscreen_image_viewer.dart';
 import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
@@ -905,10 +906,11 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                     return Stack(
                       fit: StackFit.expand,
                       children: [
+                        Container(color: _kGreenLightF7F8F5),
                         if (item.isLocal)
                           Image.file(
                             File(item.localPath!),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) =>
                                 Container(
                               color: _kGreyLightE0E5DF,
@@ -924,7 +926,7 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                         else
                           Image.network(
                             item.networkUrl!,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) =>
                                 Container(
                               color: _kGreyLightE0E5DF,
@@ -937,6 +939,12 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
                               ),
                             ),
                           ),
+
+                        // Chạm vào ảnh để xem toàn màn hình
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => _openImageViewer(item),
+                        ),
 
                         // Badge loại tệp góc trái trên
                         Positioned(
@@ -1099,4 +1107,16 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
     );
   }
 
+  ImageProvider _imageProviderOf(EvidenceItem item) => item.isLocal
+      ? FileImage(File(item.localPath!))
+      : NetworkImage(item.networkUrl!) as ImageProvider;
+
+  void _openImageViewer(EvidenceItem item) {
+    final images = _evidences.where((e) => !e.isVideo).toList();
+    FullscreenImageViewer.show(
+      context,
+      images: images.map(_imageProviderOf).toList(),
+      initialIndex: images.indexOf(item),
+    );
+  }
 }

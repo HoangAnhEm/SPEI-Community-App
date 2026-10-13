@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
@@ -7,6 +7,7 @@ import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/fullscreen_image_viewer.dart';
 import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
@@ -357,6 +358,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
     }
 
     final evidences = incident.evidences;
+    final imageEvidences = evidences.where((e) => !e.isVideo).toList();
 
     return Column(
       children: [
@@ -379,16 +381,29 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
                 return Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      ev.fileUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        color: _kGreenLightE5EAE4,
-                        child: Center(
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 48,
-                            color: Colors.grey.shade400,
+                    GestureDetector(
+                      onTap: () => FullscreenImageViewer.show(
+                        context,
+                        images: imageEvidences
+                            .map((e) => NetworkImage(e.fileUrl))
+                            .toList(),
+                        initialIndex: imageEvidences.indexOf(ev),
+                      ),
+                      child: Container(
+                        color: _kGreenLightF5F7F3,
+                        child: Image.network(
+                          ev.fileUrl,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: _kGreenLightE5EAE4,
+                            child: Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                size: 48,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
                           ),
                         ),
                       ),
