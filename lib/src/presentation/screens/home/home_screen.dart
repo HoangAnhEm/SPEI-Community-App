@@ -348,6 +348,8 @@ class _HomeScreenState extends State<HomeScreen> {
           AppColors.blueBg,
           'Hỏi bạn Mầm AI',
           'Học xanh cùng con',
+          onTap: () =>
+              MainLayoutScreen.switchTab(context, MainLayoutScreen.mamAiTab),
         ),
         _buildGridItem(
           'assets/icons/ic_camera.png',
@@ -365,6 +367,8 @@ class _HomeScreenState extends State<HomeScreen> {
           AppColors.successBg,
           'Đổi quà xanh',
           'Quà cho cả nhà',
+          onTap: () =>
+              MainLayoutScreen.switchTab(context, MainLayoutScreen.rewardTab),
         ),
       ],
     );
