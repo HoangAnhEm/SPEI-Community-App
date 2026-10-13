@@ -6,6 +6,7 @@ import '../../../domain/entities/emission_details.dart';
 import '../../../domain/entities/household_emission.dart';
 import 'emission_preview_screen.dart';
 import 'package:spei_community/src/core/constants/app_colors.dart';
+import '../../widgets/segmented_tab_bar.dart';
 
 /// Màn hình nhập dữ liệu phát thải Điện gia đình (gồm 2 chế độ: Số điện kWh & Tiền điện VNĐ)
 class InputElectricityEmissionScreen extends StatefulWidget {
@@ -398,82 +399,11 @@ class _InputElectricityEmissionScreenState
 
   /// Switch tab chế độ [Số điện (kWh)] | [Tiền điện (VNĐ)]
   Widget _buildTopTabSwitch() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        height: 46,
-        padding: const EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  if (_selectedTabIndex != 0) {
-                    setState(() => _selectedTabIndex = 0);
-                  }
-                },
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _selectedTabIndex == 0
-                        ? AppColors.greenPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    'Số điện (kWh)',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: _selectedTabIndex == 0
-                          ? FontWeight.bold
-                          : FontWeight.w500,
-                      color: _selectedTabIndex == 0
-                          ? Colors.white
-                          : AppColors.gray600,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  if (_selectedTabIndex != 1) {
-                    setState(() => _selectedTabIndex = 1);
-                  }
-                },
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: _selectedTabIndex == 1
-                        ? AppColors.greenPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    'Tiền điện (VNĐ)',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: _selectedTabIndex == 1
-                          ? FontWeight.bold
-                          : FontWeight.w500,
-                      color: _selectedTabIndex == 1
-                          ? Colors.white
-                          : AppColors.gray600,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return SegmentedTabBar(
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      tabs: const ['Số điện (kWh)', 'Tiền điện (VNĐ)'],
+      selectedIndex: _selectedTabIndex,
+      onChanged: (i) => setState(() => _selectedTabIndex = i),
     );
   }
 

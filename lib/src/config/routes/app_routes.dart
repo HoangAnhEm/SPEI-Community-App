@@ -103,7 +103,7 @@ final GoRouter appRouter = GoRouter(
     }
 
     if (authState is AuthAuthenticated) {
-      if (isAuthRoute || isOnboardingRoute) return '/'; // Home
+      if (isAuthRoute || isOnboardingRoute || isSplashRoute) return '/'; // Home
       return null;
     }
 

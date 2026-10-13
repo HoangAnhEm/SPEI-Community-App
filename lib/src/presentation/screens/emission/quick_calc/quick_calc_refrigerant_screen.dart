@@ -21,10 +21,12 @@ class _QuickCalcRefrigerantScreenState
   // 0: Tủ lạnh (R32), 1: Điều hòa (R600a)
   int _selectedTabIndex = 0;
 
-  final TextEditingController _fridgeController =
-      TextEditingController(text: '0,05');
-  final TextEditingController _acController =
-      TextEditingController(text: '0,02');
+  final TextEditingController _fridgeController = TextEditingController(
+    text: '0,05',
+  );
+  final TextEditingController _acController = TextEditingController(
+    text: '0,02',
+  );
 
   bool _isCalculating = false;
   double _calculatedCo2eKg = 33.75;
@@ -54,26 +56,20 @@ class _QuickCalcRefrigerantScreenState
 
     EmissionPayload payload;
     if (_selectedTabIndex == 0) {
-      final kg = double.tryParse(
-              _fridgeController.text.trim().replaceAll(',', '.')) ??
+      final kg =
+          double.tryParse(_fridgeController.text.trim().replaceAll(',', '.')) ??
           0.0;
       payload = EmissionPayload.refrigerant(
         subCategory: 'refrigerator',
-        details: RefrigerantDetails(
-          refrigerantType: 'R32',
-          quantity: kg,
-        ),
+        details: RefrigerantDetails(refrigerantType: 'R32', quantity: kg),
       );
     } else {
       final kg =
           double.tryParse(_acController.text.trim().replaceAll(',', '.')) ??
-              0.0;
+          0.0;
       payload = EmissionPayload.refrigerant(
         subCategory: 'air_conditioner',
-        details: RefrigerantDetails(
-          refrigerantType: 'R600a',
-          quantity: kg,
-        ),
+        details: RefrigerantDetails(refrigerantType: 'R600a', quantity: kg),
       );
     }
 
@@ -92,14 +88,16 @@ class _QuickCalcRefrigerantScreenState
       // Fallback: R32 factor 675, R600a factor 3
       double estimate = 0.0;
       if (_selectedTabIndex == 0) {
-        final kg = double.tryParse(
-                _fridgeController.text.trim().replaceAll(',', '.')) ??
+        final kg =
+            double.tryParse(
+              _fridgeController.text.trim().replaceAll(',', '.'),
+            ) ??
             0.0;
         estimate = double.parse((kg * 675.0).toStringAsFixed(2));
       } else {
         final kg =
             double.tryParse(_acController.text.trim().replaceAll(',', '.')) ??
-                0.0;
+            0.0;
         estimate = double.parse((kg * 3.0).toStringAsFixed(2));
       }
       setState(() {
@@ -187,8 +185,10 @@ class _QuickCalcRefrigerantScreenState
                         'assets/icons/circle_center_logo.png',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) =>
-                            Image.asset('assets/icons/logo.png',
-                                fit: BoxFit.cover),
+                            Image.asset(
+                              'assets/icons/logo.png',
+                              fit: BoxFit.cover,
+                            ),
                       ),
                     ),
                   ),
@@ -202,8 +202,8 @@ class _QuickCalcRefrigerantScreenState
               child: Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceGrey,
-                  borderRadius: BorderRadius.circular(14),
+                  color: AppColors.segmentBackground,
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
@@ -240,8 +240,10 @@ class _QuickCalcRefrigerantScreenState
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -318,7 +320,9 @@ class _QuickCalcRefrigerantScreenState
                           const SizedBox(height: 10),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 4),
+                              horizontal: 16,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14),
@@ -336,7 +340,8 @@ class _QuickCalcRefrigerantScreenState
                                         : _acController,
                                     keyboardType:
                                         const TextInputType.numberWithOptions(
-                                            decimal: true),
+                                          decimal: true,
+                                        ),
                                     style: const TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
@@ -345,8 +350,9 @@ class _QuickCalcRefrigerantScreenState
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       isDense: true,
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -386,11 +392,14 @@ class _QuickCalcRefrigerantScreenState
                                         strokeWidth: 2,
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
-                                                Colors.white),
+                                              Colors.white,
+                                            ),
                                       ),
                                     )
-                                  : const Icon(Icons.calculate_outlined,
-                                      size: 20),
+                                  : const Icon(
+                                      Icons.calculate_outlined,
+                                      size: 20,
+                                    ),
                               label: const Text(
                                 'Tính phát thải',
                                 style: TextStyle(
@@ -417,7 +426,9 @@ class _QuickCalcRefrigerantScreenState
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 16),
+                        horizontal: 18,
+                        vertical: 16,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.greenSurface,
                         borderRadius: BorderRadius.circular(20),
@@ -487,7 +498,9 @@ class _QuickCalcRefrigerantScreenState
                     // Card 3: Cách hệ thống ước tính
                     EmissionCalculationMethodCard.fromCategory(
                       category: 'refrigerant',
-                      subCategory: isFridge ? 'refrigerator' : 'air_conditioner',
+                      subCategory: isFridge
+                          ? 'refrigerator'
+                          : 'air_conditioner',
                       refrigerantType: isFridge ? 'R32' : 'R600a',
                     ),
                     const SizedBox(height: 20),
@@ -499,12 +512,17 @@ class _QuickCalcRefrigerantScreenState
                         borderRadius: BorderRadius.circular(10),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.arrow_back,
-                                  size: 16, color: AppColors.primary),
+                              Icon(
+                                Icons.arrow_back,
+                                size: 16,
+                                color: AppColors.primary,
+                              ),
                               const SizedBox(width: 6),
                               Text(
                                 'Quay lại chọn loại',
@@ -538,23 +556,33 @@ class _QuickCalcRefrigerantScreenState
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    return InkWell(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(10),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.greenDark : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: isSelected ? Colors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : null,
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 13.5,
+              fontSize: 13,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : AppColors.gray600,
+              color: isSelected
+                  ? AppColors.textGreenMedium
+                  : AppColors.segmentUnselectedText,
             ),
           ),
         ),

@@ -40,6 +40,10 @@ class AppColors {
   static const Color greenBorderLight = Color(0xFFD6E8CD);
   static const Color greenBorderPale = Color(0xFFE2EFE5);
 
+  // ===== Segmented tab bar =====
+  static const Color segmentBackground = Color(0xFFEBF2EA);
+  static const Color segmentUnselectedText = Color(0xFF5E6F65);
+
   // ===== Chữ =====
   static const Color textPrimary = Color(0xFF1B2E1E);
   static const Color textGreenMedium = Color(0xFF2D4F3C);

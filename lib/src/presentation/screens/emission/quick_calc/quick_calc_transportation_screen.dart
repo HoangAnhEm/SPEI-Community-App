@@ -21,10 +21,10 @@ class _QuickCalcTransportationScreenState
   // 0: Xe xăng, 1: Xe điện
   int _selectedTabIndex = 0;
 
-  final TextEditingController _gasolineController =
-      TextEditingController(text: '12,5');
-  final TextEditingController _evController =
-      TextEditingController(text: '30');
+  final TextEditingController _gasolineController = TextEditingController(
+    text: '12,5',
+  );
+  final TextEditingController _evController = TextEditingController(text: '30');
 
   bool _isCalculating = false;
   double _calculatedCo2eKg = 28.9;
@@ -54,26 +54,22 @@ class _QuickCalcTransportationScreenState
 
     EmissionPayload payload;
     if (_selectedTabIndex == 0) {
-      final liters = double.tryParse(
-              _gasolineController.text.trim().replaceAll(',', '.')) ??
+      final liters =
+          double.tryParse(
+            _gasolineController.text.trim().replaceAll(',', '.'),
+          ) ??
           0.0;
       payload = EmissionPayload.transportation(
         subCategory: 'gasoline_bike',
-        details: TransportationDetails(
-          inputType: 'liters',
-          inputValue: liters,
-        ),
+        details: TransportationDetails(inputType: 'liters', inputValue: liters),
       );
     } else {
       final kwh =
           double.tryParse(_evController.text.trim().replaceAll(',', '.')) ??
-              0.0;
+          0.0;
       payload = EmissionPayload.transportation(
         subCategory: 'electric_bike',
-        details: TransportationDetails(
-          inputType: 'kwh',
-          inputValue: kwh,
-        ),
+        details: TransportationDetails(inputType: 'kwh', inputValue: kwh),
       );
     }
 
@@ -92,14 +88,16 @@ class _QuickCalcTransportationScreenState
       // Fallback tính toán
       double estimate = 0.0;
       if (_selectedTabIndex == 0) {
-        final liters = double.tryParse(
-                _gasolineController.text.trim().replaceAll(',', '.')) ??
+        final liters =
+            double.tryParse(
+              _gasolineController.text.trim().replaceAll(',', '.'),
+            ) ??
             0.0;
         estimate = double.parse((liters * 2.31).toStringAsFixed(1));
       } else {
         final kwh =
             double.tryParse(_evController.text.trim().replaceAll(',', '.')) ??
-                0.0;
+            0.0;
         estimate = double.parse((kwh * 0.6592).toStringAsFixed(1));
       }
       setState(() {
@@ -190,8 +188,10 @@ class _QuickCalcTransportationScreenState
                         'assets/icons/circle_center_logo.png',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) =>
-                            Image.asset('assets/icons/logo.png',
-                                fit: BoxFit.cover),
+                            Image.asset(
+                              'assets/icons/logo.png',
+                              fit: BoxFit.cover,
+                            ),
                       ),
                     ),
                   ),
@@ -205,8 +205,8 @@ class _QuickCalcTransportationScreenState
               child: Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceGrey,
-                  borderRadius: BorderRadius.circular(14),
+                  color: AppColors.segmentBackground,
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
@@ -243,8 +243,10 @@ class _QuickCalcTransportationScreenState
             Expanded(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -309,7 +311,9 @@ class _QuickCalcTransportationScreenState
                           const SizedBox(height: 10),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 4),
+                              horizontal: 16,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14),
@@ -327,7 +331,8 @@ class _QuickCalcTransportationScreenState
                                         : _evController,
                                     keyboardType:
                                         const TextInputType.numberWithOptions(
-                                            decimal: true),
+                                          decimal: true,
+                                        ),
                                     style: const TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
@@ -336,8 +341,9 @@ class _QuickCalcTransportationScreenState
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       isDense: true,
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 8),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -377,11 +383,14 @@ class _QuickCalcTransportationScreenState
                                         strokeWidth: 2,
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
-                                                Colors.white),
+                                              Colors.white,
+                                            ),
                                       ),
                                     )
-                                  : const Icon(Icons.calculate_outlined,
-                                      size: 20),
+                                  : const Icon(
+                                      Icons.calculate_outlined,
+                                      size: 20,
+                                    ),
                               label: const Text(
                                 'Tính phát thải',
                                 style: TextStyle(
@@ -408,7 +417,9 @@ class _QuickCalcTransportationScreenState
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 16),
+                        horizontal: 18,
+                        vertical: 16,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.greenSurface,
                         borderRadius: BorderRadius.circular(20),
@@ -478,8 +489,9 @@ class _QuickCalcTransportationScreenState
                     // Card 3: Cách hệ thống ước tính
                     EmissionCalculationMethodCard.fromCategory(
                       category: 'transportation',
-                      subCategory:
-                          isGasoline ? 'gasoline_bike' : 'electric_bike',
+                      subCategory: isGasoline
+                          ? 'gasoline_bike'
+                          : 'electric_bike',
                     ),
                     const SizedBox(height: 20),
 
@@ -490,12 +502,17 @@ class _QuickCalcTransportationScreenState
                         borderRadius: BorderRadius.circular(10),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.arrow_back,
-                                  size: 16, color: AppColors.primary),
+                              Icon(
+                                Icons.arrow_back,
+                                size: 16,
+                                color: AppColors.primary,
+                              ),
                               const SizedBox(width: 6),
                               Text(
                                 'Quay lại chọn loại',
@@ -529,23 +546,33 @@ class _QuickCalcTransportationScreenState
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    return InkWell(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(10),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.greenDark : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: isSelected ? Colors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : null,
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 13.5,
+              fontSize: 13,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : AppColors.gray600,
+              color: isSelected
+                  ? AppColors.textGreenMedium
+                  : AppColors.segmentUnselectedText,
             ),
           ),
         ),

@@ -13,10 +13,7 @@ import '../../blocs/household/household_cubit.dart';
 import '../../blocs/invite_user/invite_user_cubit.dart';
 import '../../blocs/invite_user/invite_user_state.dart';
 import '../../widgets/custom_app_bar.dart';
-
-// Màu riêng của màn này
-const Color _kGreenLightEBF2EA = Color(0xFFEBF2EA);
-const Color _kGrey5E6F65 = Color(0xFF5E6F65);
+import '../../widgets/segmented_tab_bar.dart';
 
 class InviteUserScreen extends StatefulWidget {
   const InviteUserScreen({super.key});
@@ -363,62 +360,10 @@ class _InviteUserScreenState extends State<InviteUserScreen>
   }
 
   Widget _buildTabSelector() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: _kGreenLightEBF2EA,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          _buildTabItem(title: 'Số điện thoại', index: 0),
-          _buildTabItem(title: 'Email', index: 1),
-          _buildTabItem(title: 'Quét QR', index: 2),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTabItem({required String title, required int index}) {
-    final isSelected = _selectedTabIndex == index;
-
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          if (_selectedTabIndex != index) {
-            setState(() {
-              _selectedTabIndex = index;
-            });
-          }
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: isSelected
-                ? [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                color: isSelected ? AppColors.textGreenMedium : _kGrey5E6F65,
-              ),
-            ),
-          ),
-        ),
-      ),
+    return SegmentedTabBar(
+      tabs: const ['Số điện thoại', 'Email', 'Quét QR'],
+      selectedIndex: _selectedTabIndex,
+      onChanged: (i) => setState(() => _selectedTabIndex = i),
     );
   }
 
