@@ -49,43 +49,6 @@ class RegisterStep3Screen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               
-              // Success Card
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-                decoration: BoxDecoration(
-                  color: AppColors.successBg,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.divider),
-                ),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/ic_sprout_smile.png',
-                      width: 80,
-                      height: 80,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox(),
-                    ),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'Số điện thoại đã xác thực',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      _formatPhone(context.read<RegisterCubit>().currentPhone),
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: darkTextColor, letterSpacing: 1),
-                    ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Xác thực thành công bằng OTP SMS.',
-                      style: TextStyle(fontSize: 12, color: subTextColor),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              
               // Info Card
               Container(
                 width: double.infinity,
