@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import '../../blocs/chat/chat_cubit.dart';
 import '../../blocs/chat/chat_state.dart';
@@ -310,29 +311,27 @@ class _MamAiScreenState extends State<MamAiScreen> {
   Widget _buildMessageList(ChatState state) {
     return ListView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
       itemCount: state.messages.length,
       itemBuilder: (context, index) {
         final message = state.messages[index];
 
         if (message.isUser) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+            padding: const EdgeInsets.only(bottom: 24),
             child: _buildUserMessage(message.content),
           );
         }
 
-        // Tin nhắn của trợ lý Bạn Mầm
-        // Nếu bot chưa có nội dung và đang loading -> hiển thị loading animation
         if (message.content.isEmpty && message.isStreaming) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+            padding: const EdgeInsets.only(bottom: 24),
             child: _buildLoadingBubble(),
           );
         }
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(bottom: 28),
           child: _buildBotMessage(
             message.content,
             isStreaming: message.isStreaming,
@@ -365,143 +364,177 @@ class _MamAiScreenState extends State<MamAiScreen> {
     );
   }
 
+  Widget _buildBotAvatar() {
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: const BoxDecoration(
+        color: AppColors.successBg,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Image.asset(
+          'assets/icons/ic_sprout_smile.png',
+          width: 20,
+          height: 20,
+          errorBuilder: (context, error, stackTrace) => const Icon(
+            Icons.eco,
+            color: AppColors.primary,
+            size: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildBotMessage(String text, {bool isStreaming = false}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          margin: const EdgeInsets.only(top: 2),
-          decoration: const BoxDecoration(
-            color: AppColors.successBg,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Image.asset(
-              'assets/icons/ic_sprout_smile.png',
-              width: 18,
-              height: 18,
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.eco, color: AppColors.primary, size: 16),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(right: 24),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: AppColors.divider),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
+    const bodyStyle = TextStyle(
+      fontSize: 14,
+      color: AppColors.darkText,
+      height: 1.6,
+    );
+
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Avatar nằm trên, sát mép trái vùng nội dung.
+          _buildBotAvatar(),
+
+          const SizedBox(height: 12),
+
+          // Nội dung nằm dưới, không có bubble hoặc viền.
+          MarkdownBody(
+            data: text,
+            selectable: true,
+            styleSheet: MarkdownStyleSheet.fromTheme(
+              Theme.of(context),
+            ).copyWith(
+              p: bodyStyle,
+              h1: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+                color: AppColors.darkText,
+                height: 1.4,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.02),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 13.5,
-                    color: AppColors.darkText,
-                    height: 1.5,
+              h2: const TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w700,
+                color: AppColors.darkText,
+                height: 1.4,
+              ),
+              h3: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppColors.darkText,
+                height: 1.4,
+              ),
+              strong: const TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+              em: const TextStyle(
+                fontStyle: FontStyle.italic,
+              ),
+              listBullet: bodyStyle,
+              listIndent: 22,
+              blockSpacing: 12,
+              code: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12.5,
+                color: AppColors.darkText,
+                backgroundColor: Color(0xFFEAF0E7),
+              ),
+              codeblockPadding: const EdgeInsets.all(12),
+              codeblockDecoration: BoxDecoration(
+                color: const Color(0xFFF0F4ED),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              blockquote: bodyStyle,
+              blockquotePadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
+              blockquoteDecoration: const BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: AppColors.primary,
+                    width: 3,
                   ),
                 ),
-                if (isStreaming) ...[
-                  const SizedBox(height: 6),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        'Đang soạn...',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontStyle: FontStyle.italic,
-                          color: AppColors.subText,
-                        ),
-                      ),
-                    ],
+              ),
+              horizontalRuleDecoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: AppColors.divider,
+                    width: 1,
                   ),
-                ],
-              ],
+                ),
+              ),
+              tableHead: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: AppColors.darkText,
+              ),
+              tableBody: const TextStyle(
+                fontSize: 13,
+                color: AppColors.darkText,
+                height: 1.4,
+              ),
+              tableCellsPadding: const EdgeInsets.all(8),
+              tableBorder: TableBorder.all(
+                color: AppColors.divider,
+              ),
             ),
           ),
-        ),
-      ],
+
+          if (isStreaming) ...[
+            const SizedBox(height: 12),
+            const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _BouncingDotsIndicator(),
+                SizedBox(width: 8),
+                Text(
+                  'Mầm đang trả lời...',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: AppColors.subText,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
     );
   }
 
   /// Khung bubble hiển thị hiệu ứng loading khi đang chờ AI bắt đầu trả lời
   Widget _buildLoadingBubble() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          margin: const EdgeInsets.only(top: 2),
-          decoration: const BoxDecoration(
-            color: AppColors.successBg,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Image.asset(
-              'assets/icons/ic_sprout_smile.png',
-              width: 18,
-              height: 18,
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.eco, color: AppColors.primary, size: 16),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColors.divider),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(4),
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
-            ),
-          ),
-          child: Row(
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildBotAvatar(),
+          const SizedBox(height: 12),
+          const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const _BouncingDotsIndicator(),
-              const SizedBox(width: 10),
-              const Text(
+              _BouncingDotsIndicator(),
+              SizedBox(width: 10),
+              Text(
                 'Mầm đang suy nghĩ...',
-                style: TextStyle(fontSize: 12, color: AppColors.subText),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.subText,
+                ),
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
