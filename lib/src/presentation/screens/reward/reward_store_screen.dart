@@ -8,7 +8,9 @@ import '../../blocs/reward/reward_state.dart';
 import '../../widgets/custom_app_bar.dart';
 
 class RewardStoreScreen extends StatelessWidget {
-  const RewardStoreScreen({super.key});
+  final bool showBackButton;
+
+  const RewardStoreScreen({super.key, this.showBackButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,10 @@ class RewardStoreScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const CustomAppBar(
+            CustomAppBar(
               title: 'Quà xanh cho nhà',
               subtitle: 'Tích thói quen tốt, đổi niềm vui nhỏ',
+              showBackButton: showBackButton,
             ),
             Expanded(
               child: RefreshIndicator(
@@ -57,11 +60,6 @@ class RewardStoreScreen extends StatelessWidget {
                             _buildEmptyState(context, selectedFilter)
                           else
                             _buildRewardGrid(context, items, balance),
-                          const SizedBox(height: 32),
-                          const Text(
-                            'Danh mục, giá điểm và hình ảnh là ví dụ. Bản mẫu chưa có dịch vụ cung cấp hoặc giao quà.',
-                            style: TextStyle(fontSize: 10, color: AppColors.subText),
-                          ),
                           const SizedBox(height: 24),
                           const SizedBox(height: 24),
                         ],

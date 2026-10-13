@@ -305,30 +305,6 @@ class _RegisterStep2ScreenState extends State<RegisterStep2Screen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
-              // Info Card
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Giữ mã OTP cho riêng bạn',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: darkTextColor),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'SPEI không yêu cầu bạn chia sẻ mã. Nếu mã hết hạn, hãy yêu cầu mã mới khi bộ đếm gửi lại kết thúc.',
-                      style: TextStyle(fontSize: 12, color: subTextColor, height: 1.5),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

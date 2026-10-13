@@ -292,19 +292,6 @@ class _LoginScreenViewState extends State<_LoginScreenView> {
                 ),
               ),
               const SizedBox(height: 24),
-              
-              // Footer
-              const Center(
-                child: Text(
-                  'Thao tác đăng nhập trong bản mẫu chưa hoạt động thực tế.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: AppColors.greyText,
-                    height: 1.5,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

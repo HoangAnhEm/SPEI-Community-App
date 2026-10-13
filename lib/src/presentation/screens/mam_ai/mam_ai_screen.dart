@@ -620,12 +620,6 @@ class _MamAiScreenState extends State<MamAiScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 6),
-              const Text(
-                'AI có thể mắc lỗi. Vui lòng kiểm tra lại thông tin quan trọng.',
-                style: TextStyle(fontSize: 10, color: AppColors.subText),
-                textAlign: TextAlign.center,
-              ),
             ],
           ),
         );

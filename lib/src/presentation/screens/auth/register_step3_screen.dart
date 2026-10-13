@@ -70,18 +70,6 @@ class RegisterStep3Screen extends StatelessWidget {
                       'Email: ${context.read<RegisterCubit>().currentEmail ?? 'lan.nguyen@example.com'}',
                       style: const TextStyle(fontSize: 13, color: darkTextColor),
                     ),
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.warningBg,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Text(
-                        'Email chưa xác thực',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.warning),
-                      ),
-                    ),
                     const SizedBox(height: 16),
                     Text(
                       'Vai trò: ${context.read<RegisterCubit>().registeredUser?.role ?? 'Người dùng • Dành cho gia đình'}',

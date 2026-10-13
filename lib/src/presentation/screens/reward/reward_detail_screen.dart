@@ -157,11 +157,6 @@ class RewardDetailScreen extends StatelessWidget {
                           formattedRemaining: formattedRemaining,
                           isEnoughPoints: isEnoughPoints,
                         ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Đây là trạng thái sau đổi trong bản mẫu; chưa trừ điểm hay tạo đơn nhận quà thực tế.',
-                          style: TextStyle(fontSize: 10, color: AppColors.subText),
-                        ),
                         const SizedBox(height: 24),
                         PrimaryButton(
                           text: isRedeeming

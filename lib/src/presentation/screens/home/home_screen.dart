@@ -106,9 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 18),
               _buildGridMenu(context),
               const SizedBox(height: 12),
-              _buildTaskCard(),
-              const SizedBox(height: 18),
-              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -139,17 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppColors.darkText,
             ),
           ),
-        ),
-        IconButton(
-          icon: Image.asset(
-            'assets/icons/ic_notification.png',
-            width: 24,
-            height: 24,
-            color: AppColors.primary,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.notifications_none, color: AppColors.primary),
-          ),
-          onPressed: () {},
         ),
         IconButton(
           icon: Image.asset(

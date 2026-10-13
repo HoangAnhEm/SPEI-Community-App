@@ -83,7 +83,7 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
               CustomTextField(
                 controller: _inputController,
                 label: 'Email đã đăng ký',
-                hintText: 'ngocanh@spei.vn',
+                hintText: 'email@example.vn',
                 onChanged: (_) => setState(() {}),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(14.0),
@@ -98,90 +98,90 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
               ),
               const SizedBox(height: 22),
               
-              // Verification Channel
-              const Text(
-                'Kênh nhận mã xác minh',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.darkText),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.successBg,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(
-                        'assets/icons/ic_check_circle.png',
-                        width: 20,
-                        height: 20,
-                        color: AppColors.primary,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.check_circle, color: AppColors.primary, size: 20),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Email đã đăng ký',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkText),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '${_inputController.text.isEmpty ? 'ngocanh@spei.vn' : _inputController.text} • Đã xác thực',
-                            style: const TextStyle(fontSize: 12, color: AppColors.subText),
-                          ),
-                          const SizedBox(height: 12),
-                          const Text(
-                            'Kênh đang chọn',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 22),
-              
-              // Info Box
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.blueBg,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'assets/icons/ic_info.png',
-                      width: 18,
-                      height: 18,
-                      color: AppColors.bluePrimary,
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.info_outline, color: AppColors.bluePrimary, size: 18),
-                    ),
-                    const SizedBox(width: 12),
-                    const Expanded(
-                      child: Text(
-                        'Mã OTP chỉ được gửi đến email đã đăng ký. Kiểm tra hộp thư đến và thư rác nếu chưa nhận được mã.',
-                        style: TextStyle(fontSize: 12, color: AppColors.bluePrimary, height: 1.4),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 22),
+              // // Verification Channel
+              // const Text(
+              //   'Kênh nhận mã xác minh',
+              //   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.darkText),
+              // ),
+              // const SizedBox(height: 12),
+              // Container(
+              //   width: double.infinity,
+              //   padding: const EdgeInsets.all(16),
+              //   decoration: BoxDecoration(
+              //     color: AppColors.successBg,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Container(
+              //         padding: const EdgeInsets.all(2),
+              //         decoration: const BoxDecoration(
+              //           shape: BoxShape.circle,
+              //         ),
+              //         child: Image.asset(
+              //           'assets/icons/ic_check_circle.png',
+              //           width: 20,
+              //           height: 20,
+              //           color: AppColors.primary,
+              //           errorBuilder: (context, error, stackTrace) => const Icon(Icons.check_circle, color: AppColors.primary, size: 20),
+              //         ),
+              //       ),
+              //       const SizedBox(width: 12),
+              //       Expanded(
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             const Text(
+              //               'Email đã đăng ký',
+              //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkText),
+              //             ),
+              //             const SizedBox(height: 4),
+              //             Text(
+              //               '${_inputController.text.isEmpty ? 'ngocanh@spei.vn' : _inputController.text} • Đã xác thực',
+              //               style: const TextStyle(fontSize: 12, color: AppColors.subText),
+              //             ),
+              //             const SizedBox(height: 12),
+              //             const Text(
+              //               'Kênh đang chọn',
+              //               style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 22),
+              //
+              // // Info Box
+              // Container(
+              //   padding: const EdgeInsets.all(16),
+              //   decoration: BoxDecoration(
+              //     color: AppColors.blueBg,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Image.asset(
+              //         'assets/icons/ic_info.png',
+              //         width: 18,
+              //         height: 18,
+              //         color: AppColors.bluePrimary,
+              //         errorBuilder: (context, error, stackTrace) => const Icon(Icons.info_outline, color: AppColors.bluePrimary, size: 18),
+              //       ),
+              //       const SizedBox(width: 12),
+              //       const Expanded(
+              //         child: Text(
+              //           'Mã OTP chỉ được gửi đến email đã đăng ký. Kiểm tra hộp thư đến và thư rác nếu chưa nhận được mã.',
+              //           style: TextStyle(fontSize: 12, color: AppColors.bluePrimary, height: 1.4),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 22),
               
               // Button
               BlocConsumer<RecoveryCubit, RecoveryState>(
@@ -237,31 +237,31 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
               ),
               const SizedBox(height: 22),
               
-              // Next Steps Box
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: _kGreyLightE5E9E7),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tiếp theo sẽ làm gì?',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkText),
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      '1. Nhập mã OTP 6 chữ số nhận được.\n2. Xác minh danh tính của bạn.\n3. Tạo mật khẩu mới và đăng nhập lại.',
-                      style: TextStyle(fontSize: 13, color: AppColors.subText, height: 1.8),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 22),
+              // // Next Steps Box
+              // Container(
+              //   width: double.infinity,
+              //   padding: const EdgeInsets.all(20),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(16),
+              //     border: Border.all(color: _kGreyLightE5E9E7),
+              //   ),
+              //   child: const Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         'Tiếp theo sẽ làm gì?',
+              //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkText),
+              //       ),
+              //       SizedBox(height: 16),
+              //       Text(
+              //         '1. Nhập mã OTP 6 chữ số nhận được.\n2. Xác minh danh tính của bạn.\n3. Tạo mật khẩu mới và đăng nhập lại.',
+              //         style: TextStyle(fontSize: 13, color: AppColors.subText, height: 1.8),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 22),
               
               // Back to Login
               Center(
@@ -275,13 +275,13 @@ class _RecoveryStep1ViewState extends State<_RecoveryStep1View> {
               ),
               const SizedBox(height: 22),
               
-              // Footer Text
-              const Text(
-                'Không tiết lộ tài khoản có tồn tại hay không sau khi gửi yêu cầu. Bản mẫu không gửi OTP thực tế.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
-              ),
-              const SizedBox(height: 16),
+              // // Footer Text
+              // const Text(
+              //   'Không tiết lộ tài khoản có tồn tại hay không sau khi gửi yêu cầu. Bản mẫu không gửi OTP thực tế.',
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
+              // ),
+              // const SizedBox(height: 16),
             ],
           ),
         ),

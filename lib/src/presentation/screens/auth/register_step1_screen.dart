@@ -381,16 +381,6 @@ class _RegisterStep1ViewState extends State<_RegisterStep1View> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              
-              // Footer
-              const Center(
-                child: Text(
-                  'Bản mẫu không gửi SMS hoặc tạo tài khoản thực tế.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
-                ),
-              ),
             ],
           ),
         ),

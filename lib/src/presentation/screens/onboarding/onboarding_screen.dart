@@ -203,20 +203,6 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 18),
-
-              // Footer Text
-              const Center(
-                child: Text(
-                  'Dành cho phụ huynh và trẻ em.\nCác tính năng trong bản mẫu chưa hoạt động thực tế.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: subTextColor,
-                    height: 1.5,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

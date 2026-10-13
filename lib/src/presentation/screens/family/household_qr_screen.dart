@@ -51,7 +51,7 @@ class _HouseholdQrScreenState extends State<HouseholdQrScreen> {
           children: [
             const CustomAppBar(
               title: 'QR hộ gia đình',
-              subtitle: 'Chia sẻ mã này để người khác quét và gửi yêu cầu tham gia.',
+              subtitle: 'Chia sẻ mã này để gửi yêu cầu tham gia.',
               showBackButton: true,
             ),
             Expanded(

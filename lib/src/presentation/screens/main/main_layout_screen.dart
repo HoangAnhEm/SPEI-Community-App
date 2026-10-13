@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../src/core/constants/app_colors.dart';
 import '../home/home_screen.dart';
 import '../mam_ai/mam_ai_screen.dart';
-import '../reward/reward_screen.dart';
+import '../reward/reward_store_screen.dart';
 import '../family/family_screen.dart';
 import '../incident/incident_list_screen.dart';
 
@@ -38,7 +38,8 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     const HomeScreen(),
     const MamAiScreen(),
     const IncidentListScreen(showBackButton: false),
-    const RewardScreen(),
+    // RewardScreen không còn dùng ở tab này, chuyển thẳng tới cửa hàng quà.
+    const RewardStoreScreen(showBackButton: false),
     const FamilyScreen(),
   ];
 
