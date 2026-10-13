@@ -48,8 +48,6 @@ dependencies:
   # Local Storage & Database
   shared_preferences: ^2.5.5
   flutter_secure_storage: ^9.2.4
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
 
   # Localization & UI
   easy_localization: ^3.0.7
@@ -75,7 +73,6 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.4.11
-  isar_generator: ^3.1.0+1
   flutter_launcher_icons: ^0.13.1
 
   flutter_lints: ^6.0.0
