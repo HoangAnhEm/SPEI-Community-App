@@ -17,6 +17,9 @@ class AuthHeader extends StatelessWidget {
     const darkTextColor = AppColors.darkText;
     const subTextColor = AppColors.subText;
 
+    final canPop = ModalRoute.of(context)?.canPop ?? false;
+    final shouldShowBack = showBackButton && canPop;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -53,14 +56,14 @@ class AuthHeader extends StatelessWidget {
             ),
           ],
         ),
-        if (showBackButton || stepText != null)
+        if (shouldShowBack || stepText != null)
           const SizedBox(height: 24),
         // Back Button & Step Text
-        if (showBackButton || stepText != null)
+        if (shouldShowBack || stepText != null)
           Row(
-            mainAxisAlignment: showBackButton ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+            mainAxisAlignment: shouldShowBack ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
             children: [
-              if (showBackButton)
+              if (shouldShowBack)
                 InkWell(
                   onTap: () => context.pop(),
                   borderRadius: BorderRadius.circular(24),

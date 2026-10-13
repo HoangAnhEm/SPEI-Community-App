@@ -22,11 +22,14 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canPop = ModalRoute.of(context)?.canPop ?? false;
+    final shouldShowBack = showBackButton && canPop;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Row(
         children: [
-          if (showBackButton) ...[
+          if (shouldShowBack) ...[
             InkWell(
               onTap: onBack ?? () => context.pop(),
               borderRadius: BorderRadius.circular(24),
