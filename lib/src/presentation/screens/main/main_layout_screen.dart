@@ -42,16 +42,26 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     const FamilyScreen(),
   ];
 
-  Widget _buildIcon(String asset, bool isSelected, {IconData fallback = Icons.circle_outlined}) {
+  Widget _buildIcon(
+      String asset,
+      bool isSelected, {
+        IconData fallback = Icons.circle_outlined,
+      }) {
+    final Color color =
+    isSelected ? AppColors.primary : const Color(0xFF7B8782);
+
+    final double size = isSelected ? 24 : 22;
+
     return Image.asset(
       asset,
-      width: 24,
-      height: 24,
-      color: isSelected ? AppColors.primary : AppColors.greyText,
+      width: size,
+      height: size,
+      fit: BoxFit.contain,
+      color: color,
       errorBuilder: (context, error, stackTrace) => Icon(
         fallback,
-        color: isSelected ? AppColors.primary : AppColors.greyText,
-        size: 24,
+        color: color,
+        size: size,
       ),
     );
   }
@@ -73,44 +83,95 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
             ),
           ],
         ),
-        child: NavigationBar(
-          selectedIndex: _currentIndex,
-          onDestinationSelected: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          backgroundColor: Colors.white,
-          indicatorColor: AppColors.successBg,
-          surfaceTintColor: Colors.transparent,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          destinations: [
-            NavigationDestination(
-              icon: _buildIcon('assets/icons/ic_nav_home.png', false),
-              selectedIcon: _buildIcon('assets/icons/ic_nav_home.png', true),
-              label: 'Nhà',
+        child: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+                  (states) {
+                final isSelected = states.contains(WidgetState.selected);
+
+                return TextStyle(
+                  // Màu chữ khi chọn / không chọn.
+                  color: isSelected
+                      ? AppColors.primary
+                      : const Color(0xFF7B8782),
+
+                  // Kích thước chữ khi chọn / không chọn.
+                  fontSize: isSelected ? 11 : 11,
+
+                  // Độ đậm chữ khi chọn / không chọn.
+                  fontWeight:
+                  isSelected ? FontWeight.w600 : FontWeight.w400,
+                );
+              },
             ),
-            NavigationDestination(
-              icon: _buildIcon('assets/icons/feature_plant.png', false),
-              selectedIcon: _buildIcon('assets/icons/feature_plant.png', true),
-              label: 'Bạn Mầm',
-            ),
-            NavigationDestination(
-              icon: _buildIcon('assets/icons/ic_nav_feedback.png', false),
-              selectedIcon: _buildIcon('assets/icons/ic_nav_feedback.png', true),
-              label: 'Phản ánh',
-            ),
-            NavigationDestination(
-              icon: _buildIcon('assets/icons/feature_gift.png', false),
-              selectedIcon: _buildIcon('assets/icons/feature_gift.png', true),
-              label: 'Điểm xanh',
-            ),
-            NavigationDestination(
-              icon: _buildIcon('assets/icons/ic_family.png', false, fallback: Icons.people_outline),
-              selectedIcon: _buildIcon('assets/icons/ic_family.png', true, fallback: Icons.people_outline),
-              label: 'Gia đình',
-            ),
-          ],
+          ),
+          child: NavigationBar(
+            selectedIndex: _currentIndex,
+            onDestinationSelected: switchTab,
+            backgroundColor: Colors.white,
+            indicatorColor: AppColors.successBg,
+            surfaceTintColor: Colors.transparent,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            destinations: [
+              NavigationDestination(
+                icon: _buildIcon(
+                  'assets/icons/ic_nav_home.png',
+                  false,
+                ),
+                selectedIcon: _buildIcon(
+                  'assets/icons/ic_nav_home.png',
+                  true,
+                ),
+                label: 'Nhà',
+              ),
+              NavigationDestination(
+                icon: _buildIcon(
+                  'assets/icons/feature_plant.png',
+                  false,
+                ),
+                selectedIcon: _buildIcon(
+                  'assets/icons/feature_plant.png',
+                  true,
+                ),
+                label: 'Bạn Mầm',
+              ),
+              NavigationDestination(
+                icon: _buildIcon(
+                  'assets/icons/ic_nav_feedback.png',
+                  false,
+                ),
+                selectedIcon: _buildIcon(
+                  'assets/icons/ic_nav_feedback.png',
+                  true,
+                ),
+                label: 'Phản ánh',
+              ),
+              NavigationDestination(
+                icon: _buildIcon(
+                  'assets/icons/feature_gift.png',
+                  false,
+                ),
+                selectedIcon: _buildIcon(
+                  'assets/icons/feature_gift.png',
+                  true,
+                ),
+                label: 'Điểm xanh',
+              ),
+              NavigationDestination(
+                icon: _buildIcon(
+                  'assets/icons/ic_family.png',
+                  false,
+                  fallback: Icons.people_outline,
+                ),
+                selectedIcon: _buildIcon(
+                  'assets/icons/ic_family.png',
+                  true,
+                  fallback: Icons.people_outline,
+                ),
+                label: 'Gia đình',
+              ),
+            ],
+          ),
         ),
       ),
     );

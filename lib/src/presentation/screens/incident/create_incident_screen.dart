@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +11,7 @@ import '../../../data/models/incident_model.dart';
 import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'widgets/app_video_player.dart';
 import 'widgets/location_picker_sheet.dart';
 
@@ -120,76 +121,156 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
   int get _videoCount => _evidences.where((e) => e.isVideo).length;
 
   void _showMediaSourceDialog(bool isCamera) {
-    showModalBottomSheet(
+    const sheetColor = Color(0xFFF8FBF6);
+    const titleColor = Color(0xFF263D32);
+    const subtitleColor = Color(0xFF7B877E);
+    const iconBackground = Color(0xFFE9F4E5);
+    const iconColor = Color(0xFF478754);
+    const dividerColor = Color(0xFFE2E9DF);
+
+    showModalBottomSheet<void>(
       context: context,
+      backgroundColor: sheetColor,
+      elevation: 0,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                isCamera ? 'Chụp / Quay minh chứng' : 'Chọn từ thư viện',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 14),
-              ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.green50,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(Icons.photo_camera_outlined,
-                      color: AppColors.greenPrimary),
-                ),
-                title: Text(isCamera ? 'Chụp ảnh mới' : 'Chọn ảnh từ thư viện'),
-                subtitle: Text('Đã có: $_imageCount/2 ảnh tối đa'),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  _pickMedia(
-                    isVideo: false,
-                    source:
-                        isCamera ? ImageSource.camera : ImageSource.gallery,
-                  );
-                },
-              ),
-              const Divider(height: 1),
-              ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.green50,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(Icons.videocam_outlined,
-                      color: AppColors.greenPrimary),
-                ),
-                title: Text(isCamera ? 'Quay video mới' : 'Chọn video từ thư viện'),
-                subtitle: Text('Đã có: $_videoCount/1 video tối đa'),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  _pickMedia(
-                    isVideo: true,
-                    source:
-                        isCamera ? ImageSource.camera : ImageSource.gallery,
-                  );
-                },
-              ),
-            ],
-          ),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(26),
         ),
       ),
+      clipBehavior: Clip.antiAlias,
+      builder: (ctx) {
+        Widget buildMediaItem({
+          required IconData icon,
+          required String title,
+          required String subtitle,
+          required bool isVideo,
+        }) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () {
+              Navigator.pop(ctx);
+
+              _pickMedia(
+                isVideo: isVideo,
+                source: isCamera
+                    ? ImageSource.camera
+                    : ImageSource.gallery,
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: iconBackground,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Icon(
+                      icon,
+                      size: 24,
+                      color: iconColor,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: titleColor,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          subtitle,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: subtitleColor,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(
+                    Icons.chevron_right_rounded,
+                    size: 22,
+                    color: subtitleColor,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFCFD8CD),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  isCamera
+                      ? 'Chụp / Quay minh chứng'
+                      : 'Chọn từ thư viện',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: titleColor,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                buildMediaItem(
+                  icon: Icons.photo_camera_outlined,
+                  title: isCamera
+                      ? 'Chụp ảnh mới'
+                      : 'Chọn ảnh từ thư viện',
+                  subtitle: 'Đã có: $_imageCount/2 ảnh tối đa',
+                  isVideo: false,
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: dividerColor,
+                ),
+                buildMediaItem(
+                  icon: Icons.videocam_outlined,
+                  title: isCamera
+                      ? 'Quay video mới'
+                      : 'Chọn video từ thư viện',
+                  subtitle: 'Đã có: $_videoCount/1 video tối đa',
+                  isVideo: true,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -398,84 +479,14 @@ class _CreateIncidentScreenState extends State<CreateIncidentScreen> {
             child: Column(
               children: [
                 // 1. Header
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () => context.pop(),
-                        borderRadius: BorderRadius.circular(24),
-                        child: Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey.shade200),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.04),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: AppColors.greenDark,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _isAddingEvidence
-                                  ? 'Thêm minh chứng'
-                                  : 'Gửi phản ánh',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textPrimary,
-                                letterSpacing: -0.3,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              _isAddingEvidence
-                                  ? 'Bổ sung ảnh / video cho phản ánh'
-                                  : 'Cùng giữ khu phố xanh, sạch',
-                              style: const TextStyle(
-                                fontSize: 12.5,
-                                color: AppColors.gray500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey.shade200),
-                          color: Colors.white,
-                        ),
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/icons/circle_center_logo.png',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Image.asset('assets/icons/logo.png',
-                                    fit: BoxFit.cover),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                CustomAppBar(
+                  title: _isAddingEvidence
+                      ? 'Thêm minh chứng'
+                      : 'Gửi phản ánh',
+                  subtitle: _isAddingEvidence
+                      ? 'Bổ sung ảnh / video cho phản ánh'
+                      : 'Cùng giữ khu phố xanh, sạch',
+                  showBackButton: true,
                 ),
 
                 // 2. Nội dung cuộn

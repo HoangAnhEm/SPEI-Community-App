@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../domain/entities/incident.dart';
 import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
+import '../../widgets/custom_app_bar.dart';
 
 // Màu riêng của màn này
 const Color _kGreen8BA58D = Color(0xFF8BA58D);
@@ -50,88 +51,10 @@ class _IncidentListScreenState extends State<IncidentListScreen> {
         child: Column(
           children: [
             // 1. Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-              child: Row(
-                children: [
-                  if (widget.showBackButton) ...[
-                    InkWell(
-                      onTap: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(24),
-                      child: Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey.shade200),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.04),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.greenDark,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                  ],
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Phản ánh của nhà',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
-                            letterSpacing: -0.3,
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          'Cập nhật từ ban quản trị cộng đồng',
-                          style: TextStyle(
-                            fontSize: 12.5,
-                            color: AppColors.gray500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey.shade200),
-                      color: Colors.white,
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/icons/circle_center_logo.png',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset('assets/icons/logo.png',
-                                fit: BoxFit.cover),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            CustomAppBar(
+              title: 'Phản ánh của nhà',
+              subtitle: 'Cập nhật từ ban quản trị cộng đồng',
+              showBackButton: false,
             ),
 
             // 2. Tab lọc theo trạng thái
