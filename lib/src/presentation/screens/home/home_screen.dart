@@ -13,6 +13,7 @@ import '../../blocs/incident/incident_cubit.dart';
 import '../../blocs/incident/incident_state.dart';
 import '../../blocs/reward/reward_cubit.dart';
 import '../../blocs/reward/reward_state.dart';
+import '../main/main_layout_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -247,9 +248,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildPointsCard() {
-    return Container(
+    final rewardState = context.watch<RewardCubit>().state;
+    final isLoading = rewardState.wallet == null &&
+        (rewardState.status == RewardLoadingStatus.initial ||
+            rewardState.status == RewardLoadingStatus.loading);
+    final pointsText =
+        isLoading ? '-- điểm' : '${rewardState.formattedBalance} điểm';
+
+    return InkWell(
+      onTap: () =>
+          MainLayoutScreen.switchTab(context, MainLayoutScreen.rewardTab),
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration( 
+      decoration: BoxDecoration(
         color: const Color(0xFFFFF3D9),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -264,18 +276,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Icon(Icons.eco_outlined, color: Color(0xFF5A7B45)),
           ),
           const SizedBox(width: 16),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Điểm xanh của cả nhà',
+                const Text(
+                  'Điểm xanh của bạn',
                   style: TextStyle(fontSize: 12, color: AppColors.subText),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
-                  '1.250 điểm',
-                  style: TextStyle(
+                  pointsText,
+                  style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: AppColors.darkText,
@@ -306,6 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ],
+      ),
       ),
     );
   }

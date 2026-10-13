@@ -9,12 +9,30 @@ import '../incident/incident_list_screen.dart';
 class MainLayoutScreen extends StatefulWidget {
   const MainLayoutScreen({super.key});
 
+  static const int homeTab = 0;
+  static const int mamAiTab = 1;
+  static const int incidentTab = 2;
+  static const int rewardTab = 3;
+  static const int familyTab = 4;
+
+  /// Chuyển tab bottom nav từ các màn con bên trong MainLayoutScreen.
+  static void switchTab(BuildContext context, int index) {
+    context.findAncestorStateOfType<_MainLayoutScreenState>()?.switchTab(index);
+  }
+
   @override
   State<MainLayoutScreen> createState() => _MainLayoutScreenState();
 }
 
 class _MainLayoutScreenState extends State<MainLayoutScreen> {
   int _currentIndex = 0;
+
+  void switchTab(int index) {
+    if (index == _currentIndex) return;
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   final List<Widget> _screens = [
     const HomeScreen(),

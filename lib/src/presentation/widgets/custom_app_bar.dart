@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.title,
-    required this.subtitle,
+    required this.subtitle, 
     this.onBack,
     this.showBackButton = true,
     this.trailing,
