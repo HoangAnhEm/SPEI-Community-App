@@ -137,14 +137,6 @@ class _MyQrScreenState extends State<MyQrScreen> {
                             size: 210,
                             color: AppColors.primary,
                           ),
-                          const SizedBox(height: 18),
-                          const Text(
-                            'QR minh họa • Chưa mã hóa để quét thực tế',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: subTextColor,
-                            ),
-                          ),
                         ],
                       ),
                     ),

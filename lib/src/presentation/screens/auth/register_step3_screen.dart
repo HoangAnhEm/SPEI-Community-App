@@ -114,30 +114,10 @@ class RegisterStep3Screen extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) => const SizedBox(),
                 ),
               ),
-              const SizedBox(height: 24),
-              
-              // Footer
-              const Center(
-                child: Text(
-                  'Đây là trạng thái hoàn tất minh họa, chưa tạo tài khoản hay xác thực số điện thoại thực tế.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
   }
-
-  String _formatPhone(String? phone) {
-    if (phone == null || phone.length < 7) return '0912 ••• 678';
-    final start = phone.substring(0, 4);
-    final end = phone.substring(phone.length - 3);
-    return '$start ••• $end';
-  }
 }
-
-
-

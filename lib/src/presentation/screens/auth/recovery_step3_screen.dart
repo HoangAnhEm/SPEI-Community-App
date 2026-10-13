@@ -324,11 +324,6 @@ class _RecoveryStep3ScreenState extends State<RecoveryStep3Screen> {
                 style: TextStyle(fontSize: 11, color: AppColors.greyText, height: 1.5),
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Xác minh và lưu mật khẩu là trạng thái minh họa; chưa thay đổi mật khẩu thực tế.',
-                style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
-              ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

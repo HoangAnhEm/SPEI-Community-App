@@ -329,16 +329,6 @@ class _RecoveryStep2ScreenState extends State<RecoveryStep2Screen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
-              
-              // Footer
-              const Center(
-                child: Text(
-                  'Trạng thái sau gửi OTP là minh họa; chưa gửi Email thực tế.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: AppColors.greyText, height: 1.5),
-                ),
-              ),
             ],
           ),
         ),

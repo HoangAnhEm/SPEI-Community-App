@@ -209,26 +209,12 @@ final GoRouter appRouter = GoRouter(
               onButtonPressed: () {
                 context.go('/');
               },
-              bottomWidget: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/family_gardening.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Đây là trạng thái hoàn tất minh họa, bạn có thể mời thêm thành viên vào bất kỳ lúc nào.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: AppColors.greyText,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
+              bottomWidget: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/family_gardening.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           },

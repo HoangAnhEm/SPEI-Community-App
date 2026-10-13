@@ -384,7 +384,7 @@ class RewardScreen extends StatelessWidget {
           const SizedBox(width: 12),
           const Expanded(
             child: Text(
-              'Chỉ nhiệm vụ hợp lệ mới nhận điểm, mỗi nhiệm vụ theo giới hạn hiển thị. Gửi phản ánh không được thưởng điểm. Số dư là dữ liệu minh họa.',
+              'Chỉ nhiệm vụ hợp lệ mới nhận điểm, mỗi nhiệm vụ theo giới hạn hiển thị. Gửi phản ánh không được thưởng điểm.',
               style: TextStyle(fontSize: 11, color: AppColors.subText, height: 1.4),
             ),
           ),
